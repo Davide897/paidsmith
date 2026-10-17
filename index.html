@@ -922,8 +922,13 @@ function buildPDF(){
   function party(x, label, name, lines){
     let yy = y;
     font('bold',8); col(MUTED); doc.text(label, x, yy); yy += 5.5;
-    font('bold',11); col(INK);
-    doc.splitTextToSize(name||'', colW).forEach(l=>{ doc.text(l, x, yy); yy += lh(11)+1; });
+    // Fit company names on one line where possible, while keeping a readable minimum.
+    let nameSize = 11;
+    font('bold',nameSize); col(INK);
+    while(nameSize > 8 && doc.getTextWidth(name||'') > colW){
+      nameSize -= 0.25; font('bold',nameSize);
+    }
+    doc.splitTextToSize(name||'', colW).forEach(l=>{ doc.text(l, x, yy); yy += lh(nameSize)+1; });
     font('normal',9.5); col([70,75,85]);
     lines.filter(s=>(s||'').trim()).forEach(txt=>{
       doc.splitTextToSize(txt.trim(), colW).forEach(l=>{ doc.text(l, x, yy); yy += lh(9.5)+0.9; });
