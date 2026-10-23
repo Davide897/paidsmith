@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#0B1020">
-<meta name="app-version" content="v17">
+<meta name="app-version" content="v18">
 <meta name="apple-mobile-web-app-title" content="Paidsmith">
 <title>Paidsmith</title>
 <link rel="manifest" href="manifest.json">
@@ -179,6 +179,13 @@ label{color:var(--tx2);font-weight:600;letter-spacing:.2px}
 .sub-bar button{padding:7px 12px;font-size:13px;flex:none}
 .sub-bar.late{background:linear-gradient(90deg,rgba(255,107,107,.18),rgba(255,107,107,.05));border-color:rgba(255,107,107,.35);color:#FFC4C4}
 input[type=checkbox]{accent-color:var(--acc);width:18px;height:18px}
+.bubble{padding:10px 13px;border-radius:14px;font-size:14.5px;line-height:1.5;max-width:88%}
+.bubble.user{align-self:flex-end;background:var(--gold);color:#1B1405;border-bottom-right-radius:4px}
+.bubble.assistant{align-self:flex-start;background:#0D1430;border:1px solid var(--line);border-bottom-left-radius:4px}
+#tut{position:fixed;inset:0;z-index:70}
+.tut-dim{position:fixed;inset:0;background:rgba(3,6,16,.72)}
+.tut-ring{position:fixed;border-radius:14px;box-shadow:0 0 0 9999px rgba(3,6,16,.72),0 0 0 2px var(--acc),0 0 22px rgba(231,181,78,.55);pointer-events:none;transition:all .25s ease}
+.tut-card{position:fixed;background:linear-gradient(180deg,#18214A,#111833);border:1px solid rgba(231,181,78,.4);border-radius:18px;padding:16px;box-shadow:0 18px 40px rgba(0,0,0,.5)}
 .toast{background:#141B33;border:1px solid rgba(231,181,78,.35);border-radius:14px}
 #login{margin-top:10vh}
 #login h1.brand{display:flex;align-items:center;gap:12px;font-size:30px;letter-spacing:-.3px;white-space:nowrap}
@@ -228,7 +235,7 @@ input[type=checkbox]{accent-color:var(--acc);width:18px;height:18px}
 <div id="app" class="hidden">
   <div id="topbar"><div style="display:flex;align-items:center;gap:8px"><h1 id="tb-title"></h1><span id="net-badge" class="hidden" style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:rgba(245,185,66,.18);color:var(--amber)"></span></div>
     <div style="display:flex;gap:8px;align-items:center">
-      <button class="btn-g" id="btn-fb" style="padding:7px 9px;line-height:0" onclick="openFeedback()" aria-label="Feedback"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.4 2.3c-.6.3-.9.8-.9 1.4V14"/><path d="M12 17h.01"/></svg></button>
+      <button class="btn-g" id="btn-fb" style="padding:7px 9px;line-height:0" onclick="openHelp()" aria-label="Ajuda"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.4 2.3c-.6.3-.9.8-.9 1.4V14"/><path d="M12 17h.01"/></svg></button>
       <button class="btn-g" id="btn-logout" style="padding:7px 12px;font-size:13px" onclick="logout()"></button></div></div>
   <div id="sub-bar" class="hidden"></div>
   <main>
@@ -352,6 +359,7 @@ pt:{tag:'A tua app de faturação',email:'Email',pass:'Password',login:'Entrar',
   rememberMe:"Lembrar o meu email",
   admUseBank:"Usar uma conta que já tens na app",admPickBank:"— escolher conta —",admNoBanks:"Dica: se adicionares as tuas contas em Contas bancárias (mais abaixo), podes escolhê-las aqui.",admBankFilled:"Dados preenchidos. Confirma e toca em Guardar.",
   fbTitle:"Ajuda, bugs e sugestões",fbIntro:"Encontraste um erro, tens uma ideia para melhorar a app ou uma dúvida? Escreve aqui; lemos tudo.",fbBug:"Bug",fbIdea:"Sugestão",fbQuestion:"Pergunta",fbPh:"Descreve o que aconteceu ou o que gostavas de ver…",fbCtx:"Para nos ajudar a perceber, juntamos automaticamente a secção da app, o idioma e o tipo de aparelho. Nunca os teus dados de faturas.",fbSend:"Enviar",fbSent:"Obrigado! Recebemos a tua mensagem.",fbTooMany:"Já enviaste muitas mensagens hoje. Tenta amanhã.",fbShort:"Escreve um pouco mais.",fbMine:"As tuas mensagens",fbNew:"RECEBIDA",fbDone:"RESOLVIDA",admFb:"Mensagens dos utilizadores",admFbNone:"Nenhuma mensagem nova.",admFbDone:"Marcar como resolvida",
+  helpTitle:"Ajuda",helpAi:"🤖 Assistente",helpMsg:"✉ Enviar mensagem",helpFaq:"❓ Perguntas frequentes",helpAskTeam:"Não encontras a resposta? Envia-nos uma mensagem",aiIntro:"Pergunta como se faz qualquer coisa na Paidsmith. Respondo com base no manual da app.",aiThinking:"A pensar…",aiPh:"Escreve a tua pergunta…",aiSend:"Enviar",aiPrivacy:"As perguntas são processadas por um serviço de IA externo (OpenRouter). Não escrevas dados pessoais, de clientes ou bancários. Máximo de 5 perguntas por dia.",aiLimit:"Já usaste as 5 perguntas de hoje ao assistente. Vê se a resposta está aqui em baixo ou envia-nos uma mensagem.",aiDown:"O assistente está ocupado neste momento. Vê se a resposta está aqui em baixo ou envia-nos uma mensagem.",tutSkip:"Saltar",tutNext:"Seguinte",tutDone:"Começar",tutAgain:"Ver o tutorial outra vez",tut0t:"Bem-vindo à Paidsmith 👋",tut0b:"Em 1 minuto mostro-te onde está cada coisa. Podes saltar quando quiseres e voltar a ver em Definições.",tut1t:"Faturas",tut1b:"Aqui vês todas as faturas, quanto tens por receber e o que está em atraso. Filtra por empresa ou por pagas/não pagas.",tut2t:"Criar",tut2b:"O botão dourado + cria um item novo no separador onde estás: fatura, despesa ou cliente.",tut3t:"Clientes",tut3b:"Começa por aqui: cria os teus clientes com email, morada, NIF e a língua em que recebem a fatura (PT, ES ou EN).",tut4t:"Despesas",tut4b:"Tira foto aos recibos, marca o que o cliente te tem de pagar, junta despesas à fatura e faz PDFs com as fotos.",tut5t:"Calendário",tut5b:"Vês os dias de trabalho e quando vence cada fatura: verde paga, amarelo a vencer, vermelho em atraso.",tut6t:"Resumo",tut6b:"O teu ano num ecrã: total faturado, já pago, por receber e por empresa.",tut7t:"Definições",tut7b:"Põe os teus dados e contas bancárias (aparecem no PDF), os prazos de pagamento e gere a tua subscrição.",tut8t:"Ajuda",tut8b:"Aqui tens o assistente que responde a dúvidas, as perguntas frequentes e o envio de bugs e sugestões.",tut9t:"Tudo pronto!",tut9b:"Sugestão: começa por Definições (os teus dados e conta bancária) e depois cria o primeiro cliente. Tens 30 dias grátis.",
   cats:{fuel:'Combustível',food:'Refeições',hotel:'Alojamento',travel:'Viagem / transporte',parts:'Peças / material',tools:'Ferramentas',parking:'Portagens / estacionamento',other:'Outro'}},
 es:{tag:'Tu app de facturación',email:'Email',pass:'Contraseña',login:'Entrar',signup:'Crear cuenta',
   hintLogin:'¿Primera vez? Escribe tu email y una contraseña y toca "Crear cuenta". Usa los mismos datos en el móvil y en el ordenador para ver las mismas facturas.',
@@ -443,6 +451,7 @@ es:{tag:'Tu app de facturación',email:'Email',pass:'Contraseña',login:'Entrar'
   rememberMe:"Recordar mi email",
   admUseBank:"Usar una cuenta que ya tienes en la app",admPickBank:"— elegir cuenta —",admNoBanks:"Consejo: si añades tus cuentas en Cuentas bancarias (más abajo), puedes elegirlas aquí.",admBankFilled:"Datos rellenados. Revisa y toca Guardar.",
   fbTitle:"Ayuda, errores y sugerencias",fbIntro:"¿Has encontrado un error, tienes una idea para mejorar la app o una duda? Escríbenos aquí; lo leemos todo.",fbBug:"Error",fbIdea:"Sugerencia",fbQuestion:"Pregunta",fbPh:"Describe qué ha pasado o qué te gustaría ver…",fbCtx:"Para entenderlo mejor, añadimos automáticamente la sección de la app, el idioma y el tipo de dispositivo. Nunca tus datos de facturas.",fbSend:"Enviar",fbSent:"¡Gracias! Hemos recibido tu mensaje.",fbTooMany:"Ya has enviado muchos mensajes hoy. Inténtalo mañana.",fbShort:"Escribe un poco más.",fbMine:"Tus mensajes",fbNew:"RECIBIDO",fbDone:"RESUELTO",admFb:"Mensajes de los usuarios",admFbNone:"Ningún mensaje nuevo.",admFbDone:"Marcar como resuelto",
+  helpTitle:"Ayuda",helpAi:"🤖 Asistente",helpMsg:"✉ Enviar mensaje",helpFaq:"❓ Preguntas frecuentes",helpAskTeam:"¿No encuentras la respuesta? Envíanos un mensaje",aiIntro:"Pregunta cómo se hace cualquier cosa en Paidsmith. Respondo según el manual de la app.",aiThinking:"Pensando…",aiPh:"Escribe tu pregunta…",aiSend:"Enviar",aiPrivacy:"Las preguntas las procesa un servicio de IA externo (OpenRouter). No escribas datos personales, de clientes ni bancarios. Máximo 5 preguntas al día.",aiLimit:"Ya has usado las 5 preguntas de hoy al asistente. Mira si la respuesta está aquí abajo o envíanos un mensaje.",aiDown:"El asistente está ocupado ahora mismo. Mira si la respuesta está aquí abajo o envíanos un mensaje.",tutSkip:"Saltar",tutNext:"Siguiente",tutDone:"Empezar",tutAgain:"Ver el tutorial otra vez",tut0t:"Bienvenido a Paidsmith 👋",tut0b:"En 1 minuto te enseño dónde está cada cosa. Puedes saltarlo cuando quieras y volver a verlo en Ajustes.",tut1t:"Facturas",tut1b:"Aquí ves todas las facturas, cuánto tienes por cobrar y lo que está vencido. Filtra por empresa o por pagadas/no pagadas.",tut2t:"Crear",tut2b:"El botón dorado + crea un elemento nuevo en la pestaña donde estés: factura, gasto o cliente.",tut3t:"Clientes",tut3b:"Empieza aquí: crea tus clientes con email, dirección, NIF y el idioma en que reciben la factura (PT, ES o EN).",tut4t:"Gastos",tut4b:"Haz fotos a los recibos, marca lo que el cliente te tiene que pagar, añade gastos a la factura y crea PDF con las fotos.",tut5t:"Calendario",tut5b:"Ves los días de trabajo y cuándo vence cada factura: verde pagada, amarillo por vencer, rojo vencida.",tut6t:"Resumen",tut6b:"Tu año en una pantalla: total facturado, cobrado, por cobrar y por empresa.",tut7t:"Ajustes",tut7b:"Pon tus datos y cuentas bancarias (salen en el PDF), los plazos de pago y gestiona tu suscripción.",tut8t:"Ayuda",tut8b:"Aquí tienes el asistente que responde dudas, las preguntas frecuentes y el envío de errores y sugerencias.",tut9t:"¡Todo listo!",tut9b:"Consejo: empieza por Ajustes (tus datos y cuenta bancaria) y después crea el primer cliente. Tienes 30 días gratis.",
   cats:{fuel:'Combustible',food:'Comidas',hotel:'Alojamiento',travel:'Viaje / transporte',parts:'Piezas / material',tools:'Herramientas',parking:'Peajes / aparcamiento',other:'Otro'}},
 en:{tag:'Your invoicing app',email:'Email',pass:'Password',login:'Sign in',signup:'Create account',
   hintLogin:'First time? Type your email and a password and tap "Create account". Use the same details on your phone and PC to see the same invoices.',
@@ -534,6 +543,7 @@ en:{tag:'Your invoicing app',email:'Email',pass:'Password',login:'Sign in',signu
   rememberMe:"Remember my email",
   admUseBank:"Use an account you already have in the app",admPickBank:"— choose account —",admNoBanks:"Tip: add your accounts under Bank accounts (below) and you can pick them here.",admBankFilled:"Details filled in. Check them and tap Save.",
   fbTitle:"Help, bugs and ideas",fbIntro:"Found a bug, have an idea to improve the app, or a question? Write it here; we read everything.",fbBug:"Bug",fbIdea:"Idea",fbQuestion:"Question",fbPh:"Describe what happened or what you would like to see…",fbCtx:"To help us understand, we automatically add the app section, language and device type. Never your invoice data.",fbSend:"Send",fbSent:"Thank you! We got your message.",fbTooMany:"You have sent a lot of messages today. Please try tomorrow.",fbShort:"Please write a little more.",fbMine:"Your messages",fbNew:"RECEIVED",fbDone:"RESOLVED",admFb:"Messages from users",admFbNone:"No new messages.",admFbDone:"Mark as resolved",
+  helpTitle:"Help",helpAi:"🤖 Assistant",helpMsg:"✉ Send a message",helpFaq:"❓ FAQ",helpAskTeam:"Can't find the answer? Send us a message",aiIntro:"Ask how to do anything in Paidsmith. I answer from the app manual.",aiThinking:"Thinking…",aiPh:"Type your question…",aiSend:"Send",aiPrivacy:"Questions are processed by an external AI service (OpenRouter). Do not type personal, client or bank details. Up to 5 questions a day.",aiLimit:"You have used today's 5 questions to the assistant. See if the answer is below or send us a message.",aiDown:"The assistant is busy right now. See if the answer is below or send us a message.",tutSkip:"Skip",tutNext:"Next",tutDone:"Get started",tutAgain:"Show the tutorial again",tut0t:"Welcome to Paidsmith 👋",tut0b:"In 1 minute I'll show you where everything is. You can skip at any time and replay it from Settings.",tut1t:"Invoices",tut1b:"See all your invoices, how much is owed to you and what is overdue. Filter by company or paid/unpaid.",tut2t:"Create",tut2b:"The gold + button creates a new item in the tab you are on: invoice, expense or client.",tut3t:"Clients",tut3b:"Start here: add your clients with email, address, tax ID and the language they get the invoice in (PT, ES or EN).",tut4t:"Expenses",tut4b:"Snap your receipts, mark what a client owes you, add expenses to an invoice and make PDFs of the photos.",tut5t:"Calendar",tut5b:"See your work days and when each invoice is due: green paid, yellow due, red overdue.",tut6t:"Summary",tut6b:"Your year on one screen: total invoiced, paid, outstanding and by company.",tut7t:"Settings",tut7b:"Add your details and bank accounts (shown on the PDF), payment terms, and manage your subscription.",tut8t:"Help",tut8b:"Here you have the assistant that answers questions, the FAQ, and bug reports and ideas.",tut9t:"All set!",tut9b:"Tip: start with Settings (your details and bank account), then create your first client. You have 30 days free.",
   cats:{fuel:'Fuel',food:'Meals',hotel:'Accommodation',travel:'Travel / transport',parts:'Parts / materials',tools:'Tools',parking:'Tolls / parking',other:'Other'}}
 };
 const LANGS = ['pt','es','en'];
@@ -692,6 +702,7 @@ async function boot(session, offlineUser){
   if(navigator.onLine || !cached){ await loadAll(); }
   else { S.offline = true; }
   go(cached ? S.view : 'inv'); updateNetBadge(); loadFx(); syncQueue();
+  maybeStartTutorial();
 }
 async function loadAll(){
   if(!navigator.onLine && loadCache()){ S.offline = true; updateNetBadge(); return; }
@@ -1691,6 +1702,7 @@ function rSettings(){
     <div class="row" style="margin-top:14px"><button class="btn-g" onclick="saveNewPass('st-newpass')">${t('changePass')}</button></div>
   </div>
   <p class="hint">${t('installHint')}</p>
+  <div class="row" style="margin-top:14px"><button class="btn-g" onclick="startTutorial()">${t('tutAgain')}</button><button class="btn-g" onclick="openHelp('ai')">${t('helpTitle')}</button></div>
   <p class="hint" style="text-align:center;margin-top:18px"><a href="terms.html?lang=${L}" target="_blank" rel="noopener" style="color:var(--acc)">${t('legalTerms')}</a> · <a href="privacy.html?lang=${L}" target="_blank" rel="noopener" style="color:var(--acc)">${t('legalPrivacy')}</a></p>`;
 }
 async function saveSettings(){
@@ -1788,6 +1800,143 @@ async function saveExpInv(on){
   if(mode==='online') toast(t('savedSet'));
 }
 
+// ---------- AJUDA: ASSISTENTE DE IA + PERGUNTAS FREQUENTES ----------
+S.chat = [];
+const FAQ = {
+pt:[['Como crio a primeira fatura?','Cria primeiro o cliente (separador Clientes > +). Depois vai a Faturas, toca no + dourado, escolhe o cliente, escreve as linhas e toca em Guardar.'],
+ ['Como descarrego ou envio o PDF?','Abre a fatura e toca em "⬇ Descarregar PDF". No telemóvel, "✉ Enviar por email" abre a partilha com o PDF e o texto já escritos.'],
+ ['Como junto as fotos de vários recibos num só PDF?','Separador Despesas > "☑ Escolher fotos para PDF" > toca nas despesas (ou "Todas") > "⬇ PDF (n)".'],
+ ['Onde ponho o meu IBAN para aparecer na fatura?','Definições > Contas bancárias > + Adicionar conta bancária. Depois escolhe a conta em cada fatura.'],
+ ['Como mudo o prazo de pagamento por defeito?','Definições > Prazos de pagamento. Também podes criar regras pelo número da fatura.'],
+ ['Quanto custa e como pago?','30 dias grátis; depois 6,99 €/mês. Definições > Subscrição > Subscrever, por transferência bancária com a referência indicada.'],
+ ['O email de confirmação não chegou.','Procura na pasta de spam / lixo e marca-o como "não é spam". O remetente é a Paidsmith.'],
+ ['A app funciona sem internet?','Sim. O que guardares fica no aparelho e é enviado quando a ligação voltar.']],
+es:[['¿Cómo creo la primera factura?','Crea primero el cliente (pestaña Clientes > +). Luego ve a Facturas, toca el + dorado, elige el cliente, escribe las líneas y toca Guardar.'],
+ ['¿Cómo descargo o envío el PDF?','Abre la factura y toca "⬇ Descargar PDF". En el móvil, "✉ Enviar por email" abre el menú de compartir con el PDF y el texto.'],
+ ['¿Cómo junto las fotos de varios recibos en un solo PDF?','Pestaña Gastos > "☑ Elegir fotos para PDF" > toca los gastos (o "Todos") > "⬇ PDF (n)".'],
+ ['¿Dónde pongo mi IBAN para que salga en la factura?','Ajustes > Cuentas bancarias > + Añadir cuenta bancaria. Después elige la cuenta en cada factura.'],
+ ['¿Cómo cambio el plazo de pago por defecto?','Ajustes > Plazos de pago. También puedes crear reglas según el número de factura.'],
+ ['¿Cuánto cuesta y cómo pago?','30 días gratis; después 6,99 €/mes. Ajustes > Suscripción > Suscribirse, por transferencia con la referencia indicada.'],
+ ['No me ha llegado el email de confirmación.','Busca en la carpeta de spam / correo no deseado y márcalo como "no es spam". El remitente es Paidsmith.'],
+ ['¿La app funciona sin internet?','Sí. Lo que guardes se queda en el dispositivo y se envía cuando vuelva la conexión.']],
+en:[['How do I create my first invoice?','First create the client (Clients tab > +). Then go to Invoices, tap the gold +, pick the client, write the lines and tap Save.'],
+ ['How do I download or send the PDF?','Open the invoice and tap "⬇ Download PDF". On a phone, "✉ Send by email" opens the share sheet with the PDF and text ready.'],
+ ['How do I put photos of several receipts into one PDF?','Expenses tab > "☑ Pick photos for PDF" > tap the expenses (or "All") > "⬇ PDF (n)".'],
+ ['Where do I add my IBAN so it shows on the invoice?','Settings > Bank accounts > + Add bank account. Then choose the account on each invoice.'],
+ ['How do I change the default payment terms?','Settings > Payment terms. You can also add rules based on the invoice number.'],
+ ['How much does it cost and how do I pay?','30 days free; then €6.99/month. Settings > Subscription > Subscribe, by bank transfer with the reference shown.'],
+ ['The confirmation email did not arrive.','Check your spam / junk folder and mark it as "not spam". The sender is Paidsmith.'],
+ ['Does the app work offline?','Yes. What you save stays on the device and is sent when the connection is back.']]};
+const mdLite = s => esc(s).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>');
+function openHelp(tab){
+  S.helpTab = tab || S.helpTab || 'ai';
+  const tabs = [['ai', t('helpAi')], ['msg', t('helpMsg')], ['faq', t('helpFaq')]];
+  openSheet(`<h2>${t('helpTitle')}</h2>
+    <div class="chips">${tabs.map(([k,l])=>`<span class="chip ${S.helpTab===k?'on':''}" onclick="openHelp('${k}')">${l}</span>`).join('')}</div>
+    <div id="help-body"></div>`);
+  if(S.helpTab==='ai') drawChat(); else if(S.helpTab==='faq') drawFaq(); else drawFeedbackForm();
+}
+function drawFaq(note){
+  const el = document.getElementById('help-body'); if(!el) return;
+  el.innerHTML = (note ? `<div class="card" style="border-color:rgba(255,159,67,.45)">${note}</div>` : '') +
+    (FAQ[L]||FAQ.en).map(([q,a])=>`<details class="card" style="margin-top:8px"><summary style="cursor:pointer;font-weight:700">${esc(q)}</summary><p style="margin:8px 0 0;color:var(--tx2)">${esc(a)}</p></details>`).join('') +
+    `<button class="btn-g" style="width:100%;margin-top:12px" onclick="openHelp('msg')">${t('helpAskTeam')}</button>`;
+}
+function drawChat(){
+  const el = document.getElementById('help-body'); if(!el) return;
+  const sugg = (FAQ[L]||FAQ.en).slice(0,3).map(([q])=>q);
+  el.innerHTML = `<p class="hint" style="margin-top:0">${t('aiIntro')}</p>
+    <div id="chat-log" style="display:flex;flex-direction:column;gap:8px;margin:10px 0;max-height:46vh;overflow-y:auto">
+      ${S.chat.length ? S.chat.map(m=>`<div class="bubble ${m.role}">${m.role==='user'?esc(m.content):mdLite(m.content)}</div>`).join('')
+        : `<div class="chips" style="margin:0">${sugg.map((q,i)=>`<span class="chip" data-q="${i}" onclick="askAi((FAQ[L]||FAQ.en)[this.dataset.q][0])">${esc(q)}</span>`).join('')}</div>`}
+      ${S.chatBusy ? `<div class="bubble assistant" style="opacity:.7">${t('aiThinking')}</div>` : ''}
+    </div>
+    <div class="row"><textarea id="chat-in" rows="2" maxlength="1000" placeholder="${t('aiPh')}" style="flex:4"
+      onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();askAi()}"></textarea>
+      <button class="btn-p" style="flex:1;align-self:stretch" onclick="askAi()" ${S.chatBusy?'disabled':''}>${t('aiSend')}</button></div>
+    <p class="hint">${t('aiPrivacy')}</p>`;
+  const log = document.getElementById('chat-log'); log.scrollTop = log.scrollHeight;
+}
+async function askAi(text){
+  const inp = document.getElementById('chat-in');
+  const q = (text || (inp && inp.value) || '').trim();
+  if(!q || S.chatBusy) return;
+  if(!navigator.onLine){ toast(t('needOnline')); return; }
+  S.chat.push({role:'user', content:q}); S.chatBusy = true; drawChat();
+  let err = null;
+  try{
+    const {data, error} = await sb.functions.invoke('ps-assistant', {body:{lang:L, messages:S.chat.slice(-8)}});
+    if(error){
+      let code = ''; try{ code = (await error.context.json()).error; }catch(e){}
+      err = code || 'ai_unavailable';
+    } else if(data && data.answer) S.chat.push({role:'assistant', content:data.answer});
+    else err = 'ai_unavailable';
+  }catch(e){ err = 'ai_unavailable'; }
+  S.chatBusy = false;
+  if(err){
+    S.chat.pop();
+    S.helpTab = 'faq'; openHelp('faq');
+    drawFaq(err==='limit' ? t('aiLimit') : t('aiDown'));
+    return;
+  }
+  drawChat();
+}
+// o botão do topo abre a Ajuda; o separador "Enviar mensagem" usa o formulário já existente
+function drawFeedbackForm(){ openFeedback(true); }
+
+// ---------- TUTORIAL DE BOAS-VINDAS ----------
+const TUT = [
+  {sel:null, view:'inv', k:'tut0'},
+  {sel:'#tabs button[data-v=inv]', view:'inv', k:'tut1'},
+  {sel:'#fab', view:'inv', k:'tut2'},
+  {sel:'#tabs button[data-v=cli]', view:'cli', k:'tut3'},
+  {sel:'#tabs button[data-v=exp]', view:'exp', k:'tut4'},
+  {sel:'#tabs button[data-v=cal]', view:'cal', k:'tut5'},
+  {sel:'#tabs button[data-v=sum]', view:'sum', k:'tut6'},
+  {sel:'#tabs button[data-v=set]', view:'set', k:'tut7'},
+  {sel:'#btn-fb', view:'inv', k:'tut8'},
+  {sel:null, view:'inv', k:'tut9'}];
+let tutI = 0;
+function maybeStartTutorial(){
+  if(!S.user || !S.settings) return;
+  if(S.settings.tutorial_done || localStorage.getItem('inv_tut_'+S.user.id)) return;
+  setTimeout(()=>startTutorial(), 700);
+}
+function startTutorial(){ closeSheet(); tutI = 0; drawTut(); window.addEventListener('resize', drawTut); }
+function endTutorial(){
+  document.getElementById('tut')?.remove(); window.removeEventListener('resize', drawTut);
+  localStorage.setItem('inv_tut_'+S.user.id, '1');
+  if(!S.settings.tutorial_done){
+    S.settings.tutorial_done = true;
+    dbWrite('inv_settings','upsert',{...S.settings, user_id:S.user.id, tutorial_done:true, updated_at:new Date().toISOString()}).catch(()=>{});
+  }
+  go('inv');
+}
+function tutGo(d){ tutI = Math.max(0, Math.min(TUT.length-1, tutI+d)); drawTut(); }
+function drawTut(){
+  const st = TUT[tutI]; if(S.view !== st.view) go(st.view);
+  let box = document.getElementById('tut');
+  if(!box){ box = document.createElement('div'); box.id = 'tut'; document.body.appendChild(box); }
+  const el = st.sel && document.querySelector(st.sel);
+  const r = el ? el.getBoundingClientRect() : null;
+  const pad = 6, last = tutI === TUT.length-1;
+  const ring = r ? `<div class="tut-ring" style="left:${r.left-pad}px;top:${r.top-pad}px;width:${r.width+pad*2}px;height:${r.height+pad*2}px"></div>`
+                 : `<div class="tut-dim"></div>`;
+  const W = Math.min(340, innerWidth-24);
+  let top, left = Math.max(12, Math.min(innerWidth-W-12, r ? r.left + r.width/2 - W/2 : (innerWidth-W)/2));
+  if(!r) top = Math.max(60, innerHeight/2 - 140);
+  else if(r.top > innerHeight/2) top = null; else top = r.bottom + 14;
+  const pos = top===null ? `bottom:${innerHeight - r.top + 14}px` : `top:${top}px`;
+  box.innerHTML = ring + `<div class="tut-card" style="left:${left}px;${pos};width:${W}px">
+    <div style="font-size:12px;color:var(--acc);font-weight:700;letter-spacing:.5px">${tutI+1} / ${TUT.length}</div>
+    <h3 style="margin:4px 0 6px">${t(st.k+'t')}</h3>
+    <p style="margin:0;color:var(--tx2);line-height:1.5;font-size:14.5px">${t(st.k+'b')}</p>
+    <div class="row" style="margin-top:14px">
+      ${last ? '' : `<button class="btn-g" onclick="endTutorial()">${t('tutSkip')}</button>`}
+      ${tutI>0 ? `<button class="btn-g" onclick="tutGo(-1)">‹</button>` : ''}
+      <button class="btn-p" onclick="${last ? 'endTutorial()' : 'tutGo(1)'}">${last ? t('tutDone') : t('tutNext')}</button></div></div>`;
+}
+
 // ---------- BUGS E SUGESTÕES ----------
 let FB = {kind:'bug'};
 const FB_KINDS = [['bug','🐞','fbBug'],['idea','💡','fbIdea'],['question','❓','fbQuestion']];
@@ -1795,11 +1944,11 @@ async function loadFeedback(){
   try{ const r = await sb.from('ps_feedback').select('*').order('created_at', {ascending:false}).limit(100);
     S.feedback = r.data || []; }catch(e){ S.feedback = S.feedback || []; }
 }
-async function openFeedback(){
+async function openFeedback(embedded){
   await loadFeedback();
   const mine = (S.feedback||[]).filter(f=>f.user_id===S.user.id).slice(0,5);
-  openSheet(`
-  <h2>${t('fbTitle')}</h2>
+  (embedded ? (h => { const b = document.getElementById('help-body'); if(b) b.innerHTML = h; }) : openSheet)(`
+  ${embedded ? '' : `<h2>${t('fbTitle')}</h2>`}
   <p class="hint" style="font-size:14px;margin-top:6px">${t('fbIntro')}</p>
   <div class="chips" id="fb-kinds">${FB_KINDS.map(([k,ic,lbl])=>`<span class="chip ${FB.kind===k?'on':''}" onclick="FB.kind='${k}';document.querySelectorAll('#fb-kinds .chip').forEach((c,i)=>c.classList.toggle('on',FB_KINDS[i][0]==='${k}'))">${ic} ${t(lbl)}</span>`).join('')}</div>
   <textarea id="fb-msg" rows="6" maxlength="4000" placeholder="${t('fbPh')}"></textarea>

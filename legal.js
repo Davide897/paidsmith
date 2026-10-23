@@ -134,6 +134,7 @@ pt: { title: 'Política de Privacidade', body: `
 <li><b>GitHub Pages</b> (EUA): alojamento das páginas da aplicação; regista dados técnicos de acesso, como o endereço IP.</li>
 <li><b>jsDelivr</b>: entrega das bibliotecas usadas pela aplicação.</li>
 <li><b>Cloudflare Turnstile</b>: proteção contra robôs no registo e na entrada.</li>
+<li><b>OpenRouter</b> (EUA) e o fornecedor do modelo de IA: só quando usas o assistente de Ajuda. O texto que escreves no assistente é-lhes enviado e pode ser guardado ou usado por eles para melhorar os modelos. Não escrevas dados pessoais, de clientes ou bancários no assistente.</li>
 <li><b>frankfurter.dev e open.er-api.com</b>: taxas de câmbio, sem envio de dados pessoais.</li></ul>
 <p>Quando um destes serviços trata dados fora do Espaço Económico Europeu, a transferência é feita com as garantias do RGPD (Quadro de Privacidade de Dados UE-EUA ou cláusulas contratuais-tipo). Não vendemos os teus dados.</p>
 <h2>5. Durante quanto tempo</h2>
@@ -162,6 +163,7 @@ es: { title: 'Política de Privacidad', body: `
 <li><b>GitHub Pages</b> (EE. UU.): alojamiento de las páginas de la aplicación; registra datos técnicos de acceso, como la dirección IP.</li>
 <li><b>jsDelivr</b>: entrega de las bibliotecas que usa la aplicación.</li>
 <li><b>Cloudflare Turnstile</b>: protección contra robots en el registro y el acceso.</li>
+<li><b>OpenRouter</b> (EE. UU.) y el proveedor del modelo de IA: solo cuando usas el asistente de Ayuda. El texto que escribes en el asistente se les envía y pueden guardarlo o usarlo para mejorar sus modelos. No escribas datos personales, de clientes ni bancarios en el asistente.</li>
 <li><b>frankfurter.dev y open.er-api.com</b>: tipos de cambio, sin envío de datos personales.</li></ul>
 <p>Cuando alguno de estos servicios trata datos fuera del Espacio Económico Europeo, se hace con las garantías del RGPD (Marco de Privacidad de Datos UE-EE. UU. o cláusulas contractuales tipo). No vendemos tus datos.</p>
 <h2>5. Durante cuánto tiempo</h2>
@@ -190,6 +192,7 @@ en: { title: 'Privacy Policy', body: `
 <li><b>GitHub Pages</b> (USA): hosting of the app pages; logs technical access data such as IP address.</li>
 <li><b>jsDelivr</b>: delivery of the libraries used by the app.</li>
 <li><b>Cloudflare Turnstile</b>: bot protection on sign-up and sign-in.</li>
+<li><b>OpenRouter</b> (USA) and the AI model provider: only when you use the Help assistant. What you type into the assistant is sent to them and may be stored or used to improve their models. Do not type personal, client or bank details into the assistant.</li>
 <li><b>frankfurter.dev and open.er-api.com</b>: exchange rates; no personal data is sent.</li></ul>
 <p>Where any of these services processes data outside the European Economic Area, this is done with GDPR safeguards (EU-US Data Privacy Framework or standard contractual clauses). We do not sell your data.</p>
 <h2>5. How long</h2>
