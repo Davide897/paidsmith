@@ -2026,7 +2026,8 @@ function drawSubBar(){
   else if(st.kind==='expired') h = `<span>${t('subExpiredBar')}</span><button class="btn-p" onclick="openPaywall()">${t('subSubscribe')}</button>`;
   el.innerHTML = h; el.className = h ? (st.kind==='expired' ? 'sub-bar late' : 'sub-bar') : 'hidden';
 }
-const PS_REF = () => 'PS-' + S.user.id.replace(/-/g,'').slice(0,8).toUpperCase();
+// referência única por pagamento: PS-XXXXXXXX-n (o servidor calcula a mesma)
+const PS_REF = () => 'PS-' + S.user.id.replace(/-/g,'').slice(0,8).toUpperCase() + '-' + ((S.claims||[]).filter(c=>c.user_id===S.user.id).length + 1);
 const PS_MONTHS = [1,3,12];
 function psPrice(cur){ const b = S.billing || {}; return Number(cur==='GBP' ? (b.price_gbp ?? 5.99) : (b.price_eur ?? 6.99)); }
 function psMoney(v, cur){ try{ return new Intl.NumberFormat(t('locale'), {style:'currency', currency:cur}).format(v); }catch(e){ return esc(v+' '+cur); } }
