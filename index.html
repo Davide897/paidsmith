@@ -140,6 +140,7 @@ main{padding:16px;max-width:860px;margin:0 auto 90px}
     <button class="btn-p" id="lg-btn-in" onclick="doLogin()"></button>
     <button class="btn-g" id="lg-btn-up" onclick="doSignup()"></button>
   </div>
+  <div id="lg-mail" class="hidden" style="margin-top:14px;padding:12px 14px;border-radius:12px;border:1px solid var(--amber);background:rgba(245,185,66,.12);font-size:14px;line-height:1.5"></div>
   <p class="hint" id="lg-hint"></p>
   <p style="margin-top:14px"><a href="#" id="lg-forgot" onclick="forgotPass();return false" style="color:var(--acc);font-size:14px"></a></p>
 </div>
@@ -224,7 +225,7 @@ pt:{tag:'A tua app de faturação',email:'Email',pass:'Password',login:'Entrar',
   errExists:'Esse email já tem conta — usa "Entrar".',
   errRate:'Muitas tentativas seguidas — espera um minuto e tenta outra vez.',
   created:'Conta criada. Abre o email que te enviámos para a confirmar e depois entra.',
-  forgot:'Esqueci-me da password',forgotNeedEmail:'Escreve o teu email em cima e toca outra vez em "Esqueci-me da password".',forgotSent:'Enviámos-te um email com um link para criares uma password nova. Vê também o spam.',newPassTitle:'Nova password',newPassLbl:'Escreve a nova password (mínimo 8 caracteres)',passChanged:'Password alterada ✓',changePass:'Mudar password',offlineBadge:'Offline',pendingBadge:'{n} por sincronizar',syncDone:'Sincronizado ✓',needOnline:'Precisas de internet para isto.',syncErr:'Erro a sincronizar: ',pendingLogout:'Tens alterações que ainda não foram enviadas. Se saíres agora perdes essas alterações. Sair mesmo assim?',offlineSaved:'Guardado no aparelho — envia quando houver rede',
+  forgot:'Esqueci-me da password',forgotNeedEmail:'Escreve o teu email em cima e toca outra vez em "Esqueci-me da password".',forgotSent:'Enviámos-te um email com um link para criares uma password nova.',spamWarn:'Se não o vires na caixa de entrada, procura na pasta de spam / lixo e marca-o como "não é spam". O email vem da Paidsmith.',newPassTitle:'Nova password',newPassLbl:'Escreve a nova password (mínimo 8 caracteres)',passChanged:'Password alterada ✓',changePass:'Mudar password',offlineBadge:'Offline',pendingBadge:'{n} por sincronizar',syncDone:'Sincronizado ✓',needOnline:'Precisas de internet para isto.',syncErr:'Erro a sincronizar: ',pendingLogout:'Tens alterações que ainda não foram enviadas. Se saíres agora perdes essas alterações. Sair mesmo assim?',offlineSaved:'Guardado no aparelho — envia quando houver rede',
   banksTitle:'Contas bancárias',addBank:'+ Adicionar conta bancária',
   bankLabel:'Nome da conta (só para ti, ex: "Wise EUR", "Banco PT")',
   bankHolder:'Nome do titular (Name)',bankName:'Banco (opcional)',bankIban:'IBAN',
@@ -310,7 +311,7 @@ es:{tag:'Tu app de facturación',email:'Email',pass:'Contraseña',login:'Entrar'
   errExists:'Ese email ya tiene cuenta: usa "Entrar".',
   errRate:'Demasiados intentos seguidos: espera un minuto y vuelve a intentarlo.',
   created:'Cuenta creada. Abre el email que te hemos enviado para confirmarla y después entra.',
-  forgot:'He olvidado mi contraseña',forgotNeedEmail:'Escribe tu email arriba y vuelve a tocar "He olvidado mi contraseña".',forgotSent:'Te hemos enviado un email con un enlace para crear una contraseña nueva. Mira también en spam.',newPassTitle:'Nueva contraseña',newPassLbl:'Escribe la nueva contraseña (mínimo 8 caracteres)',passChanged:'Contraseña cambiada ✓',changePass:'Cambiar contraseña',offlineBadge:'Sin conexión',pendingBadge:'{n} por sincronizar',syncDone:'Sincronizado ✓',needOnline:'Necesitas internet para esto.',syncErr:'Error al sincronizar: ',pendingLogout:'Tienes cambios que aún no se han enviado. Si sales ahora los perderás. ¿Salir de todos modos?',offlineSaved:'Guardado en el dispositivo: se envía cuando haya conexión',
+  forgot:'He olvidado mi contraseña',forgotNeedEmail:'Escribe tu email arriba y vuelve a tocar "He olvidado mi contraseña".',forgotSent:'Te hemos enviado un email con un enlace para crear una contraseña nueva.',spamWarn:'Si no lo ves en la bandeja de entrada, busca en la carpeta de spam / correo no deseado y márcalo como "no es spam". El email viene de Paidsmith.',newPassTitle:'Nueva contraseña',newPassLbl:'Escribe la nueva contraseña (mínimo 8 caracteres)',passChanged:'Contraseña cambiada ✓',changePass:'Cambiar contraseña',offlineBadge:'Sin conexión',pendingBadge:'{n} por sincronizar',syncDone:'Sincronizado ✓',needOnline:'Necesitas internet para esto.',syncErr:'Error al sincronizar: ',pendingLogout:'Tienes cambios que aún no se han enviado. Si sales ahora los perderás. ¿Salir de todos modos?',offlineSaved:'Guardado en el dispositivo: se envía cuando haya conexión',
   banksTitle:'Cuentas bancarias',addBank:'+ Añadir cuenta bancaria',
   bankLabel:'Nombre de la cuenta (solo para ti, ej: "Wise EUR", "Banco ES")',
   bankHolder:'Nombre del titular',bankName:'Banco (opcional)',bankIban:'IBAN',
@@ -396,7 +397,7 @@ en:{tag:'Your invoicing app',email:'Email',pass:'Password',login:'Sign in',signu
   errExists:'That email already has an account — use "Sign in".',
   errRate:'Too many attempts — wait a minute and try again.',
   created:'Account created. Open the email we sent you to confirm it, then sign in.',
-  forgot:'Forgot password',forgotNeedEmail:'Type your email above and tap "Forgot password" again.',forgotSent:'We sent you an email with a link to create a new password. Check spam too.',newPassTitle:'New password',newPassLbl:'Type the new password (at least 8 characters)',passChanged:'Password changed ✓',changePass:'Change password',offlineBadge:'Offline',pendingBadge:'{n} to sync',syncDone:'Synced ✓',needOnline:'You need internet for this.',syncErr:'Sync error: ',pendingLogout:'You have changes that were not sent yet. If you sign out now they will be lost. Sign out anyway?',offlineSaved:'Saved on this device — will upload when online',
+  forgot:'Forgot password',forgotNeedEmail:'Type your email above and tap "Forgot password" again.',forgotSent:'We sent you an email with a link to create a new password.',spamWarn:'If you do not see it in your inbox, check your spam / junk folder and mark it as "not spam". The email comes from Paidsmith.',newPassTitle:'New password',newPassLbl:'Type the new password (at least 8 characters)',passChanged:'Password changed ✓',changePass:'Change password',offlineBadge:'Offline',pendingBadge:'{n} to sync',syncDone:'Synced ✓',needOnline:'You need internet for this.',syncErr:'Sync error: ',pendingLogout:'You have changes that were not sent yet. If you sign out now they will be lost. Sign out anyway?',offlineSaved:'Saved on this device — will upload when online',
   banksTitle:'Bank accounts',addBank:'+ Add bank account',
   bankLabel:'Account name (just for you, e.g. "Wise EUR", "PT bank")',
   bankHolder:'Account holder (Name)',bankName:'Bank (optional)',bankIban:'IBAN',
@@ -493,7 +494,7 @@ async function doSignup(){
   const f = authFields(true); if(!f) return;
   const {data,error} = await sb.auth.signUp(f);
   if(error){ toast(authPT(error.message)); return; }
-  if(data.session) boot(data.session); else toast(t('created'));
+  if(data.session) boot(data.session); else mailNotice(t('created'));
 }
 function lgv(id){ return document.getElementById(id).value.trim(); }
 async function logout(){
@@ -508,7 +509,13 @@ async function forgotPass(){
   if(!navigator.onLine){ toast(t('needOnline')); return; }
   const {error} = await sb.auth.resetPasswordForEmail(email, {redirectTo: location.origin + location.pathname});
   if(error){ toast(authPT(error.message)); return; }
-  toast(t('forgotSent'));
+  mailNotice(t('forgotSent'));
+}
+// aviso que fica no ecrã depois de enviarmos um email (pode ir para o spam)
+function mailNotice(msg){
+  const el = document.getElementById('lg-mail');
+  el.innerHTML = `${esc(msg)}<br><b>⚠ ${esc(t('spamWarn'))}</b>`;
+  el.classList.remove('hidden');
 }
 function askNewPass(){
   openSheet(`<h2>${t('newPassTitle')}</h2>
