@@ -6,7 +6,11 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#0B1020">
-<meta name="app-version" content="v18">
+<meta name="app-version" content="v19">
+<meta name="description" content="Paidsmith: faturas em PDF, despesas com foto do recibo e prazos de pagamento, em € e £, no telemóvel e no computador. 30 dias grátis.">
+<meta property="og:title" content="Paidsmith · faturas, recibos e pagamentos">
+<meta property="og:description" content="Faturas em PDF em 3 línguas, despesas com foto do recibo e quem te deve, à vista. 30 dias grátis.">
+<meta property="og:image" content="https://davide897.github.io/paidsmith/icon-512.png">
 <meta name="apple-mobile-web-app-title" content="Paidsmith">
 <title>Paidsmith</title>
 <link rel="manifest" href="manifest.json">
@@ -187,7 +191,37 @@ input[type=checkbox]{accent-color:var(--acc);width:18px;height:18px}
 .tut-ring{position:fixed;border-radius:14px;box-shadow:0 0 0 9999px rgba(3,6,16,.72),0 0 0 2px var(--acc),0 0 22px rgba(231,181,78,.55);pointer-events:none;transition:all .25s ease}
 .tut-card{position:fixed;background:linear-gradient(180deg,#18214A,#111833);border:1px solid rgba(231,181,78,.4);border-radius:18px;padding:16px;box-shadow:0 18px 40px rgba(0,0,0,.5)}
 .toast{background:#141B33;border:1px solid rgba(231,181,78,.35);border-radius:14px}
-#login{margin-top:10vh}
+#login{max-width:none;margin:0;padding:0 20px 40px}
+.lp-nav{max-width:1080px;margin:0 auto;padding:22px 0;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.lp-wrap{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:28px;align-items:start}
+.lp-auth{background:linear-gradient(180deg,#161E3A,#111833);border:1px solid rgba(231,181,78,.28);border-radius:20px;padding:20px;box-shadow:0 18px 40px rgba(0,0,0,.35);max-width:440px;width:100%;justify-self:center}
+.lp-auth-t{font-size:22px;margin:0 0 4px}
+.lp-eyebrow{color:var(--acc);font-weight:800;letter-spacing:1.2px;text-transform:uppercase;font-size:12.5px}
+.lp-h1{font-size:clamp(32px,6vw,52px);line-height:1.05;margin:10px 0 14px;letter-spacing:-.8px}
+.lp-h1 span{background:var(--gold);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lp-sub{font-size:17px;line-height:1.55;color:var(--tx2);max-width:560px}
+.lp-ctas{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.lp-ctas button{padding:14px 20px;font-size:16px}
+.lp-trust{margin-top:12px;color:var(--tx2);font-size:13.5px}
+.lp-shots{display:flex;gap:14px;margin-top:26px}
+.lp-shots img{width:46%;max-width:230px;border-radius:26px;border:6px solid #05070F;box-shadow:0 22px 50px rgba(0,0,0,.5)}
+.lp-shots img:nth-child(2){transform:translateY(26px)}
+.lp-sec{max-width:1080px;margin:64px auto 0}
+.lp-h2{font-size:clamp(26px,4vw,36px);margin-bottom:18px}
+.lp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.lp-feat h3{font-size:18px;margin:8px 0 4px}.lp-feat p{margin:0;color:var(--tx2);line-height:1.5;font-size:14.5px}
+.lp-ic{font-size:26px;width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;background:rgba(231,181,78,.12);border:1px solid rgba(231,181,78,.25)}
+.lp-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.lp-step{display:flex;gap:14px;align-items:flex-start}.lp-step h3{font-size:18px;margin:2px 0 4px}.lp-step p{margin:0;color:var(--tx2)}
+.lp-num{flex:none;width:40px;height:40px;border-radius:50%;background:var(--gold);color:#1B1405;font:800 18px Fraunces,Georgia,serif;display:flex;align-items:center;justify-content:center}
+.lp-price{max-width:440px}.lp-price-n{font:700 44px Fraunces,Georgia,serif;background:var(--gold);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lp-list{padding-left:20px;line-height:1.9;color:var(--tx)}
+.lp-foot{max-width:1080px;margin:56px auto 0;padding-top:18px;border-top:1px solid var(--line);color:var(--tx2);font-size:13.5px}
+.lp-foot a{color:var(--acc)}
+@media(min-width:900px){.lp-wrap{grid-template-columns:1.15fr .85fr;gap:48px;margin-top:20px}.lp-auth{position:sticky;top:24px}}
+body.standalone .lp-mkt{display:none!important}
+body.standalone #login{max-width:420px;margin:8vh auto 0}
+body.standalone .lp-wrap{grid-template-columns:1fr}
+body.standalone .lp-auth{background:none;border:none;box-shadow:none;padding:0}
 #login h1.brand{display:flex;align-items:center;gap:12px;font-size:30px;letter-spacing:-.3px;white-space:nowrap}
 #login h1.brand img{width:52px;height:52px;border-radius:14px;box-shadow:0 10px 26px rgba(0,0,0,.45)}
 #login h1.brand .wm span{background:var(--gold);-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -196,7 +230,7 @@ input[type=checkbox]{accent-color:var(--acc);width:18px;height:18px}
 #login .chip{padding:6px 11px;font-size:13px}
 .lines-tbl input,.lines-tbl select{padding:10px 7px;font-size:15px}
 .lines-tbl select{-webkit-appearance:none;appearance:none;text-align:center;text-align-last:center;padding:10px 4px}
-#login>div:first-child{flex-wrap:wrap;gap:14px;align-items:center!important}
+
 @media(min-width:900px){main{padding-top:24px}.card{border-radius:18px}}
 </style>
 </head>
@@ -204,14 +238,25 @@ input[type=checkbox]{accent-color:var(--acc);width:18px;height:18px}
 
 <!-- LOGIN -->
 <div id="login">
-  <div style="display:flex;justify-content:space-between;align-items:flex-start">
+  <header class="lp-nav">
     <h1 class="brand"><img src="favicon.svg" alt=""><span class="wm">Paid<span>smith</span></span></h1>
     <div class="chips" style="margin:0">
       <span class="chip" id="lang-pt" onclick="setLang('pt')">PT</span>
       <span class="chip" id="lang-es" onclick="setLang('es')">ES</span>
       <span class="chip" id="lang-en" onclick="setLang('en')">EN</span>
     </div>
-  </div>
+  </header>
+  <div class="lp-wrap">
+  <section class="lp-pitch lp-mkt">
+    <div class="lp-eyebrow" data-t="lpEyebrow"></div>
+    <h2 class="lp-h1" data-t="lpH1"></h2>
+    <p class="lp-sub" data-t="lpSub"></p>
+    <div class="lp-ctas"><button class="btn-p" onclick="lpGo(true)" data-t="lpCta"></button><button class="btn-g" onclick="lpGo(false)" data-t="lpLogin"></button></div>
+    <div class="lp-trust" data-t="lpTrust"></div>
+    <div class="lp-shots"><img src="assets/app-faturas.webp" alt="" loading="lazy"><img src="assets/app-despesas.webp" alt="" loading="lazy"></div>
+  </section>
+  <div class="lp-auth" id="lp-auth">
+  <h3 class="lp-auth-t lp-mkt" data-t="lpAuthTitle"></h3>
   <p id="lg-tag"></p>
   <form id="lg-form" autocomplete="on" onsubmit="event.preventDefault(); doLogin()">
   <label id="lg-l-email" for="lg-email"></label><input id="lg-email" name="email" type="email" autocomplete="username" inputmode="email" autocapitalize="off" spellcheck="false">
@@ -229,6 +274,21 @@ input[type=checkbox]{accent-color:var(--acc);width:18px;height:18px}
   <div id="lg-mail" class="hidden" style="margin-top:14px;padding:12px 14px;border-radius:12px;border:1px solid var(--amber);background:rgba(245,185,66,.12);font-size:14px;line-height:1.5"></div>
   <p class="hint" id="lg-hint"></p>
   <p style="margin-top:14px"><a href="#" id="lg-forgot" onclick="forgotPass();return false" style="color:var(--acc);font-size:14px"></a></p>
+  </div>
+  </div>
+  <div class="lp-mkt">
+  <section class="lp-sec"><h2 class="lp-h2" data-t="lpFeatH"></h2>
+    <div class="lp-grid"><div class="lp-feat card"><div class="lp-ic">🧾</div><h3 data-t="lpF1t"></h3><p data-t="lpF1b"></p></div><div class="lp-feat card"><div class="lp-ic">📷</div><h3 data-t="lpF2t"></h3><p data-t="lpF2b"></p></div><div class="lp-feat card"><div class="lp-ic">📅</div><h3 data-t="lpF3t"></h3><p data-t="lpF3b"></p></div><div class="lp-feat card"><div class="lp-ic">💱</div><h3 data-t="lpF4t"></h3><p data-t="lpF4b"></p></div><div class="lp-feat card"><div class="lp-ic">📶</div><h3 data-t="lpF5t"></h3><p data-t="lpF5b"></p></div><div class="lp-feat card"><div class="lp-ic">💬</div><h3 data-t="lpF6t"></h3><p data-t="lpF6b"></p></div></div></section>
+  <section class="lp-sec"><h2 class="lp-h2" data-t="lpHowH"></h2>
+    <div class="lp-steps"><div class="lp-step"><div class="lp-num">1</div><div><h3 data-t="lpS1t"></h3><p data-t="lpS1b"></p></div></div><div class="lp-step"><div class="lp-num">2</div><div><h3 data-t="lpS2t"></h3><p data-t="lpS2b"></p></div></div><div class="lp-step"><div class="lp-num">3</div><div><h3 data-t="lpS3t"></h3><p data-t="lpS3b"></p></div></div></div></section>
+  <section class="lp-sec"><h2 class="lp-h2" data-t="lpPriceH"></h2>
+    <div class="lp-price card"><div class="lp-price-n" data-t="lpPriceN"></div><div class="hint" data-t="lpPriceS"></div>
+      <ul class="lp-list"><li data-t="lpL1"></li><li data-t="lpL2"></li><li data-t="lpL3"></li><li data-t="lpL4"></li></ul>
+      <button class="btn-p" style="width:100%;margin-top:6px" onclick="lpGo(true)" data-t="lpCta"></button>
+      <p class="hint" data-t="lpPriceNote"></p></div></section>
+  <section class="lp-sec"><h2 class="lp-h2" data-t="lpFaqH"></h2><div id="lp-faq"></div></section>
+  <footer class="lp-foot"><span data-t="lpFoot"></span> · <a id="lp-terms" href="terms.html" target="_blank" rel="noopener"></a> · <a id="lp-priv" href="privacy.html" target="_blank" rel="noopener"></a> · <a href="mailto:davide_sobral@outlook.pt">davide_sobral@outlook.pt</a></footer>
+  </div>
 </div>
 
 <!-- APP -->
@@ -360,6 +420,7 @@ pt:{tag:'A tua app de faturação',email:'Email',pass:'Password',login:'Entrar',
   admUseBank:"Usar uma conta que já tens na app",admPickBank:"— escolher conta —",admNoBanks:"Dica: se adicionares as tuas contas em Contas bancárias (mais abaixo), podes escolhê-las aqui.",admBankFilled:"Dados preenchidos. Confirma e toca em Guardar.",
   fbTitle:"Ajuda, bugs e sugestões",fbIntro:"Encontraste um erro, tens uma ideia para melhorar a app ou uma dúvida? Escreve aqui; lemos tudo.",fbBug:"Bug",fbIdea:"Sugestão",fbQuestion:"Pergunta",fbPh:"Descreve o que aconteceu ou o que gostavas de ver…",fbCtx:"Para nos ajudar a perceber, juntamos automaticamente a secção da app, o idioma e o tipo de aparelho. Nunca os teus dados de faturas.",fbSend:"Enviar",fbSent:"Obrigado! Recebemos a tua mensagem.",fbTooMany:"Já enviaste muitas mensagens hoje. Tenta amanhã.",fbShort:"Escreve um pouco mais.",fbMine:"As tuas mensagens",fbNew:"RECEBIDA",fbDone:"RESOLVIDA",admFb:"Mensagens dos utilizadores",admFbNone:"Nenhuma mensagem nova.",admFbDone:"Marcar como resolvida",
   helpTitle:"Ajuda",helpAi:"🤖 Assistente",helpMsg:"✉ Enviar mensagem",helpFaq:"❓ Perguntas frequentes",helpAskTeam:"Não encontras a resposta? Envia-nos uma mensagem",aiIntro:"Pergunta como se faz qualquer coisa na Paidsmith. Respondo com base no manual da app.",aiThinking:"A pensar…",aiPh:"Escreve a tua pergunta…",aiSend:"Enviar",aiPrivacy:"As perguntas são processadas por um serviço de IA externo (OpenRouter). Não escrevas dados pessoais, de clientes ou bancários. Máximo de 5 perguntas por dia.",aiLimit:"Já usaste as 5 perguntas de hoje ao assistente. Vê se a resposta está aqui em baixo ou envia-nos uma mensagem.",aiDown:"O assistente está ocupado neste momento. Vê se a resposta está aqui em baixo ou envia-nos uma mensagem.",tutSkip:"Saltar",tutNext:"Seguinte",tutDone:"Começar",tutAgain:"Ver o tutorial outra vez",tut0t:"Bem-vindo à Paidsmith 👋",tut0b:"Em 1 minuto mostro-te onde está cada coisa. Podes saltar quando quiseres e voltar a ver em Definições.",tut1t:"Faturas",tut1b:"Aqui vês todas as faturas, quanto tens por receber e o que está em atraso. Filtra por empresa ou por pagas/não pagas.",tut2t:"Criar",tut2b:"O botão dourado + cria um item novo no separador onde estás: fatura, despesa ou cliente.",tut3t:"Clientes",tut3b:"Começa por aqui: cria os teus clientes com email, morada, NIF e a língua em que recebem a fatura (PT, ES ou EN).",tut4t:"Despesas",tut4b:"Tira foto aos recibos, marca o que o cliente te tem de pagar, junta despesas à fatura e faz PDFs com as fotos.",tut5t:"Calendário",tut5b:"Vês os dias de trabalho e quando vence cada fatura: verde paga, amarelo a vencer, vermelho em atraso.",tut6t:"Resumo",tut6b:"O teu ano num ecrã: total faturado, já pago, por receber e por empresa.",tut7t:"Definições",tut7b:"Põe os teus dados e contas bancárias (aparecem no PDF), os prazos de pagamento e gere a tua subscrição.",tut8t:"Ajuda",tut8b:"Aqui tens o assistente que responde a dúvidas, as perguntas frequentes e o envio de bugs e sugestões.",tut9t:"Tudo pronto!",tut9b:"Sugestão: começa por Definições (os teus dados e conta bancária) e depois cria o primeiro cliente. Tens 30 dias grátis.",
+  lpEyebrow:"Para quem trabalha por conta própria",lpH1:"Faturas, recibos e pagamentos.<br><span>Tudo num só sítio.</span>",lpSub:"Cria faturas em PDF em segundos, tira foto aos recibos das despesas e vê de relance quem ainda te deve. No telemóvel e no computador, mesmo sem internet.",lpCta:"Experimentar 30 dias grátis",lpLogin:"Já tenho conta",lpTrust:"Sem cartão · Sem fidelização · Depois, 6,99 €/mês",lpAuthTitle:"Entrar ou criar conta",lpFeatH:"Feito para quem fatura em movimento",lpF1t:"Faturas em PDF em 3 línguas",lpF1b:"Português, espanhol ou inglês, conforme o cliente. Com ou sem IVA, em € ou £, com a tua conta bancária no rodapé.",lpF2t:"Recibos com foto",lpF2b:"Tira foto ao talão no momento. Junta as despesas à fatura e envia ao cliente um PDF com os recibos como prova.",lpF3t:"Quem te deve, à vista",lpF3b:"Calendário com o prazo de cada fatura, alerta de atrasos e o total por receber por empresa.",lpF4t:"Euro e libra",lpF4b:"Fatura em € e £ na mesma conta, com o total convertido ao câmbio do dia quando precisares.",lpF5t:"Funciona sem internet",lpF5b:"Na obra, no avião ou no parque eólico: guarda tudo e sincroniza quando a rede voltar.",lpF6t:"Ajuda quando precisas",lpF6b:"Assistente que responde a dúvidas, tutorial na primeira entrada e contacto direto para bugs e ideias.",lpHowH:"Começa em 3 passos",lpS1t:"Cria conta grátis",lpS1b:"Só email e password. 30 dias para experimentar tudo.",lpS2t:"Põe os teus dados",lpS2b:"Nome, NIF, conta bancária e prazos de pagamento. Uma vez só.",lpS3t:"Fatura e recebe",lpS3b:"Cria a fatura, envia o PDF e acompanha até estar paga.",lpPriceH:"Um preço simples",lpPriceN:"6,99 € / mês",lpPriceS:"depois dos 30 dias grátis · ou 5,99 £ / mês",lpL1:"Faturas, clientes e despesas sem limite",lpL2:"PDFs de faturas e de recibos",lpL3:"Telemóvel, tablet e computador",lpL4:"Assistente de ajuda e suporte por mensagem",lpPriceNote:"Isento de IVA (art. 53.º do CIVA). Pagamento por transferência bancária; cartão brevemente.",lpFaqH:"Perguntas frequentes",lpQcert:"A Paidsmith substitui o software de faturação certificado?",lpAcert:"Não. A Paidsmith não é certificada pela Autoridade Tributária. Em Portugal, quem está obrigado continua a emitir a fatura oficial no Portal das Finanças ou em software certificado; a Paidsmith ajuda-te a organizar faturas, despesas e pagamentos.",lpFoot:"© 2026 Paidsmith · Davide Sobral",
   cats:{fuel:'Combustível',food:'Refeições',hotel:'Alojamento',travel:'Viagem / transporte',parts:'Peças / material',tools:'Ferramentas',parking:'Portagens / estacionamento',other:'Outro'}},
 es:{tag:'Tu app de facturación',email:'Email',pass:'Contraseña',login:'Entrar',signup:'Crear cuenta',
   hintLogin:'¿Primera vez? Escribe tu email y una contraseña y toca "Crear cuenta". Usa los mismos datos en el móvil y en el ordenador para ver las mismas facturas.',
@@ -452,6 +513,7 @@ es:{tag:'Tu app de facturación',email:'Email',pass:'Contraseña',login:'Entrar'
   admUseBank:"Usar una cuenta que ya tienes en la app",admPickBank:"— elegir cuenta —",admNoBanks:"Consejo: si añades tus cuentas en Cuentas bancarias (más abajo), puedes elegirlas aquí.",admBankFilled:"Datos rellenados. Revisa y toca Guardar.",
   fbTitle:"Ayuda, errores y sugerencias",fbIntro:"¿Has encontrado un error, tienes una idea para mejorar la app o una duda? Escríbenos aquí; lo leemos todo.",fbBug:"Error",fbIdea:"Sugerencia",fbQuestion:"Pregunta",fbPh:"Describe qué ha pasado o qué te gustaría ver…",fbCtx:"Para entenderlo mejor, añadimos automáticamente la sección de la app, el idioma y el tipo de dispositivo. Nunca tus datos de facturas.",fbSend:"Enviar",fbSent:"¡Gracias! Hemos recibido tu mensaje.",fbTooMany:"Ya has enviado muchos mensajes hoy. Inténtalo mañana.",fbShort:"Escribe un poco más.",fbMine:"Tus mensajes",fbNew:"RECIBIDO",fbDone:"RESUELTO",admFb:"Mensajes de los usuarios",admFbNone:"Ningún mensaje nuevo.",admFbDone:"Marcar como resuelto",
   helpTitle:"Ayuda",helpAi:"🤖 Asistente",helpMsg:"✉ Enviar mensaje",helpFaq:"❓ Preguntas frecuentes",helpAskTeam:"¿No encuentras la respuesta? Envíanos un mensaje",aiIntro:"Pregunta cómo se hace cualquier cosa en Paidsmith. Respondo según el manual de la app.",aiThinking:"Pensando…",aiPh:"Escribe tu pregunta…",aiSend:"Enviar",aiPrivacy:"Las preguntas las procesa un servicio de IA externo (OpenRouter). No escribas datos personales, de clientes ni bancarios. Máximo 5 preguntas al día.",aiLimit:"Ya has usado las 5 preguntas de hoy al asistente. Mira si la respuesta está aquí abajo o envíanos un mensaje.",aiDown:"El asistente está ocupado ahora mismo. Mira si la respuesta está aquí abajo o envíanos un mensaje.",tutSkip:"Saltar",tutNext:"Siguiente",tutDone:"Empezar",tutAgain:"Ver el tutorial otra vez",tut0t:"Bienvenido a Paidsmith 👋",tut0b:"En 1 minuto te enseño dónde está cada cosa. Puedes saltarlo cuando quieras y volver a verlo en Ajustes.",tut1t:"Facturas",tut1b:"Aquí ves todas las facturas, cuánto tienes por cobrar y lo que está vencido. Filtra por empresa o por pagadas/no pagadas.",tut2t:"Crear",tut2b:"El botón dorado + crea un elemento nuevo en la pestaña donde estés: factura, gasto o cliente.",tut3t:"Clientes",tut3b:"Empieza aquí: crea tus clientes con email, dirección, NIF y el idioma en que reciben la factura (PT, ES o EN).",tut4t:"Gastos",tut4b:"Haz fotos a los recibos, marca lo que el cliente te tiene que pagar, añade gastos a la factura y crea PDF con las fotos.",tut5t:"Calendario",tut5b:"Ves los días de trabajo y cuándo vence cada factura: verde pagada, amarillo por vencer, rojo vencida.",tut6t:"Resumen",tut6b:"Tu año en una pantalla: total facturado, cobrado, por cobrar y por empresa.",tut7t:"Ajustes",tut7b:"Pon tus datos y cuentas bancarias (salen en el PDF), los plazos de pago y gestiona tu suscripción.",tut8t:"Ayuda",tut8b:"Aquí tienes el asistente que responde dudas, las preguntas frecuentes y el envío de errores y sugerencias.",tut9t:"¡Todo listo!",tut9b:"Consejo: empieza por Ajustes (tus datos y cuenta bancaria) y después crea el primer cliente. Tienes 30 días gratis.",
+  lpEyebrow:"Para autónomos y freelancers",lpH1:"Facturas, recibos y pagos.<br><span>Todo en un solo sitio.</span>",lpSub:"Crea facturas en PDF en segundos, haz fotos a los recibos de tus gastos y ve de un vistazo quién te debe todavía. En el móvil y en el ordenador, incluso sin internet.",lpCta:"Probar 30 días gratis",lpLogin:"Ya tengo cuenta",lpTrust:"Sin tarjeta · Sin permanencia · Después, 6,99 €/mes",lpAuthTitle:"Entrar o crear cuenta",lpFeatH:"Hecho para quien factura en movimiento",lpF1t:"Facturas en PDF en 3 idiomas",lpF1b:"Español, portugués o inglés, según el cliente. Con o sin IVA, en € o £, con tu cuenta bancaria en el pie.",lpF2t:"Recibos con foto",lpF2b:"Haz una foto al ticket en el momento. Añade los gastos a la factura y envía al cliente un PDF con los recibos como justificante.",lpF3t:"Quién te debe, a la vista",lpF3b:"Calendario con el plazo de cada factura, aviso de retrasos y el total por cobrar por empresa.",lpF4t:"Euro y libra",lpF4b:"Factura en € y £ en la misma cuenta, con el total convertido al cambio del día cuando lo necesites.",lpF5t:"Funciona sin internet",lpF5b:"En la obra, en el avión o en el parque eólico: guarda todo y sincroniza cuando vuelva la red.",lpF6t:"Ayuda cuando la necesitas",lpF6b:"Asistente que responde dudas, tutorial en la primera entrada y contacto directo para errores e ideas.",lpHowH:"Empieza en 3 pasos",lpS1t:"Crea tu cuenta gratis",lpS1b:"Solo email y contraseña. 30 días para probarlo todo.",lpS2t:"Pon tus datos",lpS2b:"Nombre, NIF, cuenta bancaria y plazos de pago. Una sola vez.",lpS3t:"Factura y cobra",lpS3b:"Crea la factura, envía el PDF y síguela hasta que esté pagada.",lpPriceH:"Un precio sencillo",lpPriceN:"6,99 € / mes",lpPriceS:"después de los 30 días gratis · o 5,99 £ / mes",lpL1:"Facturas, clientes y gastos sin límite",lpL2:"PDF de facturas y de recibos",lpL3:"Móvil, tablet y ordenador",lpL4:"Asistente de ayuda y soporte por mensaje",lpPriceNote:"Exento de IVA (art. 53.º del Código del IVA portugués). Pago por transferencia bancaria; tarjeta próximamente.",lpFaqH:"Preguntas frecuentes",lpQcert:"¿Paidsmith sustituye a un software de facturación homologado?",lpAcert:"No. Paidsmith no está certificada ni homologada por ninguna administración tributaria (por ejemplo, no es un sistema Verifactu). Sigues siendo responsable de cumplir las normas de facturación de tu país; Paidsmith te ayuda a organizar facturas, gastos y cobros.",lpFoot:"© 2026 Paidsmith · Davide Sobral",
   cats:{fuel:'Combustible',food:'Comidas',hotel:'Alojamiento',travel:'Viaje / transporte',parts:'Piezas / material',tools:'Herramientas',parking:'Peajes / aparcamiento',other:'Otro'}},
 en:{tag:'Your invoicing app',email:'Email',pass:'Password',login:'Sign in',signup:'Create account',
   hintLogin:'First time? Type your email and a password and tap "Create account". Use the same details on your phone and PC to see the same invoices.',
@@ -544,13 +606,14 @@ en:{tag:'Your invoicing app',email:'Email',pass:'Password',login:'Sign in',signu
   admUseBank:"Use an account you already have in the app",admPickBank:"— choose account —",admNoBanks:"Tip: add your accounts under Bank accounts (below) and you can pick them here.",admBankFilled:"Details filled in. Check them and tap Save.",
   fbTitle:"Help, bugs and ideas",fbIntro:"Found a bug, have an idea to improve the app, or a question? Write it here; we read everything.",fbBug:"Bug",fbIdea:"Idea",fbQuestion:"Question",fbPh:"Describe what happened or what you would like to see…",fbCtx:"To help us understand, we automatically add the app section, language and device type. Never your invoice data.",fbSend:"Send",fbSent:"Thank you! We got your message.",fbTooMany:"You have sent a lot of messages today. Please try tomorrow.",fbShort:"Please write a little more.",fbMine:"Your messages",fbNew:"RECEIVED",fbDone:"RESOLVED",admFb:"Messages from users",admFbNone:"No new messages.",admFbDone:"Mark as resolved",
   helpTitle:"Help",helpAi:"🤖 Assistant",helpMsg:"✉ Send a message",helpFaq:"❓ FAQ",helpAskTeam:"Can't find the answer? Send us a message",aiIntro:"Ask how to do anything in Paidsmith. I answer from the app manual.",aiThinking:"Thinking…",aiPh:"Type your question…",aiSend:"Send",aiPrivacy:"Questions are processed by an external AI service (OpenRouter). Do not type personal, client or bank details. Up to 5 questions a day.",aiLimit:"You have used today's 5 questions to the assistant. See if the answer is below or send us a message.",aiDown:"The assistant is busy right now. See if the answer is below or send us a message.",tutSkip:"Skip",tutNext:"Next",tutDone:"Get started",tutAgain:"Show the tutorial again",tut0t:"Welcome to Paidsmith 👋",tut0b:"In 1 minute I'll show you where everything is. You can skip at any time and replay it from Settings.",tut1t:"Invoices",tut1b:"See all your invoices, how much is owed to you and what is overdue. Filter by company or paid/unpaid.",tut2t:"Create",tut2b:"The gold + button creates a new item in the tab you are on: invoice, expense or client.",tut3t:"Clients",tut3b:"Start here: add your clients with email, address, tax ID and the language they get the invoice in (PT, ES or EN).",tut4t:"Expenses",tut4b:"Snap your receipts, mark what a client owes you, add expenses to an invoice and make PDFs of the photos.",tut5t:"Calendar",tut5b:"See your work days and when each invoice is due: green paid, yellow due, red overdue.",tut6t:"Summary",tut6b:"Your year on one screen: total invoiced, paid, outstanding and by company.",tut7t:"Settings",tut7b:"Add your details and bank accounts (shown on the PDF), payment terms, and manage your subscription.",tut8t:"Help",tut8b:"Here you have the assistant that answers questions, the FAQ, and bug reports and ideas.",tut9t:"All set!",tut9b:"Tip: start with Settings (your details and bank account), then create your first client. You have 30 days free.",
+  lpEyebrow:"For freelancers and sole traders",lpH1:"Invoices, receipts and payments.<br><span>All in one place.</span>",lpSub:"Create PDF invoices in seconds, snap your expense receipts and see at a glance who still owes you. On your phone and computer, even offline.",lpCta:"Try 30 days free",lpLogin:"I already have an account",lpTrust:"No card · No commitment · Then €6.99/month",lpAuthTitle:"Sign in or create an account",lpFeatH:"Built for people who invoice on the move",lpF1t:"PDF invoices in 3 languages",lpF1b:"English, Portuguese or Spanish, per client. With or without VAT, in € or £, with your bank details in the footer.",lpF2t:"Receipts with a photo",lpF2b:"Snap the receipt on the spot. Add expenses to the invoice and send the client one PDF with all receipts as proof.",lpF3t:"Who owes you, at a glance",lpF3b:"A calendar with each due date, overdue alerts and the total outstanding per company.",lpF4t:"Euro and pound",lpF4b:"Invoice in € and £ from one account, with the total converted at today's rate when you need it.",lpF5t:"Works offline",lpF5b:"On site, on a plane or at the wind farm: save everything and it syncs when you are back online.",lpF6t:"Help when you need it",lpF6b:"An assistant that answers questions, a first-run tutorial and direct contact for bugs and ideas.",lpHowH:"Get started in 3 steps",lpS1t:"Create a free account",lpS1b:"Just email and password. 30 days to try everything.",lpS2t:"Add your details",lpS2b:"Name, tax ID, bank account and payment terms. Just once.",lpS3t:"Invoice and get paid",lpS3b:"Create the invoice, send the PDF and track it until it is paid.",lpPriceH:"One simple price",lpPriceN:"€6.99 / month",lpPriceS:"after the 30-day free trial · or £5.99 / month",lpL1:"Unlimited invoices, clients and expenses",lpL2:"Invoice and receipt PDFs",lpL3:"Phone, tablet and computer",lpL4:"Help assistant and support by message",lpPriceNote:"Exempt from VAT (Article 53 of the Portuguese VAT Code). Payment by bank transfer; card coming soon.",lpFaqH:"FAQ",lpQcert:"Does Paidsmith replace certified invoicing software?",lpAcert:"No. Paidsmith is not certified by any tax authority (for example, it is not an HMRC Making Tax Digital product). You remain responsible for your country's invoicing rules; Paidsmith helps you organise invoices, expenses and payments.",lpFoot:"© 2026 Paidsmith · Davide Sobral",
   cats:{fuel:'Fuel',food:'Meals',hotel:'Accommodation',travel:'Travel / transport',parts:'Parts / materials',tools:'Tools',parking:'Tolls / parking',other:'Other'}}
 };
 const LANGS = ['pt','es','en'];
 let L = localStorage.getItem('inv_lang') || (navigator.languages||[navigator.language||'en']).map(x=>String(x).slice(0,2).toLowerCase()).find(x=>LANGS.includes(x)) || 'en';
 const t = k => (I18N[L] && I18N[L][k]) ?? I18N.en[k] ?? I18N.pt[k] ?? k;
 window.t = t; // acessível onde uma variável local "t" esconde esta função
-function setLang(l){ L=l; localStorage.setItem('inv_lang',l); applyLang(); initLegal();
+function setLang(l){ L=l; localStorage.setItem('inv_lang',l); applyLang(); initLegal(); drawLanding();
   if(!document.getElementById('app').classList.contains('hidden')) go(S.view); }
 function applyLang(){
   const set=(id,v)=>{ const e=document.getElementById(id); if(e) e.textContent=v; };
@@ -605,6 +668,24 @@ function initLegal(){
   document.getElementById('lg-legal-txt').innerHTML = t('legalAccept').replace('{terms}', lnk('terms.html','legalTerms')).replace('{privacy}', lnk('privacy.html','legalPrivacy'));
 }
 
+// ---------- PÁGINA DE APRESENTAÇÃO ----------
+const IS_STANDALONE = matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+if(IS_STANDALONE) document.body.classList.add('standalone');
+function drawLanding(){
+  document.querySelectorAll('[data-t]').forEach(e => { e.innerHTML = t(e.dataset.t); });  // textos fixos da app, não de utilizadores
+  const tl = document.getElementById('lp-terms'), pl = document.getElementById('lp-priv');
+  if(tl){ tl.textContent = t('legalTerms'); tl.href = 'terms.html?lang=' + L; }
+  if(pl){ pl.textContent = t('legalPrivacy'); pl.href = 'privacy.html?lang=' + L; }
+  const f = document.getElementById('lp-faq');
+  if(f) f.innerHTML = [[t('lpQcert'), t('lpAcert')], ...(FAQ[L]||FAQ.en).slice(4)].concat((FAQ[L]||FAQ.en).slice(0,2))
+    .map(([q,a])=>`<details class="card" style="margin-top:8px"><summary style="cursor:pointer;font-weight:700">${esc(q)}</summary><p style="margin:8px 0 0;color:var(--tx2)">${esc(a)}</p></details>`).join('');
+}
+function lpGo(signup){
+  const a = document.getElementById('lp-auth'); a.scrollIntoView({behavior:'smooth', block:'start'});
+  setTimeout(()=>{ document.getElementById('lg-email').focus();
+    const b = document.getElementById(signup ? 'lg-btn-up' : 'lg-btn-in');
+    b.animate([{boxShadow:'0 0 0 0 rgba(231,181,78,.0)'},{boxShadow:'0 0 0 6px rgba(231,181,78,.45)'},{boxShadow:'0 0 0 0 rgba(231,181,78,.0)'}], {duration:1200, iterations:2}); }, 450);
+}
 // ---------- LEMBRAR ENTRADA ----------
 // O email fica na app; a password fica no gestor de passwords do aparelho (cifrado), nunca em localStorage.
 async function rememberLogin(f){
@@ -2595,7 +2676,7 @@ function downloadExpensePdf(){
     `${L==='en'?'Receipt':'Recibo'}_${fileSafe(X.description)}_${X.exp_date||todayISO()}.pdf`);
 }
 applyLang();
-initCaptcha(); initLegal(); prefillLogin();
+initCaptcha(); initLegal(); prefillLogin(); drawLanding();
 </script>
 </body>
 </html>
