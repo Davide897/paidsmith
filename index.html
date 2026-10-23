@@ -541,7 +541,7 @@ const EUR = v => new Intl.NumberFormat('pt-PT',{style:'currency',currency:'EUR'}
 const GBP = v => new Intl.NumberFormat('en-GB',{style:'currency',currency:'GBP'}).format(v||0);
 const fmt = (v,c) => c==='GBP' ? GBP(v) : EUR(v);
 const dmy = d => { if(!d) return '—'; const [y,m,dd]=d.split('-'); return `${dd}/${m}/${y}`; };
-const esc = s => (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const esc = s => String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 const todayISO = () => new Date().toISOString().slice(0,10);
 function toast(m){ const t=document.createElement('div'); t.className='toast'; t.textContent=m;
   document.body.appendChild(t); setTimeout(()=>t.remove(),2600); }
@@ -1781,7 +1781,8 @@ function subState(){
   const mine = (S.claims||[]).filter(c=>c.user_id===S.user.id);
   const pend = mine.find(c=>c.status==='pending');
   if(paid > now) return {access:true, kind:'paid', until:s.paid_until, pend};
-  if(pend) return {access: now - new Date(pend.created_at).getTime() < 7*DAY, kind:'pending', pend};
+  const rejected = mine.some(c=>c.status==='rejected');
+  if(pend) return {access: !rejected && now - new Date(pend.created_at).getTime() < 7*DAY, kind:'pending', pend};
   if(trial > now) return {access:true, kind:'trial', days:Math.max(1, Math.ceil((trial-now)/DAY))};
   return {access:false, kind:'expired'};
 }
@@ -1797,7 +1798,7 @@ function drawSubBar(){
 const PS_REF = () => 'PS-' + S.user.id.replace(/-/g,'').slice(0,8).toUpperCase();
 const PS_MONTHS = [1,3,12];
 function psPrice(cur){ const b = S.billing || {}; return Number(cur==='GBP' ? (b.price_gbp ?? 5.99) : (b.price_eur ?? 6.99)); }
-function psMoney(v, cur){ return new Intl.NumberFormat(t('locale'), {style:'currency', currency:cur}).format(v); }
+function psMoney(v, cur){ try{ return new Intl.NumberFormat(t('locale'), {style:'currency', currency:cur}).format(v); }catch(e){ return esc(v+' '+cur); } }
 let PW = {months:1, cur:'EUR'};
 function openPaywall(){
   const st = subState(), b = S.billing || {};
