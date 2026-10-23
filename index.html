@@ -129,6 +129,7 @@ main{padding:16px;max-width:860px;margin:0 auto 90px}
     <h1>PAIDSMITH</h1>
     <div class="chips" style="margin:0">
       <span class="chip" id="lang-pt" onclick="setLang('pt')">PT</span>
+      <span class="chip" id="lang-es" onclick="setLang('es')">ES</span>
       <span class="chip" id="lang-en" onclick="setLang('en')">EN</span>
     </div>
   </div>
@@ -169,8 +170,8 @@ main{padding:16px;max-width:860px;margin:0 auto 90px}
 <div id="sheet" class="sheet hidden"><div id="sheet-body"></div></div>
 
 <script>
-const SB_URL = "https://rauoamwhpttgjjktzatf.supabase.co";
-const SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJhdW9hbXdocHR0Z2pqa3R6YXRmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMwMDUwMjAsImV4cCI6MjA5ODU4MTAyMH0.CaKZhROLVzFR2iUWVkbZnuEkYrKYBV6McUWg1fRx7BE";
+const SB_URL = "https://dsqgaajxaswetbctxigt.supabase.co";
+const SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRzcWdhYWp4YXN3ZXRiY3R4aWd0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI3NzMyMjAsImV4cCI6MjEwODM0OTIyMH0.Ajfk292T_rdlQZgLkCBvKs2DqKpapNKA5Ov-ZllVpwo";
 const sb = supabase.createClient(SB_URL, SB_KEY);
 
 let S = { user:null, settings:null, clients:[], invoices:[], banks:[], expenses:[], view:'inv',
@@ -206,7 +207,7 @@ pt:{tag:'A tua app de faturação',email:'Email',pass:'Password',login:'Entrar',
   noEmail:'sem email',editCli:'Editar cliente',newCli:'Novo cliente',companyLbl:'Empresa *',
   contactLbl:'Nome de contacto',emailsLbl:'Emails (separados por vírgula — podem ser vários)',
   cliAddrLbl:'Morada (opcional, aparece no PDF)',cliNifLbl:'NIF / VAT (opcional)',
-  cliLangLbl:'Língua dos emails e da fatura',langEN:'Inglês',langPT:'Português',
+  cliLangLbl:'Língua dos emails e da fatura',langEN:'Inglês',langPT:'Português',langES:'Espanhol',
   tplLbl:'Texto do email para este cliente (escreves uma vez, fica gravado)',
   tplPh:'Deixa vazio para usar o texto automático na língua escolhida.',
   tplHint:'Podes usar: {numero} {total} {vencimento} {empresa} {cliente} — são substituídos automaticamente em cada fatura.',
@@ -218,12 +219,12 @@ pt:{tag:'A tua app de faturação',email:'Email',pass:'Password',login:'Entrar',
   installHint:'Instalar no iPhone: abre este site no Safari → Partilhar → "Adicionar ao ecrã principal". No PC (Chrome ou Edge): ícone "Instalar" na barra de endereço. Depois de instalada, abre e funciona sem internet.',
   uiLang:'Língua da aplicação',
   errFill:'Preenche o email e a password primeiro.',errEmail:'Esse email não parece válido.',
-  errPass:'A password precisa de pelo menos 6 caracteres.',
+  errPass:'A password precisa de pelo menos 8 caracteres.',
   errCreds:'Email ou password errados. Se é a primeira vez, usa "Criar conta".',
   errExists:'Esse email já tem conta — usa "Entrar".',
   errRate:'Muitas tentativas seguidas — espera um minuto e tenta outra vez.',
-  created:'Conta criada — entra agora.',
-  forgot:'Esqueci-me da password',forgotNeedEmail:'Escreve o teu email em cima e toca outra vez em "Esqueci-me da password".',forgotSent:'Enviámos-te um email com um link para criares uma password nova. Vê também o spam.',newPassTitle:'Nova password',newPassLbl:'Escreve a nova password (mínimo 6 caracteres)',passChanged:'Password alterada ✓',changePass:'Mudar password',offlineBadge:'Offline',pendingBadge:'{n} por sincronizar',syncDone:'Sincronizado ✓',needOnline:'Precisas de internet para isto.',syncErr:'Erro a sincronizar: ',pendingLogout:'Tens alterações que ainda não foram enviadas. Se saíres agora perdes essas alterações. Sair mesmo assim?',offlineSaved:'Guardado no aparelho — envia quando houver rede',
+  created:'Conta criada. Abre o email que te enviámos para a confirmar e depois entra.',
+  forgot:'Esqueci-me da password',forgotNeedEmail:'Escreve o teu email em cima e toca outra vez em "Esqueci-me da password".',forgotSent:'Enviámos-te um email com um link para criares uma password nova. Vê também o spam.',newPassTitle:'Nova password',newPassLbl:'Escreve a nova password (mínimo 8 caracteres)',passChanged:'Password alterada ✓',changePass:'Mudar password',offlineBadge:'Offline',pendingBadge:'{n} por sincronizar',syncDone:'Sincronizado ✓',needOnline:'Precisas de internet para isto.',syncErr:'Erro a sincronizar: ',pendingLogout:'Tens alterações que ainda não foram enviadas. Se saíres agora perdes essas alterações. Sair mesmo assim?',offlineSaved:'Guardado no aparelho — envia quando houver rede',
   banksTitle:'Contas bancárias',addBank:'+ Adicionar conta bancária',
   bankLabel:'Nome da conta (só para ti, ex: "Wise EUR", "Banco PT")',
   bankHolder:'Nome do titular (Name)',bankName:'Banco (opcional)',bankIban:'IBAN',
@@ -235,7 +236,7 @@ pt:{tag:'A tua app de faturação',email:'Email',pass:'Password',login:'Entrar',
   noBanksHint:'Ainda não tens contas bancárias. Adiciona-as nas Definições para apareceram no PDF.',
   startLbl:'Início do trabalho',endLbl:'Fim do trabalho',
   periodHint:'O calendário pinta todos os dias entre o início e o fim.',
-  termsLbl:'Prazo de pagamento',termsWeek:'Terça-feira da semana seguinte (ex: Per Diem)',terms7:'7 dias',terms14:'14 dias',terms30:'30 dias (ex: Wind Farm / horas)',termsCustom:'Outro nº de dias',daysLbl:'Dias',dueIs:'Vence a',termsHint:'Faturas com "PD" no número ficam a pagar na terça-feira da semana seguinte; as outras ficam a 30 dias da data da fatura. Podes mudar sempre.',payShort:'Pag.',legPay:'Dia de pagamento',
+  termsLbl:'Prazo de pagamento',termsWeek:'Terça-feira da semana seguinte',terms7:'7 dias',terms14:'14 dias',terms30:'30 dias',termsNDays:'{n} dias',termsCustom:'Outro nº de dias',daysLbl:'Dias',dueIs:'Vence a',termsHint:'O prazo vem das tuas Definições (prazo por defeito e regras pelo número da fatura). Podes mudar sempre.',setTermsTitle:'Prazos de pagamento',setTermsDefault:'Prazo por defeito nas faturas novas',setRulesLbl:'Regras pelo número da fatura',setRulesHint:'Se o número da fatura tiver este texto, usa este prazo. Ex: "PD" → terça-feira da semana seguinte.',ruleMatchPh:'texto no número, ex: PD',addRule:'+ Regra',payShort:'Pag.',legPay:'Dia de pagamento',
   fxWarnApp:'⚠ Câmbio de hoje — no dia do pagamento a taxa pode ser outra. Confirma sempre o câmbio do dia.',
   dueModeLbl:'Valor a pagar no PDF',dueConv:'Só 1 valor: total convertido em €',dueBoth:'Os 2 valores: € + £ (cada parte na sua moeda)',
   tExp:'Despesas',expToBill:'Por receber dos clientes:',expN:'despesa',expsN:'despesas',
@@ -245,7 +246,7 @@ pt:{tag:'A tua app de faturação',email:'Email',pass:'Password',login:'Entrar',
   setExpTitle:'Despesas',setExpInv:'Juntar despesas às faturas',
   setExpInvHint:'Desligado: as despesas não entram nas faturas — ficas só a saber quem ainda te deve e marcas "paga" quando te pagarem. Ligado: aparece também o botão para pôr as despesas numa fatura.',
   savedExpPaid:'Despesa marcada como PAGA ✓',savedExpUnpaid:'Despesa marcada como não paga',
-  presetPick:'📋 Usar linhas predefinidas…',presetSave:'💾 Guardar estas linhas como predefinidas',presetName:'Nome para estas linhas (ex: "Semana Wind Farm")',presetAuto:'Pôr estas linhas automaticamente em cada fatura nova para {c}?',presetSaved:'Linhas predefinidas guardadas ✓',presetNoLines:'Escreve primeiro as linhas.',presetsTitle:'Linhas predefinidas',presetsHint:'Cria-as numa fatura: escreve as linhas e toca em "Guardar estas linhas como predefinidas". As que estão ligadas a um cliente entram sozinhas em cada fatura nova desse cliente — só mudas o valor.',presetsEmpty:'Ainda não tens linhas predefinidas.',presetRename:'Mudar nome',presetDel:'Apagar',presetConfirmDel:'Apagar estas linhas predefinidas?',presetLinesN:'{n} linhas',presetAutoFor:'Entram sozinhas nas faturas novas de',presetNone:'— nenhum (só à mão) —',presetOverwrite:'Já existe "{n}". Substituir?',
+  presetPick:'📋 Usar linhas predefinidas…',presetSave:'💾 Guardar estas linhas como predefinidas',presetName:'Nome para estas linhas (ex: "Semana normal")',presetAuto:'Pôr estas linhas automaticamente em cada fatura nova para {c}?',presetSaved:'Linhas predefinidas guardadas ✓',presetNoLines:'Escreve primeiro as linhas.',presetsTitle:'Linhas predefinidas',presetsHint:'Cria-as numa fatura: escreve as linhas e toca em "Guardar estas linhas como predefinidas". As que estão ligadas a um cliente entram sozinhas em cada fatura nova desse cliente — só mudas o valor.',presetsEmpty:'Ainda não tens linhas predefinidas.',presetRename:'Mudar nome',presetDel:'Apagar',presetConfirmDel:'Apagar estas linhas predefinidas?',presetLinesN:'{n} linhas',presetAutoFor:'Entram sozinhas nas faturas novas de',presetNone:'— nenhum (só à mão) —',presetOverwrite:'Já existe "{n}". Substituir?',
   emptyExp:'Sem despesas aqui.<br>Toca em <b style="color:var(--acc)">+</b>, tira foto ao recibo e grava o valor.',
   newExp:'Nova despesa',editExp:'Despesa',takePhoto:'📷 Tirar foto ao recibo',pickPhoto:'🖼 Escolher da galeria / ficheiro',
   photosLbl:'Fotos (prova)',noPhotos:'Ainda sem fotos.',expDesc:'Descrição *',expDescPh:'ex: Gasóleo, hotel, refeição, peça…',
@@ -264,6 +265,92 @@ pt:{tag:'A tua app de faturação',email:'Email',pass:'Password',login:'Entrar',
   photoUploading:'A enviar fotos…',photoPending:'{n} fotos por enviar',photoErr:'Erro a enviar foto: ',
   photoLoadErr:'Não deu para abrir esta foto (sem internet?)',
   cats:{fuel:'Combustível',food:'Refeições',hotel:'Alojamento',travel:'Viagem / transporte',parts:'Peças / material',tools:'Ferramentas',parking:'Portagens / estacionamento',other:'Outro'}},
+es:{tag:'Tu app de facturación',email:'Email',pass:'Contraseña',login:'Entrar',signup:'Crear cuenta',
+  hintLogin:'¿Primera vez? Escribe tu email y una contraseña y toca "Crear cuenta". Usa los mismos datos en el móvil y en el ordenador para ver las mismas facturas.',
+  logout:'Salir',tInv:'Facturas',tCal:'Calendario',tCli:'Clientes',tSet:'Ajustes',tSum:'Resumen',
+  sumTitle:'Resumen del año',sumYear:'Año',sumEarned:'Total facturado',sumPaid:'Ya cobrado',sumDue:'Por cobrar (en plazo)',sumLate:'Vencido',sumOwed:'Por cobrar',sumMonth:'Facturado este mes',sumPaidPct:'cobrado',sumByCo:'Por empresa',sumNote:'Importes en € para poder sumarlo todo; las facturas en £ se convierten al cambio de hoy (1£={fx}€). El año cuenta por la fecha de emisión.',sumNoFx:'Tipo de cambio no disponible: se usa un valor aproximado.',
+  receivable:'Por cobrar:',invoice:'factura',invoices:'facturas',lateN:'vencidas',
+  allCompanies:'Todas las empresas',chipAll:'Todas',chipUnpaid:'No pagadas',chipPaid:'Pagadas',
+  emptyInv:'No hay facturas aquí.<br>Toca <b style="color:var(--acc)">+</b> para crear la primera.',
+  dueShort:'vence',bPaid:'PAGADA',bLate:'VENCIDA',bUnpaid:'NO PAGADA',
+  invoiceWord:'Factura',newInvoice:'Nueva factura',clientLbl:'Cliente / Empresa',numberLbl:'Número',
+  dateLbl:'Fecha',dueLbl:'Vencimiento (para el calendario)',linesLbl:'Líneas',addLine:'+ Línea',
+  descPh:'Descripción',qtyPh:'Cant',pricePh:'Precio',vatLbl:'IVA',noVat:'Sin IVA',withVat:'Con IVA',rateLbl:'Tipo %',
+  convertLbl:'Mostrar total convertido £ → € (cambio de hoy)',subtotal:'Subtotal',total:'Total',
+  converted:'Total convertido',fxDown:'Tipo de cambio no disponible (¿sin internet?)',addLinesHint:'Añade líneas para ver los totales.',
+  notesLbl:'Notas (aparecen en el PDF)',save:'Guardar',markUnpaid:'Marcar NO pagada',markPaid:'Marcar PAGADA ✓',
+  dlPdf:'⬇ Descargar PDF',sendMail:'✉ Enviar por email',
+  mailHint:'"Enviar por email" abre el menú de compartir del iPhone con el PDF y el texto ya escritos: elige Mail y los destinatarios. En el ordenador descarga el PDF y usa el botón de email de abajo.',
+  mailtoBtn:'✉ Abrir Mail solo con texto (destinatarios rellenados)',delInv:'Borrar factura',closeBtn:'Cerrar',
+  confirmDelInv:'¿Borrar esta factura? No se puede deshacer.',savedInv:'Factura guardada ✓',deletedInv:'Factura borrada',
+  markedPaid:'Marcada como PAGADA ✓',markedUnpaid:'Marcada como no pagada',
+  needClient:'Crea primero un cliente (pestaña Clientes).',pdfDone:'PDF generado ⬇',
+  pdfFallback:'PDF descargado: adjúntalo en el email que se ha abierto.',
+  thisMonth:'Este mes por cobrar:',nothing:'nada 🎉',dueOn:'Vencen el',
+  legPaid:'Pagada',legDue:'Por vencer',legLate:'Vencida',dows:['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'],locale:'es-ES',
+  todayWord:'Hoy',weekWord:'Semana',weekAbbr:'Sem',
+  emptyCli:'No hay clientes.<br>Toca <b style="color:var(--acc)">+</b> para crear el primero.',
+  noEmail:'sin email',editCli:'Editar cliente',newCli:'Nuevo cliente',companyLbl:'Empresa *',
+  contactLbl:'Nombre de contacto',emailsLbl:'Emails (separados por comas, pueden ser varios)',
+  cliAddrLbl:'Dirección (opcional, aparece en el PDF)',cliNifLbl:'NIF / VAT (opcional)',
+  cliLangLbl:'Idioma de los emails y de la factura',langEN:'Inglés',langPT:'Portugués',langES:'Español',
+  tplLbl:'Texto del email para este cliente (lo escribes una vez y queda guardado)',
+  tplPh:'Déjalo vacío para usar el texto automático en el idioma elegido.',
+  tplHint:'Puedes usar: {numero} {total} {vencimento} {empresa} {cliente}; se sustituyen automáticamente en cada factura.',
+  delCli:'Borrar cliente',confirmDelCli:'¿Borrar este cliente? Sus facturas quedarán sin cliente asociado.',
+  savedCli:'Cliente guardado ✓',needCompany:'La empresa necesita un nombre.',
+  setTitle:'Tus datos (aparecen en todos los PDF)',setName:'Nombre / Empresa',
+  setAddr:'Dirección (puedes usar varias líneas)',setNif:'NIF (opcional)',setIban:'IBAN / datos de pago',
+  setExtra:'Línea extra en el pie (opcional)',setVat:'Tipo de IVA por defecto %',savedSet:'Ajustes guardados ✓',
+  installHint:'Instalar en el iPhone: abre esta web en Safari → Compartir → "Añadir a pantalla de inicio". En el ordenador (Chrome o Edge): icono "Instalar" en la barra de direcciones. Una vez instalada, funciona sin internet.',
+  uiLang:'Idioma de la aplicación',
+  errFill:'Rellena primero el email y la contraseña.',errEmail:'Ese email no parece válido.',
+  errPass:'La contraseña necesita al menos 8 caracteres.',
+  errCreds:'Email o contraseña incorrectos. Si es la primera vez, usa "Crear cuenta".',
+  errExists:'Ese email ya tiene cuenta: usa "Entrar".',
+  errRate:'Demasiados intentos seguidos: espera un minuto y vuelve a intentarlo.',
+  created:'Cuenta creada. Abre el email que te hemos enviado para confirmarla y después entra.',
+  forgot:'He olvidado mi contraseña',forgotNeedEmail:'Escribe tu email arriba y vuelve a tocar "He olvidado mi contraseña".',forgotSent:'Te hemos enviado un email con un enlace para crear una contraseña nueva. Mira también en spam.',newPassTitle:'Nueva contraseña',newPassLbl:'Escribe la nueva contraseña (mínimo 8 caracteres)',passChanged:'Contraseña cambiada ✓',changePass:'Cambiar contraseña',offlineBadge:'Sin conexión',pendingBadge:'{n} por sincronizar',syncDone:'Sincronizado ✓',needOnline:'Necesitas internet para esto.',syncErr:'Error al sincronizar: ',pendingLogout:'Tienes cambios que aún no se han enviado. Si sales ahora los perderás. ¿Salir de todos modos?',offlineSaved:'Guardado en el dispositivo: se envía cuando haya conexión',
+  banksTitle:'Cuentas bancarias',addBank:'+ Añadir cuenta bancaria',
+  bankLabel:'Nombre de la cuenta (solo para ti, ej: "Wise EUR", "Banco ES")',
+  bankHolder:'Nombre del titular',bankName:'Banco (opcional)',bankIban:'IBAN',
+  bankSwift:'SWIFT / BIC (es el mismo código)',bankExtra:'Línea extra (opcional, ej: sort code UK)',
+  editBank:'Editar cuenta bancaria',newBank:'Nueva cuenta bancaria',delBank:'Borrar cuenta',
+  confirmDelBank:'¿Borrar esta cuenta bancaria? Las facturas que la usaban quedarán sin cuenta asociada.',
+  savedBank:'Cuenta bancaria guardada ✓',needBankLabel:'Ponle un nombre a la cuenta (ej: "Wise EUR").',
+  bankSelLbl:'Cuenta bancaria para cobrar (aparece en el PDF)',noBank:'— sin cuenta en el PDF —',
+  noBanksHint:'Aún no tienes cuentas bancarias. Añádelas en Ajustes para que aparezcan en el PDF.',
+  startLbl:'Inicio del trabajo',endLbl:'Fin del trabajo',
+  periodHint:'El calendario marca todos los días entre el inicio y el fin.',
+  termsLbl:'Plazo de pago',termsWeek:'Martes de la semana siguiente',terms7:'7 días',terms14:'14 días',terms30:'30 días',termsNDays:'{n} días',termsCustom:'Otro nº de días',daysLbl:'Días',dueIs:'Vence el',termsHint:'El plazo viene de tus Ajustes (plazo por defecto y reglas según el número de factura). Siempre puedes cambiarlo.',setTermsTitle:'Plazos de pago',setTermsDefault:'Plazo por defecto en facturas nuevas',setRulesLbl:'Reglas según el número de factura',setRulesHint:'Si el número de factura contiene este texto, usa este plazo. Ej: "PD" → martes de la semana siguiente.',ruleMatchPh:'texto en el número, ej: PD',addRule:'+ Regla',payShort:'Pago',legPay:'Día de pago',
+  fxWarnApp:'⚠ Cambio de hoy: el día del pago el tipo puede ser otro. Confirma siempre el cambio del día.',
+  dueModeLbl:'Importe a pagar en el PDF',dueConv:'Solo 1 importe: total convertido a €',dueBoth:'Los 2 importes: € + £ (cada parte en su moneda)',
+  tExp:'Gastos',expToBill:'Por cobrar a los clientes:',expN:'gasto',expsN:'gastos',
+  chipPending:'Por cobrar',chipBilled:'Cobrados',chipOwn:'Míos (no cobrar)',
+  bOwed:'POR COBRAR',bOnInv:'EN FACTURA',markExpPaid:'Marcar COBRADO ✓',markExpUnpaid:'Marcar NO cobrado',
+  expPaidOn:'Cobrado el',paidByInv:'Queda cobrado cuando marques la factura como pagada.',
+  setExpTitle:'Gastos',setExpInv:'Añadir gastos a las facturas',
+  setExpInvHint:'Desactivado: los gastos no entran en las facturas; solo sabes quién te debe y marcas "cobrado" cuando te paguen. Activado: aparece también el botón para poner los gastos en una factura.',
+  savedExpPaid:'Gasto marcado como COBRADO ✓',savedExpUnpaid:'Gasto marcado como no cobrado',
+  presetPick:'📋 Usar líneas predefinidas…',presetSave:'💾 Guardar estas líneas como predefinidas',presetName:'Nombre para estas líneas (ej: "Semana normal")',presetAuto:'¿Poner estas líneas automáticamente en cada factura nueva de {c}?',presetSaved:'Líneas predefinidas guardadas ✓',presetNoLines:'Escribe primero las líneas.',presetsTitle:'Líneas predefinidas',presetsHint:'Créalas en una factura: escribe las líneas y toca "Guardar estas líneas como predefinidas". Las que están ligadas a un cliente entran solas en cada factura nueva de ese cliente; solo cambias el importe.',presetsEmpty:'Aún no tienes líneas predefinidas.',presetRename:'Cambiar nombre',presetDel:'Borrar',presetConfirmDel:'¿Borrar estas líneas predefinidas?',presetLinesN:'{n} líneas',presetAutoFor:'Entran solas en las facturas nuevas de',presetNone:'— ninguno (solo a mano) —',presetOverwrite:'Ya existe "{n}". ¿Reemplazar?',
+  emptyExp:'No hay gastos aquí.<br>Toca <b style="color:var(--acc)">+</b>, haz una foto al recibo y guarda el importe.',
+  newExp:'Nuevo gasto',editExp:'Gasto',takePhoto:'📷 Hacer foto al recibo',pickPhoto:'🖼 Elegir de la galería / archivo',
+  photosLbl:'Fotos (justificante)',noPhotos:'Aún sin fotos.',expDesc:'Descripción *',expDescPh:'ej: Gasóleo, hotel, comida, pieza…',
+  catLbl:'Categoría',amountLbl:'Importe *',currencyLbl:'Moneda',expClientLbl:'Cliente al que cobrar',noClient:'— ninguno —',
+  billableLbl:'El cliente me tiene que pagar esto (queda POR COBRAR)',expNotesLbl:'Notas (solo para ti)',
+  bPending:'POR FACTURAR',bBilled:'FACTURADO',bExpPaid:'COBRADO',bOwn:'MÍO',
+  savedExp:'Gasto guardado ✓',delExp:'Borrar gasto',confirmDelExp:'¿Borrar este gasto y sus fotos? No se puede deshacer.',
+  deletedExp:'Gasto borrado',needExpDesc:'Escribe una descripción.',needExpAmount:'Escribe el importe.',
+  billedIn:'Facturado en la factura',openInv:'Abrir factura',
+  billNow:'🧾 Crear factura con {n} gastos por facturar',pickClientToBill:'Elige un cliente en el filtro de arriba para crear la factura con sus gastos.',
+  addExpBtn:'+ Añadir gastos por facturar de este cliente ({n})',expLinked:'{n} gastos con justificante en esta factura',
+  receiptsPdf:'⬇ Recibos de los gastos (PDF)',receiptsTitle:'Recibos de gastos',receiptsFor:'Factura',
+  selPdf:'☑ Elegir fotos para PDF',selHint:'Toca los gastos que quieres en el PDF. Solo aparecen los que tienen fotos.',
+  selAll:'Todos',selNone:'Ninguno',selCancel:'Cancelar',selDl:'⬇ PDF ({n})',selEmpty:'Elige al menos un gasto.',
+  expPdf:'⬇ Fotos de este gasto (PDF)',pdfBuilding:'Preparando el PDF…',
+  photoUploading:'Subiendo fotos…',photoPending:'{n} fotos por subir',photoErr:'Error al subir la foto: ',
+  photoLoadErr:'No se ha podido abrir esta foto (¿sin internet?)',
+  cats:{fuel:'Combustible',food:'Comidas',hotel:'Alojamiento',travel:'Viaje / transporte',parts:'Piezas / material',tools:'Herramientas',parking:'Peajes / aparcamiento',other:'Otro'}},
 en:{tag:'Your invoicing app',email:'Email',pass:'Password',login:'Sign in',signup:'Create account',
   hintLogin:'First time? Type your email and a password and tap "Create account". Use the same details on your phone and PC to see the same invoices.',
   logout:'Sign out',tInv:'Invoices',tCal:'Calendar',tCli:'Clients',tSet:'Settings',tSum:'Summary',
@@ -292,7 +379,7 @@ en:{tag:'Your invoicing app',email:'Email',pass:'Password',login:'Sign in',signu
   noEmail:'no email',editCli:'Edit client',newCli:'New client',companyLbl:'Company *',
   contactLbl:'Contact name',emailsLbl:'Emails (comma-separated — can be several)',
   cliAddrLbl:'Address (optional, shown on the PDF)',cliNifLbl:'Tax ID / VAT (optional)',
-  cliLangLbl:'Language for emails and the invoice',langEN:'English',langPT:'Portuguese',
+  cliLangLbl:'Language for emails and the invoice',langEN:'English',langPT:'Portuguese',langES:'Spanish',
   tplLbl:'Email text for this client (write it once, it stays saved)',
   tplPh:'Leave empty to use the automatic text in the chosen language.',
   tplHint:'You can use: {numero} {total} {vencimento} {empresa} {cliente} — replaced automatically on each invoice.',
@@ -304,12 +391,12 @@ en:{tag:'Your invoicing app',email:'Email',pass:'Password',login:'Sign in',signu
   installHint:'Install on iPhone: open this site in Safari → Share → "Add to Home Screen". On PC (Chrome or Edge): "Install" icon in the address bar. Once installed it opens and works without internet.',
   uiLang:'App language',
   errFill:'Fill in the email and password first.',errEmail:'That email does not look valid.',
-  errPass:'The password needs at least 6 characters.',
+  errPass:'The password needs at least 8 characters.',
   errCreds:'Wrong email or password. If this is your first time, use "Create account".',
   errExists:'That email already has an account — use "Sign in".',
   errRate:'Too many attempts — wait a minute and try again.',
-  created:'Account created — sign in now.',
-  forgot:'Forgot password',forgotNeedEmail:'Type your email above and tap "Forgot password" again.',forgotSent:'We sent you an email with a link to create a new password. Check spam too.',newPassTitle:'New password',newPassLbl:'Type the new password (at least 6 characters)',passChanged:'Password changed ✓',changePass:'Change password',offlineBadge:'Offline',pendingBadge:'{n} to sync',syncDone:'Synced ✓',needOnline:'You need internet for this.',syncErr:'Sync error: ',pendingLogout:'You have changes that were not sent yet. If you sign out now they will be lost. Sign out anyway?',offlineSaved:'Saved on this device — will upload when online',
+  created:'Account created. Open the email we sent you to confirm it, then sign in.',
+  forgot:'Forgot password',forgotNeedEmail:'Type your email above and tap "Forgot password" again.',forgotSent:'We sent you an email with a link to create a new password. Check spam too.',newPassTitle:'New password',newPassLbl:'Type the new password (at least 8 characters)',passChanged:'Password changed ✓',changePass:'Change password',offlineBadge:'Offline',pendingBadge:'{n} to sync',syncDone:'Synced ✓',needOnline:'You need internet for this.',syncErr:'Sync error: ',pendingLogout:'You have changes that were not sent yet. If you sign out now they will be lost. Sign out anyway?',offlineSaved:'Saved on this device — will upload when online',
   banksTitle:'Bank accounts',addBank:'+ Add bank account',
   bankLabel:'Account name (just for you, e.g. "Wise EUR", "PT bank")',
   bankHolder:'Account holder (Name)',bankName:'Bank (optional)',bankIban:'IBAN',
@@ -321,7 +408,7 @@ en:{tag:'Your invoicing app',email:'Email',pass:'Password',login:'Sign in',signu
   noBanksHint:'No bank accounts yet. Add them in Settings so they appear on the PDF.',
   startLbl:'Work start date',endLbl:'Work end date',
   periodHint:'The calendar marks every day between start and end.',
-  termsLbl:'Payment terms',termsWeek:'Tuesday of the following week (e.g. Per Diem)',terms7:'7 days',terms14:'14 days',terms30:'30 days (e.g. Wind Farm / hours)',termsCustom:'Other number of days',daysLbl:'Days',dueIs:'Due on',termsHint:'Invoices with "PD" in the number default to Tuesday of the following week; the others to 30 days from the invoice date. You can always change it.',payShort:'Pay',legPay:'Payment day',
+  termsLbl:'Payment terms',termsWeek:'Tuesday of the following week',terms7:'7 days',terms14:'14 days',terms30:'30 days',termsNDays:'{n} days',termsCustom:'Other number of days',daysLbl:'Days',dueIs:'Due on',termsHint:'Terms come from your Settings (default terms and rules based on the invoice number). You can always change it.',setTermsTitle:'Payment terms',setTermsDefault:'Default terms for new invoices',setRulesLbl:'Rules based on the invoice number',setRulesHint:'If the invoice number contains this text, use these terms. E.g. "PD" → Tuesday of the following week.',ruleMatchPh:'text in number, e.g. PD',addRule:'+ Rule',payShort:'Pay',legPay:'Payment day',
   fxWarnApp:'⚠ Today\'s rate — it may differ on the payment date. Always check the current rate first.',
   dueModeLbl:'Amount due on the PDF',dueConv:'1 amount: converted total in €',dueBoth:'2 amounts: € + £ (each part in its own currency)',
   tExp:'Expenses',expToBill:'Owed by clients:',expN:'expense',expsN:'expenses',
@@ -331,7 +418,7 @@ en:{tag:'Your invoicing app',email:'Email',pass:'Password',login:'Sign in',signu
   setExpTitle:'Expenses',setExpInv:'Add expenses to invoices',
   setExpInvHint:'Off: expenses never go on invoices — you just track who still owes you and mark "paid" when they pay. On: you also get the button to put expenses on an invoice.',
   savedExpPaid:'Expense marked as PAID ✓',savedExpUnpaid:'Expense marked as unpaid',
-  presetPick:'📋 Use preset lines…',presetSave:'💾 Save these lines as a preset',presetName:'Name for these lines (e.g. "Wind Farm week")',presetAuto:'Add these lines automatically to every new invoice for {c}?',presetSaved:'Preset lines saved ✓',presetNoLines:'Write the lines first.',presetsTitle:'Preset lines',presetsHint:'Create them on an invoice: write the lines and tap "Save these lines as a preset". Presets linked to a client are added automatically to every new invoice for that client — you only change the amount.',presetsEmpty:'No preset lines yet.',presetRename:'Rename',presetDel:'Delete',presetConfirmDel:'Delete these preset lines?',presetLinesN:'{n} lines',presetAutoFor:'Added automatically to new invoices for',presetNone:'— none (manual only) —',presetOverwrite:'"{n}" already exists. Replace it?',
+  presetPick:'📋 Use preset lines…',presetSave:'💾 Save these lines as a preset',presetName:'Name for these lines (e.g. "Standard week")',presetAuto:'Add these lines automatically to every new invoice for {c}?',presetSaved:'Preset lines saved ✓',presetNoLines:'Write the lines first.',presetsTitle:'Preset lines',presetsHint:'Create them on an invoice: write the lines and tap "Save these lines as a preset". Presets linked to a client are added automatically to every new invoice for that client — you only change the amount.',presetsEmpty:'No preset lines yet.',presetRename:'Rename',presetDel:'Delete',presetConfirmDel:'Delete these preset lines?',presetLinesN:'{n} lines',presetAutoFor:'Added automatically to new invoices for',presetNone:'— none (manual only) —',presetOverwrite:'"{n}" already exists. Replace it?',
   emptyExp:'No expenses here.<br>Tap <b style="color:var(--acc)">+</b>, take a photo of the receipt and save the amount.',
   newExp:'New expense',editExp:'Expense',takePhoto:'📷 Take photo of receipt',pickPhoto:'🖼 Choose from gallery / file',
   photosLbl:'Photos (proof)',noPhotos:'No photos yet.',expDesc:'Description *',expDescPh:'e.g. Diesel, hotel, meal, part…',
@@ -351,8 +438,9 @@ en:{tag:'Your invoicing app',email:'Email',pass:'Password',login:'Sign in',signu
   photoLoadErr:'Could not open this photo (no internet?)',
   cats:{fuel:'Fuel',food:'Meals',hotel:'Accommodation',travel:'Travel / transport',parts:'Parts / materials',tools:'Tools',parking:'Tolls / parking',other:'Other'}}
 };
-let L = localStorage.getItem('inv_lang') || 'pt';
-const t = k => (I18N[L] && I18N[L][k]) ?? I18N.pt[k] ?? k;
+const LANGS = ['pt','es','en'];
+let L = localStorage.getItem('inv_lang') || (navigator.languages||[navigator.language||'en']).map(x=>String(x).slice(0,2).toLowerCase()).find(x=>LANGS.includes(x)) || 'en';
+const t = k => (I18N[L] && I18N[L][k]) ?? I18N.en[k] ?? I18N.pt[k] ?? k;
 window.t = t; // acessível onde uma variável local "t" esconde esta função
 function setLang(l){ L=l; localStorage.setItem('inv_lang',l); applyLang();
   if(!document.getElementById('app').classList.contains('hidden')) go(S.view); }
@@ -364,6 +452,7 @@ function applyLang(){
   set('tab-lbl-inv',t('tInv')); set('tab-lbl-cal',t('tCal')); set('tab-lbl-cli',t('tCli')); set('tab-lbl-set',t('tSet')); set('tab-lbl-sum',t('tSum')); set('tab-lbl-exp',t('tExp'));
   document.getElementById('lang-pt').classList.toggle('on',L==='pt');
   document.getElementById('lang-en').classList.toggle('on',L==='en');
+  document.getElementById('lang-es').classList.toggle('on',L==='es');
   document.documentElement.lang = L;
 }
 
@@ -382,16 +471,16 @@ function authPT(msg){
   if(m.includes('anonymous')) return t('errFill');
   if(m.includes('invalid login credentials')) return t('errCreds');
   if(m.includes('already registered')) return t('errExists');
-  if(m.includes('at least 6')) return t('errPass');
+  if(m.includes('at least')) return t('errPass');
   if(m.includes('valid email') || m.includes('invalid format')) return t('errEmail');
   if(m.includes('rate limit') || m.includes('too many')) return t('errRate');
   return 'Erro: '+msg;
 }
-function authFields(){
+function authFields(signup){
   const email = lgv('lg-email'), pass = lgv('lg-pass');
   if(!email || !pass){ toast(t('errFill')); return null; }
   if(!/^\S+@\S+\.\S+$/.test(email)){ toast(t('errEmail')); return null; }
-  if(pass.length < 6){ toast(t('errPass')); return null; }
+  if(signup && pass.length < 8){ toast(t('errPass')); return null; }
   return {email, password: pass};
 }
 async function doLogin(){
@@ -401,7 +490,7 @@ async function doLogin(){
   boot(data.session);
 }
 async function doSignup(){
-  const f = authFields(); if(!f) return;
+  const f = authFields(true); if(!f) return;
   const {data,error} = await sb.auth.signUp(f);
   if(error){ toast(authPT(error.message)); return; }
   if(data.session) boot(data.session); else toast(t('created'));
@@ -428,7 +517,7 @@ function askNewPass(){
 }
 async function saveNewPass(inputId){
   const pass = document.getElementById(inputId).value;
-  if(pass.length < 6){ toast(t('errPass')); return; }
+  if(pass.length < 8){ toast(t('errPass')); return; }
   if(!navigator.onLine){ toast(t('needOnline')); return; }
   const {data, error} = await sb.auth.updateUser({password: pass});
   if(error){ toast(authPT(error.message)); return; }
@@ -466,12 +555,12 @@ async function loadAll(){
   if(!res || res.some(r=>r.error)){
     if(loadCache()){ S.offline = true; updateNetBadge(); return; }
     if(res){ toast('Erro: '+res.find(r=>r.error).error.message); }
-    S.settings = S.settings || {business_name:'',address:'',nif:'',iban:'',extra:'',default_vat:23};
+    S.settings = S.settings || {business_name:'',address:'',nif:'',iban:'',extra:'',default_vat:23,default_terms:'30',terms_rules:[]};
     return;
   }
   S.offline = false;
   const [st,cl,inv,bk,ex] = res;
-  S.settings = st.data || {user_id:S.user.id,business_name:'',address:'',nif:'',iban:'',extra:'',default_vat:23};
+  S.settings = st.data || {user_id:S.user.id,business_name:'',address:'',nif:'',iban:'',extra:'',default_vat:23,default_terms:'30',terms_rules:[]};
   S.clients = cl.data||[]; S.invoices = inv.data||[]; S.banks = bk.data||[]; S.expenses = ex.data||[];
   getQueue().forEach(applyLocal);
   saveCache();
@@ -631,7 +720,19 @@ function periodOf(inv){
 function addDaysISO(iso, n){ const [y,m,d] = iso.split('-').map(Number);
   const dt = new Date(y, m-1, d+n);
   return `${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,'0')}-${String(dt.getDate()).padStart(2,'0')}`; }
-function termsFor(number){ return /(^|[^A-Z])PD([^A-Z]|$)/i.test(number||'') ? 'week' : '30'; }
+// prazos: cada utilizador define o seu prazo por defeito e regras pelo número da fatura (Definições)
+const TERM_OPTS = ['week','7','14','30','45','60'];
+const termLbl = v => v==='week' ? t('termsWeek') : t('termsNDays').replace('{n}', v);
+const termOpts = sel => TERM_OPTS.map(v=>`<option value="${v}" ${sel===v?'selected':''}>${termLbl(v)}</option>`).join('');
+const termsRules = () => (S.settings && Array.isArray(S.settings.terms_rules)) ? S.settings.terms_rules : [];
+const reEsc = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+function termsFor(number){
+  for(const r of termsRules()){
+    const m = (r.match||'').trim();
+    if(m && new RegExp(`(^|[^A-Z])${reEsc(m)}([^A-Z]|$)`, 'i').test(number||'')) return r.terms || '30';
+  }
+  return (S.settings && S.settings.default_terms) || '30';
+}
 function dueOf(inv){
   if(inv.pay_terms){
     if(inv.pay_terms==='week'){
@@ -735,8 +836,7 @@ function invoiceForm(){
   <div class="row">
     <div style="flex:2"><label>${t('termsLbl')}</label>
       <select id="terms-sel" onchange="E.pay_terms=this.value; editInvoice._touched=true; syncTerms()">
-        ${[['week',t('termsWeek')],['7',t('terms7')],['14',t('terms14')],['30',t('terms30')],['custom',t('termsCustom')]]
-          .map(([v,l])=>`<option value="${v}" ${(E.pay_terms||'30')===v?'selected':''}>${l}</option>`).join('')}
+        ${termOpts(E.pay_terms||termsFor(E.number))}<option value="custom" ${E.pay_terms==='custom'?'selected':''}>${t('termsCustom')}</option>
       </select></div>
     <div id="days-box" class="${E.pay_terms==='custom'?'':'hidden'}" style="flex:1"><label>${t('daysLbl')}</label>
       <input type="number" inputmode="numeric" value="${E.pay_days||''}" oninput="E.pay_days=Number(this.value)||0; drawDue()"></div>
@@ -791,7 +891,7 @@ function invoiceForm(){
   <div class="row" style="margin-top:10px"><button class="btn-g" onclick="closeSheet()">${t('closeBtn')}</button></div>`;
 }
 function syncTerms(){
-  const s = document.getElementById('terms-sel'); if(s) s.value = E.pay_terms || '30';
+  const s = document.getElementById('terms-sel'); if(s) s.value = E.pay_terms || termsFor(E.number);
   const b = document.getElementById('days-box'); if(b) b.classList.toggle('hidden', E.pay_terms!=='custom');
   drawDue();
 }
@@ -883,6 +983,12 @@ const PDFL = {
       no:'Fatura nº',date:'Data',period:'Período',page:'Página',locale:'pt-PT',
       dueDate:'Vencimento',terms:'Prazo',termsWeek:'Pagamento na terça-feira da semana seguinte',termsDays:'{n} dias',
       fxwarn:'Valor em EUR indicativo, calculado com o câmbio do dia de emissão. A taxa pode ser diferente no dia do pagamento: confirme sempre o câmbio do dia.'},
+  es:{title:'FACTURA',from:'DE',to:'PARA',desc:'DESCRIPCIÓN',qty:'CANT.',price:'PRECIO UNIT.',total:'IMPORTE',
+      sub:'Subtotal',vat:'IVA',totalCur:'Total',conv:'Total en EUR',rate:'Tipo de cambio',due:'IMPORTE A PAGAR',
+      paid:'PAGADA',pay:'DATOS DE PAGO',bank:'Banco',holder:'Titular',nif:'NIF',notes:'NOTAS',
+      no:'Factura nº',date:'Fecha',period:'Periodo',page:'Página',locale:'es-ES',
+      dueDate:'Vencimiento',terms:'Plazo',termsWeek:'Pago el martes de la semana siguiente',termsDays:'{n} días',
+      fxwarn:'Importe en EUR orientativo, calculado con el tipo de cambio del día de emisión. El tipo puede ser distinto el día del pago: confirme siempre el cambio del día.'},
   en:{title:'INVOICE',from:'FROM',to:'BILL TO',desc:'DESCRIPTION',qty:'QTY',price:'UNIT PRICE',total:'AMOUNT',
       sub:'Subtotal',vat:'VAT',totalCur:'Total',conv:'Total in EUR',rate:'Exchange rate',due:'AMOUNT DUE',
       paid:'PAID',pay:'PAYMENT DETAILS',bank:'Bank',holder:'Account name',nif:'Tax ID',notes:'NOTES',
@@ -894,7 +1000,7 @@ function buildPDF(){
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({unit:'mm',format:'a4'});
   const c = clientOf(E)||{}; const st = S.settings; const T = invTotals(E);
-  const P = PDFL[c.language==='pt'?'pt':'en'];
+  const P = PDFL[c.language] || PDFL.en;
   const money = (v,cur) => new Intl.NumberFormat(P.locale,{style:'currency',currency:cur}).format(v||0);
   const hasId = v => { const x=(v||'').trim(); return x && x!=='0' && x!=='-'; };
   const W=210, H=297, M=18, CW=W-2*M;
@@ -1085,18 +1191,27 @@ function downloadPDF(){ buildPDF().save(pdfName()); toast(t('pdfDone')); }
 
 // ---------- EMAIL ----------
 function defaultTemplate(lang){
+  if(lang==='es') return `Buenas tardes,
+
+Adjunto la factura {numero}, por importe de {total}, con vencimiento el {vencimento}.
+
+Quedo a su disposición para cualquier consulta.
+
+Un saludo,
+{empresa}`;
   return lang==='pt'
    ? `Boa tarde,\n\nSegue em anexo a fatura {numero}, no valor de {total}, com vencimento a {vencimento}.\n\nQualquer questão, estou ao dispor.\n\nCumprimentos,\n{empresa}`
    : `Hello,\n\nPlease find attached invoice {numero} for {total}, due on {vencimento}.\n\nShould you have any questions, feel free to reach out.\n\nBest regards,\n{empresa}`;
 }
 function buildEmail(){
-  const c = clientOf(E)||{}; const lang = c.language==='pt'?'pt':'en';
+  const c = clientOf(E)||{}; const lang = ['pt','es'].includes(c.language) ? c.language : 'en';
   let body = (c.email_template&&c.email_template.trim()) ? c.email_template : defaultTemplate(lang);
   const total = E.convert_total&&S.fx&&E.due_mode!=='both' ? EUR(convertedTotal(E)) : totalLabel(E);
   body = body.replaceAll('{numero}',E.number).replaceAll('{total}',total)
     .replaceAll('{vencimento}',dmy(dueOf(E))).replaceAll('{empresa}',S.settings.business_name||'')
     .replaceAll('{cliente}',c.company||'');
   const subject = lang==='pt' ? `Fatura ${E.number} — ${S.settings.business_name||''}`
+                : lang==='es' ? `Factura ${E.number} — ${S.settings.business_name||''}`
                               : `Invoice ${E.number} — ${S.settings.business_name||''}`;
   return {subject, body, emails:(c.emails||[])};
 }
@@ -1308,7 +1423,7 @@ function rClients(){
   + S.clients.map(c=>`<div class="card inv-item" onclick="editClient('${c.id}')">
       <div><b>${esc(c.company)}</b>
         <div style="font-size:13px;color:var(--tx2)">${esc((c.emails||[]).join(', '))||t('noEmail')}</div></div>
-      <span class="badge" style="background:var(--bg2);color:var(--tx2)">${c.language==='pt'?'🇵🇹 PT':'🇬🇧 EN'}</span>
+      <span class="badge" style="background:var(--bg2);color:var(--tx2)">${({pt:'🇵🇹 PT',es:'🇪🇸 ES'})[c.language]||'🇬🇧 EN'}</span>
     </div>`).join('');
 }
 function editClient(id){
@@ -1324,8 +1439,9 @@ function editClient(id){
   <label>${t('cliNifLbl')}</label><input value="${esc(C.nif)}" oninput="C.nif=this.value">
   <label>${t('cliLangLbl')}</label>
   <select onchange="C.language=this.value">
-    <option value="en" ${C.language!=='pt'?'selected':''}>${t('langEN')}</option>
-    <option value="pt" ${C.language==='pt'?'selected':''}>${t('langPT')}</option></select>
+    <option value="en" ${!['pt','es'].includes(C.language)?'selected':''}>${t('langEN')}</option>
+    <option value="pt" ${C.language==='pt'?'selected':''}>${t('langPT')}</option>
+    <option value="es" ${C.language==='es'?'selected':''}>${t('langES')}</option></select>
   <label>${t('tplLbl')}</label>
   <textarea rows="7" placeholder="${t('tplPh')}"
     oninput="C.email_template=this.value">${esc(C.email_template)}</textarea>
@@ -1359,6 +1475,7 @@ function rSettings(){
     <label style="margin-top:0">${t('uiLang')}</label>
     <div class="chips" style="margin:4px 0 0">
       <span class="chip ${L==='pt'?'on':''}" onclick="setLang('pt')">🇵🇹 Português</span>
+      <span class="chip ${L==='es'?'on':''}" onclick="setLang('es')">🇪🇸 Español</span>
       <span class="chip ${L==='en'?'on':''}" onclick="setLang('en')">🇬🇧 English</span>
     </div>
   </div>
@@ -1370,6 +1487,18 @@ function rSettings(){
     <label>${t('setExtra')}</label><input id="st-extra" value="${esc(st.extra)}">
     <label>${t('setVat')}</label><input id="st-vat" type="number" value="${st.default_vat??23}">
     <div class="row" style="margin-top:16px"><button class="btn-p" onclick="saveSettings()">${t('save')}</button></div>
+  </div>
+  <div class="card">
+    <h3 style="margin-bottom:4px">${t('setTermsTitle')}</h3>
+    <label>${t('setTermsDefault')}</label>
+    <select onchange="saveTerms({default_terms:this.value})">${termOpts(st.default_terms||'30')}</select>
+    <label>${t('setRulesLbl')}</label>
+    ${termsRules().map((r,i)=>`<div class="row" style="margin-top:6px">
+      <input value="${esc(r.match||'')}" placeholder="${t('ruleMatchPh')}" onchange="setRule(${i},'match',this.value)">
+      <select onchange="setRule(${i},'terms',this.value)">${termOpts(r.terms||'30')}</select>
+      <button class="del-x" style="flex:none" onclick="delRule(${i})">✕</button></div>`).join('')}
+    <button class="btn-g" style="margin-top:8px" onclick="addRule()">${t('addRule')}</button>
+    <p class="hint">${t('setRulesHint')}</p>
   </div>
   <div class="card">
     <h3 style="margin-bottom:4px">${t('banksTitle')}</h3>
@@ -1412,7 +1541,8 @@ async function saveSettings(){
   const g = id=>document.getElementById(id).value;
   const rec = {user_id:S.user.id, business_name:g('st-name'), address:g('st-addr'),
     nif:g('st-nif'), iban:S.settings.iban||'', extra:g('st-extra'), default_vat:Number(g('st-vat'))||0,
-    exp_invoice:expInvOn(), line_presets:presets(), updated_at:new Date().toISOString()};
+    exp_invoice:expInvOn(), line_presets:presets(), default_terms:S.settings.default_terms||'30',
+    terms_rules:termsRules(), updated_at:new Date().toISOString()};
   let mode;
   try{ mode = await dbWrite('inv_settings','upsert',rec,S.user.id); }
   catch(e){ toast('Erro: '+(e.message||e)); return; }
@@ -1482,6 +1612,18 @@ async function delPreset(pid){
   if(!confirm(t('presetConfirmDel'))) return;
   try{ await writePresets(presets().filter(x=>x.id!==pid)); render(); }catch(e){ toast('Erro: '+(e.message||e)); }
 }
+async function saveTerms(patch, rerender){
+  const rec = {...S.settings, user_id:S.user.id, ...patch, updated_at:new Date().toISOString()};
+  let mode;
+  try{ mode = await dbWrite('inv_settings','upsert',rec,S.user.id); }
+  catch(e){ toast('Erro: '+(e.message||e)); return; }
+  S.settings = {...S.settings, ...patch};
+  if(rerender) render();
+  if(mode==='online') toast(t('savedSet'));
+}
+function setRule(i, k, v){ const rs = termsRules().map(r=>({...r})); rs[i][k] = k==='match' ? v.trim() : v; saveTerms({terms_rules:rs}); }
+function addRule(){ saveTerms({terms_rules:[...termsRules(), {match:'', terms:'week'}]}, true); }
+function delRule(i){ saveTerms({terms_rules:termsRules().filter((_,j)=>j!==i)}, true); }
 async function saveExpInv(on){
   const rec = {...S.settings, user_id:S.user.id, exp_invoice:!!on, updated_at:new Date().toISOString()};
   let mode;
@@ -1860,6 +2002,8 @@ async function buildReceiptsPDF(exps, inv){
   const lang = inv ? c.language : (c.language || L);
   const P = lang==='pt'
     ? {title:'RECIBOS DE DESPESAS', inv:'Fatura', date:'Data', desc:'Descrição', amt:'Valor', page:'Página', total:'Total', pdfNote:'(comprovativo em PDF, enviado à parte)'}
+    : lang==='es'
+    ? {title:'RECIBOS DE GASTOS', inv:'Factura', date:'Fecha', desc:'Descripción', amt:'Importe', page:'Página', total:'Total', pdfNote:'(justificante en PDF, enviado aparte)'}
     : {title:'EXPENSE RECEIPTS', inv:'Invoice', date:'Date', desc:'Description', amt:'Amount', page:'Page', total:'Total', pdfNote:'(PDF receipt, sent separately)'};
   const W = 210, H = 297, M = 16;
   doc.setFillColor(47,92,190); doc.rect(0,0,W,4,'F');
@@ -1872,7 +2016,7 @@ async function buildReceiptsPDF(exps, inv){
   doc.setFont('helvetica','bold'); doc.setFontSize(8.5); doc.setTextColor(255,255,255);
   doc.text('#', M+3, y+5.3); doc.text(P.date, M+12, y+5.3); doc.text(P.desc, M+38, y+5.3); doc.text(P.amt, W-M-3, y+5.3, {align:'right'});
   y += 8;
-  const loc = lang==='pt' ? 'pt-PT' : 'en-GB';
+  const loc = ({pt:'pt-PT', es:'es-ES'})[lang] || 'en-GB';
   const money = (v,cur) => new Intl.NumberFormat(loc,{style:'currency',currency:cur}).format(v||0);
   const tot = {EUR:0, GBP:0};
   exps.forEach((x,i)=>{
@@ -1933,14 +2077,14 @@ function downloadSelected(){
   const exps = S.expenses.filter(x=>ids.has(x.id) && (x.photos||[]).length);
   if(!exps.length){ toast(t('selEmpty')); return; }
   const name = exps.length===1
-    ? `${L==='pt'?'Recibo':'Receipt'}_${fileSafe(exps[0].description)}_${exps[0].exp_date||todayISO()}.pdf`
-    : `${L==='pt'?'Recibos':'Receipts'}_${todayISO()}_${exps.length}.pdf`;
+    ? `${L==='en'?'Receipt':'Recibo'}_${fileSafe(exps[0].description)}_${exps[0].exp_date||todayISO()}.pdf`
+    : `${L==='en'?'Receipts':'Recibos'}_${todayISO()}_${exps.length}.pdf`;
   savePhotosPdf(exps, name);
 }
 function downloadExpensePdf(){
   if(!X || !(X.photos||[]).length) return;
   savePhotosPdf([{...X, amount:Number(X.amount)||0}],
-    `${L==='pt'?'Recibo':'Receipt'}_${fileSafe(X.description)}_${X.exp_date||todayISO()}.pdf`);
+    `${L==='en'?'Receipt':'Recibo'}_${fileSafe(X.description)}_${X.exp_date||todayISO()}.pdf`);
 }
 applyLang();
 </script>
