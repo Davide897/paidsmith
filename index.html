@@ -173,6 +173,10 @@ label{color:var(--tx2);font-weight:600;letter-spacing:.2px}
 .sheet>div{background:linear-gradient(180deg,#121A35 0%,#0E1430 100%);border-top:1px solid rgba(231,181,78,.25)}
 .sel-bar{background:rgba(12,18,38,.96);border-top:1px solid rgba(231,181,78,.2)}
 .card.sel .sel-box{color:#1B1405}
+.sub-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 16px;font-size:13.5px;font-weight:600;
+  background:linear-gradient(90deg,rgba(231,181,78,.16),rgba(231,181,78,.05));border-bottom:1px solid rgba(231,181,78,.25);color:var(--acc2)}
+.sub-bar button{padding:7px 12px;font-size:13px;flex:none}
+.sub-bar.late{background:linear-gradient(90deg,rgba(255,107,107,.18),rgba(255,107,107,.05));border-color:rgba(255,107,107,.35);color:#FFC4C4}
 .toast{background:#141B33;border:1px solid rgba(231,181,78,.35);border-radius:14px}
 #login{margin-top:10vh}
 #login h1.brand{display:flex;align-items:center;gap:12px;font-size:30px;letter-spacing:-.3px;white-space:nowrap}
@@ -202,6 +206,9 @@ label{color:var(--tx2);font-weight:600;letter-spacing:.2px}
   <p id="lg-tag"></p>
   <label id="lg-l-email"></label><input id="lg-email" type="email" autocomplete="username">
   <label id="lg-l-pass"></label><input id="lg-pass" type="password" autocomplete="current-password">
+  <label id="lg-legal" class="hidden" style="display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:var(--tx2);margin-top:14px">
+    <input id="lg-legal-ok" type="checkbox" style="width:auto;margin-top:2px"><span id="lg-legal-txt"></span></label>
+  <div id="lg-captcha" class="hidden" style="margin-top:14px;min-height:65px"></div>
   <div style="margin-top:18px" class="row">
     <button class="btn-p" id="lg-btn-in" onclick="doLogin()"></button>
     <button class="btn-g" id="lg-btn-up" onclick="doSignup()"></button>
@@ -215,6 +222,7 @@ label{color:var(--tx2);font-weight:600;letter-spacing:.2px}
 <div id="app" class="hidden">
   <div id="topbar"><div style="display:flex;align-items:center;gap:8px"><h1 id="tb-title"></h1><span id="net-badge" class="hidden" style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:rgba(245,185,66,.18);color:var(--amber)"></span></div>
     <button class="btn-g" id="btn-logout" style="padding:7px 12px;font-size:13px" onclick="logout()"></button></div>
+  <div id="sub-bar" class="hidden"></div>
   <main>
     <div id="v-inv"></div>
     <div id="v-cal" class="hidden"></div>
@@ -331,6 +339,8 @@ pt:{tag:'A tua app de faturação',email:'Email',pass:'Password',login:'Entrar',
   expPdf:'⬇ Fotos desta despesa (PDF)',pdfBuilding:'A preparar o PDF…',
   photoUploading:'A enviar fotos…',photoPending:'{n} fotos por enviar',photoErr:'Erro a enviar foto: ',
   photoLoadErr:'Não deu para abrir esta foto (sem internet?)',
+  subTrialLeft:"Período experimental: faltam {n} dias",subSubscribe:"Subscrever",subPendingBar:"Pagamento enviado: à espera de confirmação",subExpiredBar:"O período experimental terminou. Podes ver e descarregar tudo; para criar ou alterar, subscreve.",subTitle:"Subscrição Paidsmith",subPitch:"Faturas, despesas com recibo, calendário de pagamentos e PDFs, sem limites.",subPriceLbl:"Preço",subPerMonth:"/ mês",subOrGbp:"ou {p} / mês no Reino Unido",subActiveUntil:"Subscrição ativa até",subCardTitle:"Cartão, Apple Pay ou Google Pay",subCardSoon:"Brevemente",subTransferTitle:"Transferência bancária",subPendingInfo:"Recebemos o teu aviso de pagamento ({amt}, referência <b>{ref}</b>). Assim que a transferência for confirmada, a subscrição fica ativa. Entretanto continuas a ter acesso.",subTransferOff:"A transferência ainda não está disponível.",subMonthsLbl:"Período",sub1m:"1 mês",subNm:"{n} meses",subAmount:"Valor a transferir",subGbpDetails:"Dados para transferência em libras",subHolder:"Titular",subBank:"Banco",subReference:"Referência",subTransferHint:"Põe a referência no descritivo da transferência. Depois toca no botão abaixo. A confirmação é feita à mão e pode demorar até 2 dias úteis; entretanto continuas a ter acesso.",subIPaid:"Já fiz a transferência",subAlreadyPending:"Já tens um pagamento à espera de confirmação.",subClaimSent:"Obrigado! Vamos confirmar a transferência.",subExtend:"Prolongar subscrição",subNeeded:"Para criar ou alterar, precisas de uma subscrição ativa.",admTitle:"Administração (só tu vês isto)",admHint:"Confirma aqui as transferências que receberes na tua conta. Ao confirmar, a subscrição do cliente é prolongada automaticamente.",admClaims:"Transferências por confirmar",admApprove:"Recebi ✓",admReject:"Não recebi",admNoClaims:"Nenhuma transferência por confirmar.",admBankTitle:"Os teus dados para receber (aparecem aos clientes)",admGbp:"Dados para receber em libras (opcional)",admPrice:"Preço mensal",admConfirmApprove:"Confirmas que recebeste esta transferência?",admConfirmReject:"Recusar este pagamento? O cliente volta a ficar sem acesso quando acabar o período.",admApproved:"Pagamento confirmado ✓",admRejected:"Pagamento recusado",
+  captchaWait:"Confirma primeiro que não és um robô (caixa acima).",legalAccept:"Li e aceito os {terms} e a {privacy}.",legalTerms:"Termos de Utilização",legalPrivacy:"Política de Privacidade",legalNeed:"Para criar conta tens de aceitar os Termos e a Política de Privacidade.",
   cats:{fuel:'Combustível',food:'Refeições',hotel:'Alojamento',travel:'Viagem / transporte',parts:'Peças / material',tools:'Ferramentas',parking:'Portagens / estacionamento',other:'Outro'}},
 es:{tag:'Tu app de facturación',email:'Email',pass:'Contraseña',login:'Entrar',signup:'Crear cuenta',
   hintLogin:'¿Primera vez? Escribe tu email y una contraseña y toca "Crear cuenta". Usa los mismos datos en el móvil y en el ordenador para ver las mismas facturas.',
@@ -417,6 +427,8 @@ es:{tag:'Tu app de facturación',email:'Email',pass:'Contraseña',login:'Entrar'
   expPdf:'⬇ Fotos de este gasto (PDF)',pdfBuilding:'Preparando el PDF…',
   photoUploading:'Subiendo fotos…',photoPending:'{n} fotos por subir',photoErr:'Error al subir la foto: ',
   photoLoadErr:'No se ha podido abrir esta foto (¿sin internet?)',
+  subTrialLeft:"Periodo de prueba: quedan {n} días",subSubscribe:"Suscribirse",subPendingBar:"Pago enviado: pendiente de confirmación",subExpiredBar:"El periodo de prueba ha terminado. Puedes ver y descargar todo; para crear o modificar, suscríbete.",subTitle:"Suscripción Paidsmith",subPitch:"Facturas, gastos con recibo, calendario de pagos y PDF, sin límites.",subPriceLbl:"Precio",subPerMonth:"/ mes",subOrGbp:"o {p} / mes en Reino Unido",subActiveUntil:"Suscripción activa hasta",subCardTitle:"Tarjeta, Apple Pay o Google Pay",subCardSoon:"Próximamente",subTransferTitle:"Transferencia bancaria",subPendingInfo:"Hemos recibido tu aviso de pago ({amt}, referencia <b>{ref}</b>). En cuanto se confirme la transferencia, la suscripción quedará activa. Mientras tanto sigues teniendo acceso.",subTransferOff:"La transferencia aún no está disponible.",subMonthsLbl:"Periodo",sub1m:"1 mes",subNm:"{n} meses",subAmount:"Importe a transferir",subGbpDetails:"Datos para transferencia en libras",subHolder:"Titular",subBank:"Banco",subReference:"Referencia",subTransferHint:"Pon la referencia en el concepto de la transferencia. Después toca el botón de abajo. La confirmación es manual y puede tardar hasta 2 días hábiles; mientras tanto sigues teniendo acceso.",subIPaid:"Ya he hecho la transferencia",subAlreadyPending:"Ya tienes un pago pendiente de confirmación.",subClaimSent:"¡Gracias! Vamos a confirmar la transferencia.",subExtend:"Ampliar suscripción",subNeeded:"Para crear o modificar necesitas una suscripción activa.",admTitle:"Administración (solo tú ves esto)",admHint:"Confirma aquí las transferencias que recibas. Al confirmar, la suscripción del cliente se amplía automáticamente.",admClaims:"Transferencias por confirmar",admApprove:"Recibido ✓",admReject:"No recibido",admNoClaims:"Ninguna transferencia por confirmar.",admBankTitle:"Tus datos para cobrar (los ven los clientes)",admGbp:"Datos para cobrar en libras (opcional)",admPrice:"Precio mensual",admConfirmApprove:"¿Confirmas que has recibido esta transferencia?",admConfirmReject:"¿Rechazar este pago? El cliente perderá el acceso al terminar el periodo.",admApproved:"Pago confirmado ✓",admRejected:"Pago rechazado",
+  captchaWait:"Confirma primero que no eres un robot (casilla de arriba).",legalAccept:"He leído y acepto los {terms} y la {privacy}.",legalTerms:"Términos de Uso",legalPrivacy:"Política de Privacidad",legalNeed:"Para crear la cuenta tienes que aceptar los Términos y la Política de Privacidad.",
   cats:{fuel:'Combustible',food:'Comidas',hotel:'Alojamiento',travel:'Viaje / transporte',parts:'Piezas / material',tools:'Herramientas',parking:'Peajes / aparcamiento',other:'Otro'}},
 en:{tag:'Your invoicing app',email:'Email',pass:'Password',login:'Sign in',signup:'Create account',
   hintLogin:'First time? Type your email and a password and tap "Create account". Use the same details on your phone and PC to see the same invoices.',
@@ -503,13 +515,15 @@ en:{tag:'Your invoicing app',email:'Email',pass:'Password',login:'Sign in',signu
   expPdf:'⬇ Photos of this expense (PDF)',pdfBuilding:'Preparing the PDF…',
   photoUploading:'Uploading photos…',photoPending:'{n} photos to upload',photoErr:'Photo upload error: ',
   photoLoadErr:'Could not open this photo (no internet?)',
+  subTrialLeft:"Free trial: {n} days left",subSubscribe:"Subscribe",subPendingBar:"Payment sent: awaiting confirmation",subExpiredBar:"Your free trial has ended. You can still view and download everything; subscribe to create or edit.",subTitle:"Paidsmith subscription",subPitch:"Invoices, expenses with receipts, payment calendar and PDFs, with no limits.",subPriceLbl:"Price",subPerMonth:"/ month",subOrGbp:"or {p} / month in the UK",subActiveUntil:"Subscription active until",subCardTitle:"Card, Apple Pay or Google Pay",subCardSoon:"Coming soon",subTransferTitle:"Bank transfer",subPendingInfo:"We got your payment notice ({amt}, reference <b>{ref}</b>). Your subscription becomes active as soon as the transfer is confirmed. You keep access in the meantime.",subTransferOff:"Bank transfer is not available yet.",subMonthsLbl:"Period",sub1m:"1 month",subNm:"{n} months",subAmount:"Amount to transfer",subGbpDetails:"Details for transfers in pounds",subHolder:"Account holder",subBank:"Bank",subReference:"Reference",subTransferHint:"Put the reference in the transfer description, then tap the button below. Confirmation is manual and can take up to 2 business days; you keep access in the meantime.",subIPaid:"I have made the transfer",subAlreadyPending:"You already have a payment awaiting confirmation.",subClaimSent:"Thank you! We will confirm the transfer.",subExtend:"Extend subscription",subNeeded:"You need an active subscription to create or edit.",admTitle:"Admin (only you see this)",admHint:"Confirm here the transfers you receive. On confirmation the subscription of the customer is extended automatically.",admClaims:"Transfers to confirm",admApprove:"Received ✓",admReject:"Not received",admNoClaims:"No transfers to confirm.",admBankTitle:"Your payout details (shown to customers)",admGbp:"Details for receiving pounds (optional)",admPrice:"Monthly price",admConfirmApprove:"Confirm you received this transfer?",admConfirmReject:"Reject this payment? The customer loses access when their period ends.",admApproved:"Payment confirmed ✓",admRejected:"Payment rejected",
+  captchaWait:"Please confirm you are not a robot first (box above).",legalAccept:"I have read and accept the {terms} and the {privacy}.",legalTerms:"Terms of Use",legalPrivacy:"Privacy Policy",legalNeed:"To create an account you must accept the Terms and the Privacy Policy.",
   cats:{fuel:'Fuel',food:'Meals',hotel:'Accommodation',travel:'Travel / transport',parts:'Parts / materials',tools:'Tools',parking:'Tolls / parking',other:'Other'}}
 };
 const LANGS = ['pt','es','en'];
 let L = localStorage.getItem('inv_lang') || (navigator.languages||[navigator.language||'en']).map(x=>String(x).slice(0,2).toLowerCase()).find(x=>LANGS.includes(x)) || 'en';
 const t = k => (I18N[L] && I18N[L][k]) ?? I18N.en[k] ?? I18N.pt[k] ?? k;
 window.t = t; // acessível onde uma variável local "t" esconde esta função
-function setLang(l){ L=l; localStorage.setItem('inv_lang',l); applyLang();
+function setLang(l){ L=l; localStorage.setItem('inv_lang',l); applyLang(); initLegal();
   if(!document.getElementById('app').classList.contains('hidden')) go(S.view); }
 function applyLang(){
   const set=(id,v)=>{ const e=document.getElementById(id); if(e) e.textContent=v; };
@@ -532,6 +546,38 @@ const todayISO = () => new Date().toISOString().slice(0,10);
 function toast(m){ const t=document.createElement('div'); t.className='toast'; t.textContent=m;
   document.body.appendChild(t); setTimeout(()=>t.remove(),2600); }
 
+// ---------- ANTI-BOT (Cloudflare Turnstile) ----------
+// Fica desligado enquanto TS_SITE_KEY estiver vazio. A chave do site é pública; a secreta vive só no Supabase.
+const TS_SITE_KEY = '';
+// Termos e Privacidade: só aparecem quando os documentos estiverem publicados.
+const LEGAL_READY = false;
+let tsWidget = null;
+function initCaptcha(){
+  if(!TS_SITE_KEY) return;
+  const box = document.getElementById('lg-captcha'); box.classList.remove('hidden');
+  const sc = document.createElement('script');
+  sc.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'; sc.async = true;
+  sc.onload = () => { tsWidget = turnstile.render(box, {sitekey:TS_SITE_KEY, theme:'dark', language:L}); };
+  document.head.appendChild(sc);
+}
+function captchaToken(){
+  if(!TS_SITE_KEY) return undefined;
+  const tok = window.turnstile && tsWidget !== null ? turnstile.getResponse(tsWidget) : '';
+  return tok || null;
+}
+function captchaReset(){ if(TS_SITE_KEY && window.turnstile && tsWidget !== null) turnstile.reset(tsWidget); }
+function captchaOpts(){
+  const tok = captchaToken();
+  if(tok === null){ toast(t('captchaWait')); return null; }
+  return tok ? {captchaToken: tok} : {};
+}
+function initLegal(){
+  if(!LEGAL_READY) return;
+  document.getElementById('lg-legal').classList.remove('hidden');
+  const lnk = (f, k) => `<a href="${f}?lang=${L}" target="_blank" rel="noopener" style="color:var(--acc)">${t(k)}</a>`;
+  document.getElementById('lg-legal-txt').innerHTML = t('legalAccept').replace('{terms}', lnk('terms.html','legalTerms')).replace('{privacy}', lnk('privacy.html','legalPrivacy'));
+}
+
 // ---------- AUTH ----------
 function authPT(msg){
   const m = (msg||'').toLowerCase();
@@ -552,13 +598,16 @@ function authFields(signup){
 }
 async function doLogin(){
   const f = authFields(); if(!f) return;
-  const {data,error} = await sb.auth.signInWithPassword(f);
+  const co = captchaOpts(); if(!co) return;
+  const {data,error} = await sb.auth.signInWithPassword({...f, options:co}); captchaReset();
   if(error){ toast(authPT(error.message)); return; }
   boot(data.session);
 }
 async function doSignup(){
   const f = authFields(true); if(!f) return;
-  const {data,error} = await sb.auth.signUp(f);
+  if(LEGAL_READY && !document.getElementById('lg-legal-ok').checked){ toast(t('legalNeed')); return; }
+  const co = captchaOpts(); if(!co) return;
+  const {data,error} = await sb.auth.signUp({...f, options:co}); captchaReset();
   if(error){ toast(authPT(error.message)); return; }
   if(data.session) boot(data.session); else mailNotice(t('created'));
 }
@@ -573,7 +622,8 @@ async function forgotPass(){
   const email = lgv('lg-email');
   if(!/^\S+@\S+\.\S+$/.test(email)){ toast(t('forgotNeedEmail')); return; }
   if(!navigator.onLine){ toast(t('needOnline')); return; }
-  const {error} = await sb.auth.resetPasswordForEmail(email, {redirectTo: location.origin + location.pathname});
+  const co = captchaOpts(); if(!co) return;
+  const {error} = await sb.auth.resetPasswordForEmail(email, {redirectTo: location.origin + location.pathname, ...co}); captchaReset();
   if(error){ toast(authPT(error.message)); return; }
   mailNotice(t('forgotSent'));
 }
@@ -637,6 +687,7 @@ async function loadAll(){
   S.clients = cl.data||[]; S.invoices = inv.data||[]; S.banks = bk.data||[]; S.expenses = ex.data||[];
   getQueue().forEach(applyLocal);
   saveCache();
+  loadBilling();
   if(!S.banks.length && (S.settings.iban||'').trim()){
     try{ await dbWrite('inv_banks','upsert',{id:newId(), user_id:S.user.id, label:'Principal',
       holder:S.settings.business_name||'', iban:S.settings.iban}); }catch(e){}
@@ -705,6 +756,7 @@ async function sendOp(op){
   if(r.error) throw r.error;
 }
 async function dbWrite(table, kind, rec, id){
+  if(table!=='inv_settings' && kind!=='delete' && !hasAccess()){ openPaywall(); throw new Error(t('subNeeded')); }
   const op = {table, kind, rec, id: id || (rec && rec.id)};
   applyLocal(op); saveCache();
   if(!getQueue().length && navigator.onLine){
@@ -762,8 +814,8 @@ function go(v){ S.view=v; S.eSel=null;
   document.getElementById('fab').classList.toggle('hidden', v==='cal'||v==='set'||v==='sum');
   render();
 }
-function fabClick(){ if(S.view==='cli') editClient(null); else if(S.view==='exp') editExpense(null); else editInvoice(null); }
-function render(){ if(S.view==='inv') rInvoices(); else if(S.view==='cal') rCalendar();
+function fabClick(){ if(!hasAccess()){ openPaywall(); return; } if(S.view==='cli') editClient(null); else if(S.view==='exp') editExpense(null); else editInvoice(null); }
+function render(){ drawSubBar(); if(S.view==='inv') rInvoices(); else if(S.view==='cal') rCalendar();
   else if(S.view==='exp') rExpenses();
   else if(S.view==='cli') rClients(); else if(S.view==='sum') rSummary(); else rSettings(); }
 
@@ -1543,7 +1595,7 @@ async function delClient(){
 // ---------- DEFINIÇÕES ----------
 function rSettings(){
   const st = S.settings;
-  document.getElementById('v-set').innerHTML = `
+  document.getElementById('v-set').innerHTML = `${subCard()}${adminCard()}
   <div class="card">
     <label style="margin-top:0">${t('uiLang')}</label>
     <div class="chips" style="margin:4px 0 0">
@@ -1703,6 +1755,137 @@ async function saveExpInv(on){
   try{ mode = await dbWrite('inv_settings','upsert',rec,S.user.id); }
   catch(e){ toast('Erro: '+(e.message||e)); return; }
   if(mode==='online') toast(t('savedSet'));
+}
+
+// ---------- SUBSCRIÇÃO ----------
+// 30 dias de experiência; depois 6,99 €/mês (ou £). Pagamento por transferência confirmado pelo admin.
+async function loadBilling(){
+  try{
+    const [sub, adm, cfg, cl] = await Promise.all([
+      sb.from('ps_subscriptions').select('*').eq('user_id', S.user.id).maybeSingle(),
+      sb.from('ps_admins').select('user_id').eq('user_id', S.user.id).maybeSingle(),
+      sb.from('ps_billing_config').select('*').eq('id', 1).maybeSingle(),
+      sb.from('ps_payment_claims').select('*').order('created_at', {ascending:false})
+    ]);
+    S.sub = sub.data || null; S.isAdmin = !!adm.data; S.billing = cfg.data || null; S.claims = cl.data || [];
+    S.billingLoaded = !sub.error;
+  }catch(e){ S.billingLoaded = false; }
+  drawSubBar();
+}
+const DAY = 864e5;
+function subState(){
+  if(!S.billingLoaded || S.isAdmin) return {access:true, kind:'none'};
+  const now = Date.now(), s = S.sub || {};
+  const paid = s.paid_until ? new Date(s.paid_until).getTime() : 0;
+  const trial = s.trial_ends_at ? new Date(s.trial_ends_at).getTime() : 0;
+  const mine = (S.claims||[]).filter(c=>c.user_id===S.user.id);
+  const pend = mine.find(c=>c.status==='pending');
+  if(paid > now) return {access:true, kind:'paid', until:s.paid_until, pend};
+  if(pend) return {access: now - new Date(pend.created_at).getTime() < 7*DAY, kind:'pending', pend};
+  if(trial > now) return {access:true, kind:'trial', days:Math.max(1, Math.ceil((trial-now)/DAY))};
+  return {access:false, kind:'expired'};
+}
+const hasAccess = () => subState().access;
+function drawSubBar(){
+  const el = document.getElementById('sub-bar'); if(!el) return;
+  const st = subState(); let h = '';
+  if(st.kind==='trial') h = `<span>${t('subTrialLeft').replace('{n}', st.days)}</span><button class="btn-p" onclick="openPaywall()">${t('subSubscribe')}</button>`;
+  else if(st.kind==='pending') h = `<span>${t('subPendingBar')}</span>`;
+  else if(st.kind==='expired') h = `<span>${t('subExpiredBar')}</span><button class="btn-p" onclick="openPaywall()">${t('subSubscribe')}</button>`;
+  el.innerHTML = h; el.className = h ? (st.kind==='expired' ? 'sub-bar late' : 'sub-bar') : 'hidden';
+}
+const PS_REF = () => 'PS-' + S.user.id.replace(/-/g,'').slice(0,8).toUpperCase();
+const PS_MONTHS = [1,3,12];
+function psPrice(cur){ const b = S.billing || {}; return Number(cur==='GBP' ? (b.price_gbp ?? 5.99) : (b.price_eur ?? 6.99)); }
+function psMoney(v, cur){ return new Intl.NumberFormat(t('locale'), {style:'currency', currency:cur}).format(v); }
+let PW = {months:1, cur:'EUR'};
+function openPaywall(){
+  const st = subState(), b = S.billing || {};
+  const canTransfer = !!(b.iban||'').trim();
+  const pend = st.pend;
+  openSheet(`
+  <h2>${t('subTitle')}</h2>
+  <p class="hint" style="font-size:14px;margin-top:6px">${t('subPitch')}</p>
+  <div class="banner" style="margin-top:12px"><span>${t('subPriceLbl')}</span>
+    <b>${psMoney(psPrice('EUR'),'EUR')} ${t('subPerMonth')}</b><span>${t('subOrGbp').replace('{p}', psMoney(psPrice('GBP'),'GBP'))}</span></div>
+  ${st.kind==='paid' ? `<p class="hint" style="color:var(--green)">${t('subActiveUntil')} ${dmy(st.until.slice(0,10))}</p>` : ''}
+  <h3 style="margin-top:18px">${t('subCardTitle')}</h3>
+  <button class="btn-g" style="width:100%;margin-top:8px;opacity:.6" disabled>${t('subCardSoon')}</button>
+  <h3 style="margin-top:18px">${t('subTransferTitle')}</h3>
+  ${pend ? `<div class="card" style="margin-top:8px">${t('subPendingInfo').replace('{ref}', esc(pend.reference)).replace('{amt}', psMoney(pend.amount, pend.currency))}</div>`
+  : !canTransfer ? `<p class="hint">${t('subTransferOff')}</p>`
+  : `<div class="row" style="margin-top:8px">
+      <div><label>${t('subMonthsLbl')}</label><select onchange="PW.months=Number(this.value);drawTransfer()">
+        ${PS_MONTHS.map(m=>`<option value="${m}" ${PW.months===m?'selected':''}>${m===1?t('sub1m'):t('subNm').replace('{n}',m)}</option>`).join('')}</select></div>
+      <div><label>${t('currencyLbl')}</label><select onchange="PW.cur=this.value;drawTransfer()">
+        <option ${PW.cur==='EUR'?'selected':''}>EUR</option>${(b.gbp_details||'').trim()?`<option ${PW.cur==='GBP'?'selected':''}>GBP</option>`:''}</select></div></div>
+    <div id="tr-box"></div>`}
+  <div class="row" style="margin-top:16px"><button class="btn-g" onclick="closeSheet()">${t('closeBtn')}</button></div>`);
+  if(canTransfer && !pend) drawTransfer();
+}
+function drawTransfer(){
+  const el = document.getElementById('tr-box'); if(!el) return;
+  const b = S.billing || {}, amt = +(psPrice(PW.cur) * PW.months).toFixed(2);
+  const row = (k, v) => v ? `<div class="tr"><span>${k}</span><b style="user-select:all;text-align:right">${esc(v)}</b></div>` : '';
+  el.innerHTML = `<div class="total-box">
+    ${row(t('subAmount'), psMoney(amt, PW.cur))}
+    ${PW.cur==='GBP' ? `<div class="tr" style="display:block"><span>${t('subGbpDetails')}</span><div style="white-space:pre-line;margin-top:4px;font-weight:700;user-select:all">${esc(b.gbp_details)}</div></div>`
+      : row(t('subHolder'), b.holder) + row('IBAN', b.iban) + row('BIC / SWIFT', b.bic) + row(t('subBank'), b.bank)}
+    ${row(t('subReference'), PS_REF())}</div>
+    <p class="hint">${t('subTransferHint')}</p>
+    <button class="btn-p" style="width:100%;margin-top:8px" onclick="claimTransfer(${amt})">${t('subIPaid')}</button>`;
+}
+async function claimTransfer(amt){
+  if(!navigator.onLine){ toast(t('needOnline')); return; }
+  const {error} = await sb.from('ps_payment_claims').insert({user_id:S.user.id, months:PW.months, amount:amt, currency:PW.cur, reference:PS_REF()});
+  if(error){ toast(/already_pending/.test(error.message) ? t('subAlreadyPending') : 'Erro: '+error.message); return; }
+  await loadBilling(); closeSheet(); toast(t('subClaimSent')); render();
+}
+// --- painel do administrador (só aparece para ti) ---
+function adminCard(){
+  if(!S.isAdmin) return '';
+  const b = S.billing || {}, pend = (S.claims||[]).filter(c=>c.status==='pending');
+  const f = (id, lbl, v, ph='') => `<label>${lbl}</label><input id="${id}" value="${esc(v||'')}" placeholder="${esc(ph)}">`;
+  return `<div class="card" style="border-color:rgba(231,181,78,.45)">
+    <h3 style="margin-bottom:4px">${t('admTitle')}</h3>
+    <p class="hint" style="margin-top:0">${t('admHint')}</p>
+    <h3 style="margin-top:14px;font-size:16px">${t('admClaims')} (${pend.length})</h3>
+    ${pend.length ? pend.map(c=>`<div class="card" style="margin-top:8px">
+        <b>${esc(c.email||'')}</b>
+        <div style="font-size:13px;color:var(--tx2)">${psMoney(c.amount, c.currency)} · ${c.months===1?t('sub1m'):t('subNm').replace('{n}',c.months)} · ${t('subReference')}: <b>${esc(c.reference)}</b> · ${dmy(c.created_at.slice(0,10))}</div>
+        <div class="row" style="margin-top:8px"><button class="btn-green" onclick="reviewClaim('${c.id}',true)">${t('admApprove')}</button>
+          <button class="btn-red" onclick="reviewClaim('${c.id}',false)">${t('admReject')}</button></div></div>`).join('')
+      : `<p class="hint">${t('admNoClaims')}</p>`}
+    <h3 style="margin-top:16px;font-size:16px">${t('admBankTitle')}</h3>
+    ${f('adm-holder', t('subHolder'), b.holder)}${f('adm-iban', 'IBAN', b.iban, 'LT00 0000 0000 0000 0000')}
+    ${f('adm-bic', 'BIC / SWIFT', b.bic)}${f('adm-bank', t('subBank'), b.bank, 'Revolut')}
+    <label>${t('admGbp')}</label><textarea id="adm-gbp" rows="3" placeholder="Account name / Sort code / Account number">${esc(b.gbp_details||'')}</textarea>
+    <div class="row">${['eur','gbp'].map(k=>`<div><label>${t('admPrice')} ${k.toUpperCase()}</label><input id="adm-p-${k}" type="number" step="0.01" value="${b['price_'+k] ?? ''}"></div>`).join('')}</div>
+    <div class="row" style="margin-top:14px"><button class="btn-p" onclick="saveBillingCfg()">${t('save')}</button></div></div>`;
+}
+async function saveBillingCfg(){
+  const g = id => document.getElementById(id).value.trim();
+  const rec = {holder:g('adm-holder'), iban:g('adm-iban').replace(/\s+/g,' '), bic:g('adm-bic'), bank:g('adm-bank'),
+    gbp_details:document.getElementById('adm-gbp').value.trim(), price_eur:Number(g('adm-p-eur'))||6.99, price_gbp:Number(g('adm-p-gbp'))||5.99,
+    updated_at:new Date().toISOString()};
+  const {error} = await sb.from('ps_billing_config').update(rec).eq('id', 1);
+  if(error){ toast('Erro: '+error.message); return; }
+  await loadBilling(); toast(t('savedSet')); render();
+}
+async function reviewClaim(id, ok){
+  if(!confirm(ok ? t('admConfirmApprove') : t('admConfirmReject'))) return;
+  const {error} = await sb.rpc('admin_review_claim', {claim_id:id, approve:ok});
+  if(error){ toast('Erro: '+error.message); return; }
+  await loadBilling(); toast(ok ? t('admApproved') : t('admRejected')); render();
+}
+function subCard(){
+  if(S.isAdmin) return '';
+  const st = subState();
+  const txt = st.kind==='trial' ? t('subTrialLeft').replace('{n}', st.days)
+    : st.kind==='paid' ? `${t('subActiveUntil')} ${dmy(st.until.slice(0,10))}`
+    : st.kind==='pending' ? t('subPendingBar') : t('subExpiredBar');
+  return `<div class="card"><h3 style="margin-bottom:4px">${t('subTitle')}</h3><p class="hint" style="margin-top:0;font-size:14px">${txt}</p>
+    <button class="btn-p" onclick="openPaywall()">${st.kind==='paid' ? t('subExtend') : t('subSubscribe')}</button></div>`;
 }
 
 // ---------- CONTAS BANCÁRIAS ----------
@@ -2160,6 +2343,7 @@ function downloadExpensePdf(){
     `${L==='en'?'Receipt':'Recibo'}_${fileSafe(X.description)}_${X.exp_date||todayISO()}.pdf`);
 }
 applyLang();
+initCaptcha(); initLegal();
 </script>
 </body>
 </html>
