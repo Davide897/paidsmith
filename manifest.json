@@ -1,7 +1,7 @@
 {
   "id": "./",
-  "name": "Invoices",
-  "short_name": "Invoices",
+  "name": "Paidsmith",
+  "short_name": "Paidsmith",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
