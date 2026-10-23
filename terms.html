@@ -19,7 +19,7 @@ h1{font:700 32px Fraunces,Georgia,serif;margin:28px 0 4px}h2{font:700 20px Fraun
 <script src="legal.js"></script>
 <script>
 const q = new URLSearchParams(location.search).get('lang');
-const lang = ['pt','es','en'].includes(q) ? q : (localStorage.getItem('inv_lang') || 'en');
+let lang = q || localStorage.getItem('inv_lang') || 'en'; if(!['pt','es','en'].includes(lang)) lang = 'en';
 const d = DOCS['terms'][lang];
 document.documentElement.lang = lang; document.title = d.title + ' · Paidsmith';
 document.getElementById('doc').innerHTML = '<h1>' + d.title + '</h1><p class="upd">' + ({pt:'Última atualização',es:'Última actualización',en:'Last updated'})[lang] + ': ' + OP.updated + '</p>' + d.body;
