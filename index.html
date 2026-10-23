@@ -177,6 +177,7 @@ label{color:var(--tx2);font-weight:600;letter-spacing:.2px}
   background:linear-gradient(90deg,rgba(231,181,78,.16),rgba(231,181,78,.05));border-bottom:1px solid rgba(231,181,78,.25);color:var(--acc2)}
 .sub-bar button{padding:7px 12px;font-size:13px;flex:none}
 .sub-bar.late{background:linear-gradient(90deg,rgba(255,107,107,.18),rgba(255,107,107,.05));border-color:rgba(255,107,107,.35);color:#FFC4C4}
+input[type=checkbox]{accent-color:var(--acc);width:18px;height:18px}
 .toast{background:#141B33;border:1px solid rgba(231,181,78,.35);border-radius:14px}
 #login{margin-top:10vh}
 #login h1.brand{display:flex;align-items:center;gap:12px;font-size:30px;letter-spacing:-.3px;white-space:nowrap}
@@ -204,15 +205,19 @@ label{color:var(--tx2);font-weight:600;letter-spacing:.2px}
     </div>
   </div>
   <p id="lg-tag"></p>
-  <label id="lg-l-email"></label><input id="lg-email" type="email" autocomplete="username">
-  <label id="lg-l-pass"></label><input id="lg-pass" type="password" autocomplete="current-password">
+  <form id="lg-form" autocomplete="on" onsubmit="event.preventDefault(); doLogin()">
+  <label id="lg-l-email" for="lg-email"></label><input id="lg-email" name="email" type="email" autocomplete="username" inputmode="email" autocapitalize="off" spellcheck="false">
+  <label id="lg-l-pass" for="lg-pass"></label><input id="lg-pass" name="password" type="password" autocomplete="current-password">
+  <label style="display:flex;gap:10px;align-items:center;font-size:14px;margin-top:12px;color:var(--tx2);font-weight:600">
+    <input id="lg-remember" type="checkbox" checked style="width:auto"><span id="lg-remember-lbl"></span></label>
   <label id="lg-legal" class="hidden" style="display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:var(--tx2);margin-top:14px">
     <input id="lg-legal-ok" type="checkbox" style="width:auto;margin-top:2px"><span id="lg-legal-txt"></span></label>
   <div id="lg-captcha" class="hidden" style="margin-top:14px;min-height:65px"></div>
   <div style="margin-top:18px" class="row">
-    <button class="btn-p" id="lg-btn-in" onclick="doLogin()"></button>
-    <button class="btn-g" id="lg-btn-up" onclick="doSignup()"></button>
+    <button class="btn-p" id="lg-btn-in" type="submit"></button>
+    <button class="btn-g" id="lg-btn-up" type="button" onclick="doSignup()"></button>
   </div>
+  </form>
   <div id="lg-mail" class="hidden" style="margin-top:14px;padding:12px 14px;border-radius:12px;border:1px solid var(--amber);background:rgba(245,185,66,.12);font-size:14px;line-height:1.5"></div>
   <p class="hint" id="lg-hint"></p>
   <p style="margin-top:14px"><a href="#" id="lg-forgot" onclick="forgotPass();return false" style="color:var(--acc);font-size:14px"></a></p>
@@ -341,6 +346,7 @@ pt:{tag:'A tua app de faturação',email:'Email',pass:'Password',login:'Entrar',
   photoLoadErr:'Não deu para abrir esta foto (sem internet?)',
   subTrialLeft:"Período experimental: faltam {n} dias",subSubscribe:"Subscrever",subPendingBar:"Pagamento enviado: à espera de confirmação",subExpiredBar:"O período experimental terminou. Podes ver e descarregar tudo; para criar ou alterar, subscreve.",subTitle:"Subscrição Paidsmith",subPitch:"Faturas, despesas com recibo, calendário de pagamentos e PDFs, sem limites.",subPriceLbl:"Preço",subPerMonth:"/ mês",subOrGbp:"ou {p} / mês no Reino Unido",subActiveUntil:"Subscrição ativa até",subCardTitle:"Cartão, Apple Pay ou Google Pay",subCardSoon:"Brevemente",subTransferTitle:"Transferência bancária",subPendingInfo:"Recebemos o teu aviso de pagamento ({amt}, referência <b>{ref}</b>). Assim que a transferência for confirmada, a subscrição fica ativa. Entretanto continuas a ter acesso.",subTransferOff:"A transferência ainda não está disponível.",subMonthsLbl:"Período",sub1m:"1 mês",subNm:"{n} meses",subAmount:"Valor a transferir",subGbpDetails:"Dados para transferência em libras",subHolder:"Titular",subBank:"Banco",subReference:"Referência",subTransferHint:"Põe a referência no descritivo da transferência. Depois toca no botão abaixo. A confirmação é feita à mão e pode demorar até 2 dias úteis; entretanto continuas a ter acesso.",subIPaid:"Já fiz a transferência",subAlreadyPending:"Já tens um pagamento à espera de confirmação.",subClaimSent:"Obrigado! Vamos confirmar a transferência.",subExtend:"Prolongar subscrição",subNeeded:"Para criar ou alterar, precisas de uma subscrição ativa.",admTitle:"Administração (só tu vês isto)",admHint:"Confirma aqui as transferências que receberes na tua conta. Ao confirmar, a subscrição do cliente é prolongada automaticamente.",admClaims:"Transferências por confirmar",admApprove:"Recebi ✓",admReject:"Não recebi",admNoClaims:"Nenhuma transferência por confirmar.",admBankTitle:"Os teus dados para receber (aparecem aos clientes)",admGbp:"Dados para receber em libras (opcional)",admPrice:"Preço mensal",admConfirmApprove:"Confirmas que recebeste esta transferência?",admConfirmReject:"Recusar este pagamento? O cliente volta a ficar sem acesso quando acabar o período.",admApproved:"Pagamento confirmado ✓",admRejected:"Pagamento recusado",
   captchaWait:"Confirma primeiro que não és um robô (caixa acima).",legalAccept:"Li e aceito os {terms} e a {privacy}.",legalTerms:"Termos de Utilização",legalPrivacy:"Política de Privacidade",legalNeed:"Para criar conta tens de aceitar os Termos e a Política de Privacidade.",
+  rememberMe:"Lembrar o meu email",
   cats:{fuel:'Combustível',food:'Refeições',hotel:'Alojamento',travel:'Viagem / transporte',parts:'Peças / material',tools:'Ferramentas',parking:'Portagens / estacionamento',other:'Outro'}},
 es:{tag:'Tu app de facturación',email:'Email',pass:'Contraseña',login:'Entrar',signup:'Crear cuenta',
   hintLogin:'¿Primera vez? Escribe tu email y una contraseña y toca "Crear cuenta". Usa los mismos datos en el móvil y en el ordenador para ver las mismas facturas.',
@@ -429,6 +435,7 @@ es:{tag:'Tu app de facturación',email:'Email',pass:'Contraseña',login:'Entrar'
   photoLoadErr:'No se ha podido abrir esta foto (¿sin internet?)',
   subTrialLeft:"Periodo de prueba: quedan {n} días",subSubscribe:"Suscribirse",subPendingBar:"Pago enviado: pendiente de confirmación",subExpiredBar:"El periodo de prueba ha terminado. Puedes ver y descargar todo; para crear o modificar, suscríbete.",subTitle:"Suscripción Paidsmith",subPitch:"Facturas, gastos con recibo, calendario de pagos y PDF, sin límites.",subPriceLbl:"Precio",subPerMonth:"/ mes",subOrGbp:"o {p} / mes en Reino Unido",subActiveUntil:"Suscripción activa hasta",subCardTitle:"Tarjeta, Apple Pay o Google Pay",subCardSoon:"Próximamente",subTransferTitle:"Transferencia bancaria",subPendingInfo:"Hemos recibido tu aviso de pago ({amt}, referencia <b>{ref}</b>). En cuanto se confirme la transferencia, la suscripción quedará activa. Mientras tanto sigues teniendo acceso.",subTransferOff:"La transferencia aún no está disponible.",subMonthsLbl:"Periodo",sub1m:"1 mes",subNm:"{n} meses",subAmount:"Importe a transferir",subGbpDetails:"Datos para transferencia en libras",subHolder:"Titular",subBank:"Banco",subReference:"Referencia",subTransferHint:"Pon la referencia en el concepto de la transferencia. Después toca el botón de abajo. La confirmación es manual y puede tardar hasta 2 días hábiles; mientras tanto sigues teniendo acceso.",subIPaid:"Ya he hecho la transferencia",subAlreadyPending:"Ya tienes un pago pendiente de confirmación.",subClaimSent:"¡Gracias! Vamos a confirmar la transferencia.",subExtend:"Ampliar suscripción",subNeeded:"Para crear o modificar necesitas una suscripción activa.",admTitle:"Administración (solo tú ves esto)",admHint:"Confirma aquí las transferencias que recibas. Al confirmar, la suscripción del cliente se amplía automáticamente.",admClaims:"Transferencias por confirmar",admApprove:"Recibido ✓",admReject:"No recibido",admNoClaims:"Ninguna transferencia por confirmar.",admBankTitle:"Tus datos para cobrar (los ven los clientes)",admGbp:"Datos para cobrar en libras (opcional)",admPrice:"Precio mensual",admConfirmApprove:"¿Confirmas que has recibido esta transferencia?",admConfirmReject:"¿Rechazar este pago? El cliente perderá el acceso al terminar el periodo.",admApproved:"Pago confirmado ✓",admRejected:"Pago rechazado",
   captchaWait:"Confirma primero que no eres un robot (casilla de arriba).",legalAccept:"He leído y acepto los {terms} y la {privacy}.",legalTerms:"Términos de Uso",legalPrivacy:"Política de Privacidad",legalNeed:"Para crear la cuenta tienes que aceptar los Términos y la Política de Privacidad.",
+  rememberMe:"Recordar mi email",
   cats:{fuel:'Combustible',food:'Comidas',hotel:'Alojamiento',travel:'Viaje / transporte',parts:'Piezas / material',tools:'Herramientas',parking:'Peajes / aparcamiento',other:'Otro'}},
 en:{tag:'Your invoicing app',email:'Email',pass:'Password',login:'Sign in',signup:'Create account',
   hintLogin:'First time? Type your email and a password and tap "Create account". Use the same details on your phone and PC to see the same invoices.',
@@ -517,6 +524,7 @@ en:{tag:'Your invoicing app',email:'Email',pass:'Password',login:'Sign in',signu
   photoLoadErr:'Could not open this photo (no internet?)',
   subTrialLeft:"Free trial: {n} days left",subSubscribe:"Subscribe",subPendingBar:"Payment sent: awaiting confirmation",subExpiredBar:"Your free trial has ended. You can still view and download everything; subscribe to create or edit.",subTitle:"Paidsmith subscription",subPitch:"Invoices, expenses with receipts, payment calendar and PDFs, with no limits.",subPriceLbl:"Price",subPerMonth:"/ month",subOrGbp:"or {p} / month in the UK",subActiveUntil:"Subscription active until",subCardTitle:"Card, Apple Pay or Google Pay",subCardSoon:"Coming soon",subTransferTitle:"Bank transfer",subPendingInfo:"We got your payment notice ({amt}, reference <b>{ref}</b>). Your subscription becomes active as soon as the transfer is confirmed. You keep access in the meantime.",subTransferOff:"Bank transfer is not available yet.",subMonthsLbl:"Period",sub1m:"1 month",subNm:"{n} months",subAmount:"Amount to transfer",subGbpDetails:"Details for transfers in pounds",subHolder:"Account holder",subBank:"Bank",subReference:"Reference",subTransferHint:"Put the reference in the transfer description, then tap the button below. Confirmation is manual and can take up to 2 business days; you keep access in the meantime.",subIPaid:"I have made the transfer",subAlreadyPending:"You already have a payment awaiting confirmation.",subClaimSent:"Thank you! We will confirm the transfer.",subExtend:"Extend subscription",subNeeded:"You need an active subscription to create or edit.",admTitle:"Admin (only you see this)",admHint:"Confirm here the transfers you receive. On confirmation the subscription of the customer is extended automatically.",admClaims:"Transfers to confirm",admApprove:"Received ✓",admReject:"Not received",admNoClaims:"No transfers to confirm.",admBankTitle:"Your payout details (shown to customers)",admGbp:"Details for receiving pounds (optional)",admPrice:"Monthly price",admConfirmApprove:"Confirm you received this transfer?",admConfirmReject:"Reject this payment? The customer loses access when their period ends.",admApproved:"Payment confirmed ✓",admRejected:"Payment rejected",
   captchaWait:"Please confirm you are not a robot first (box above).",legalAccept:"I have read and accept the {terms} and the {privacy}.",legalTerms:"Terms of Use",legalPrivacy:"Privacy Policy",legalNeed:"To create an account you must accept the Terms and the Privacy Policy.",
+  rememberMe:"Remember my email",
   cats:{fuel:'Fuel',food:'Meals',hotel:'Accommodation',travel:'Travel / transport',parts:'Parts / materials',tools:'Tools',parking:'Tolls / parking',other:'Other'}}
 };
 const LANGS = ['pt','es','en'];
@@ -528,7 +536,7 @@ function setLang(l){ L=l; localStorage.setItem('inv_lang',l); applyLang(); initL
 function applyLang(){
   const set=(id,v)=>{ const e=document.getElementById(id); if(e) e.textContent=v; };
   set('lg-tag',t('tag')); set('lg-l-email',t('email')); set('lg-l-pass',t('pass'));
-  set('lg-btn-in',t('login')); set('lg-btn-up',t('signup')); set('lg-hint',t('hintLogin'));
+  set('lg-btn-in',t('login')); set('lg-remember-lbl',t('rememberMe')); set('lg-btn-up',t('signup')); set('lg-hint',t('hintLogin'));
   set('btn-logout',t('logout')); set('lg-forgot',t('forgot'));
   set('tab-lbl-inv',t('tInv')); set('tab-lbl-cal',t('tCal')); set('tab-lbl-cli',t('tCli')); set('tab-lbl-set',t('tSet')); set('tab-lbl-sum',t('tSum')); set('tab-lbl-exp',t('tExp'));
   document.getElementById('lang-pt').classList.toggle('on',L==='pt');
@@ -578,6 +586,18 @@ function initLegal(){
   document.getElementById('lg-legal-txt').innerHTML = t('legalAccept').replace('{terms}', lnk('terms.html','legalTerms')).replace('{privacy}', lnk('privacy.html','legalPrivacy'));
 }
 
+// ---------- LEMBRAR ENTRADA ----------
+// O email fica na app; a password fica no gestor de passwords do aparelho (cifrado), nunca em localStorage.
+async function rememberLogin(f){
+  if(document.getElementById('lg-remember').checked) localStorage.setItem('inv_remember_email', f.email);
+  else localStorage.removeItem('inv_remember_email');
+  try{ if(window.PasswordCredential && navigator.credentials)
+    await navigator.credentials.store(new PasswordCredential({id:f.email, password:f.password, name:f.email})); }catch(e){}
+}
+function prefillLogin(){
+  const em = localStorage.getItem('inv_remember_email');
+  if(em){ document.getElementById('lg-email').value = em; document.getElementById('lg-remember').checked = true; }
+}
 // ---------- AUTH ----------
 function authPT(msg){
   const m = (msg||'').toLowerCase();
@@ -601,6 +621,7 @@ async function doLogin(){
   const co = captchaOpts(); if(!co) return;
   const {data,error} = await sb.auth.signInWithPassword({...f, options:co}); captchaReset();
   if(error){ toast(authPT(error.message)); return; }
+  await rememberLogin(f);
   boot(data.session);
 }
 async function doSignup(){
@@ -2344,7 +2365,7 @@ function downloadExpensePdf(){
     `${L==='en'?'Receipt':'Recibo'}_${fileSafe(X.description)}_${X.exp_date||todayISO()}.pdf`);
 }
 applyLang();
-initCaptcha(); initLegal();
+initCaptcha(); initLegal(); prefillLogin();
 </script>
 </body>
 </html>
