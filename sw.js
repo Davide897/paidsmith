@@ -1,4 +1,4 @@
-const CACHE = 'invoices-v7';
+const CACHE = 'invoices-v8';
 const SHELL = [
   './', './index.html', './manifest.json', './icon.png', './icon-192.png', './icon-512.png',
   'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.min.js',
