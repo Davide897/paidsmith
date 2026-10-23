@@ -1,6 +1,7 @@
-const CACHE = 'invoices-v9';
+const CACHE = 'invoices-v10';
 const SHELL = [
   './', './index.html', './manifest.json', './icon.png', './icon-192.png', './icon-512.png',
+  './icon-32.png', './favicon.svg', './logo.svg', './fonts/fraunces.woff2', './fonts/manrope.woff2',
   'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.min.js',
   'https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js'
 ];

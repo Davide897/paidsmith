@@ -5,19 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#16181d">
+<meta name="theme-color" content="#0B1020">
 <meta name="apple-mobile-web-app-title" content="Paidsmith">
 <title>Paidsmith</title>
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon.png">
-<link rel="icon" type="image/png" href="icon.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="icon-32.png">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.min.js" integrity="sha384-WgXwGL6fUsYJWNaKJgVbrJKGRQwc1vieh2oy4kw9nXqpNDz3tdSsqEYUgeHD/NuF" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js" integrity="sha384-JcnsjUPPylna1s1fvi1u12X5qjY5OL56iySh75FdtrwhO/SWXgMjoVqcKyIIWOLk" crossorigin="anonymous"></script>
 <style>
 :root{
-  --bg:#16181d; --bg2:#1e2128; --card:#23262e; --line:#30343e;
-  --tx:#e8eaf0; --tx2:#9aa0ad; --acc:#4f8cff;
-  --green:#2ecc71; --red:#ff5c5c; --amber:#f5b942;
+  --bg:#0B1020; --bg2:#10172C; --card:#141B33; --line:#232C4C;
+  --tx:#EEF0F7; --tx2:#8E97B5; --acc:#E7B54E; --acc2:#FBE3A1;
+  --gold:linear-gradient(135deg,#FBE3A1 0%,#E7B54E 50%,#B9862A 100%);
+  --green:#4ADE80; --red:#FF6B6B; --amber:#FF9F43;
 }
 *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
 html,body{margin:0;padding:0;background:var(--bg);color:var(--tx);
@@ -66,7 +68,7 @@ main{padding:16px;max-width:860px;margin:0 auto 90px}
 .lines-tbl td{padding:4px 3px;vertical-align:middle}
 .fab{position:fixed;right:18px;bottom:calc(72px + env(safe-area-inset-bottom));width:56px;height:56px;
   border-radius:50%;background:var(--acc);color:#fff;font-size:30px;line-height:1;z-index:15;
-  box-shadow:0 6px 18px rgba(79,140,255,.45)}
+  box-shadow:0 6px 18px rgba(231,181,78,.35)}
 .total-box{background:var(--bg2);border-radius:12px;padding:12px 14px;margin-top:12px}
 .total-box .tr{display:flex;justify-content:space-between;padding:3px 0;font-size:15px}
 .total-box .tr.big{font-size:18px;font-weight:700;border-top:1px solid var(--line);margin-top:6px;padding-top:9px}
@@ -87,7 +89,7 @@ main{padding:16px;max-width:860px;margin:0 auto 90px}
 .dot.paid{background:rgba(46,204,113,.2);color:var(--green)}
 .dot.due{background:rgba(245,185,66,.2);color:var(--amber)}
 .dot.late{background:rgba(255,92,92,.22);color:var(--red)}
-.dot.pay{background:rgba(79,140,255,.22);color:var(--acc);border:1px dashed var(--acc)}
+.dot.pay{background:rgba(231,181,78,.16);color:var(--acc);border:1px dashed var(--acc)}
 .legend{display:flex;gap:14px;margin-top:12px;font-size:12px;color:var(--tx2)}
 .legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px}
 #login{max-width:380px;margin:12vh auto;padding:0 20px}
@@ -119,6 +121,70 @@ main{padding:16px;max-width:860px;margin:0 auto 90px}
 .toast{position:fixed;top:calc(16px + env(safe-area-inset-top));left:50%;transform:translateX(-50%);
   background:#2a2e38;border:1px solid var(--line);color:var(--tx);padding:11px 20px;border-radius:12px;
   z-index:99;font-size:14px;box-shadow:0 8px 24px rgba(0,0,0,.5)}
+
+/* ===== Paidsmith · Selo, Noite e Ouro ===== */
+@font-face{font-family:'Fraunces';src:url(fonts/fraunces.woff2) format('woff2');font-weight:600 800;font-display:swap}
+@font-face{font-family:'Manrope';src:url(fonts/manrope.woff2) format('woff2');font-weight:400 800;font-display:swap}
+html,body{font-family:Manrope,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+html{background:radial-gradient(900px 520px at 0% -8%,#1B2650 0%,rgba(11,16,32,0) 62%),radial-gradient(700px 420px at 100% 0%,rgba(231,181,78,.07) 0%,rgba(11,16,32,0) 60%),var(--bg);background-attachment:fixed;min-height:100%}
+body{background:transparent;display:flow-root}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:700;letter-spacing:-.2px}
+button{border-radius:12px;font-weight:600;transition:transform .08s ease,filter .15s ease}
+button:active{transform:scale(.97)}
+.btn-p{background:var(--gold);color:#1B1405;font-weight:800;box-shadow:0 6px 18px rgba(231,181,78,.22)}
+.btn-p:hover{filter:brightness(1.06)}
+.btn-g{background:rgba(255,255,255,.035);border:1px solid var(--line);color:var(--tx)}
+.btn-g:hover{border-color:rgba(231,181,78,.45)}
+.btn-green{background:linear-gradient(135deg,#86EFAC,#22C55E);color:#052012}
+input,select,textarea{background:#0D1430;border:1px solid var(--line);border-radius:12px}
+input:focus,select:focus,textarea:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(231,181,78,.15)}
+label{color:var(--tx2);font-weight:600;letter-spacing:.2px}
+#topbar{background:rgba(11,16,32,.82);border-bottom:1px solid rgba(231,181,78,.14)}
+#topbar h1{font-size:21px;display:flex;align-items:center;gap:10px}
+#topbar h1::before{content:"";width:28px;height:28px;border-radius:8px;background:url(favicon.svg) center/cover;flex:none}
+#tabs{background:rgba(12,18,38,.92);border-top:1px solid rgba(231,181,78,.14)}
+#tabs button{font-weight:600;position:relative}
+#tabs button.on{color:var(--acc2)}
+#tabs button.on::before{content:"";position:absolute;top:0;left:30%;right:30%;height:2px;border-radius:2px;background:var(--gold)}
+.card{background:linear-gradient(180deg,#161E3A 0%,#121933 100%);border:1px solid var(--line);border-radius:16px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 8px 22px rgba(0,0,0,.22)}
+.inv-item{transition:border-color .15s ease,transform .08s ease}
+.inv-item:hover{border-color:rgba(231,181,78,.35)}
+.inv-item:active{transform:scale(.99)}
+.inv-item .amt>div:first-child{font-family:Fraunces,Georgia,serif;font-size:17px}
+.chip{background:rgba(255,255,255,.035);border:1px solid var(--line);font-weight:600}
+.chip.on{background:var(--gold);border-color:transparent;color:#1B1405}
+.badge{letter-spacing:.3px}
+.badge.paid{background:rgba(74,222,128,.13)}
+.badge.late{background:rgba(255,159,67,.15)}
+.banner{background:radial-gradient(420px 200px at 100% 0%,rgba(231,181,78,.16),rgba(0,0,0,0) 70%),linear-gradient(135deg,#1D2A52 0%,#0F1630 100%);
+  border:1px solid rgba(231,181,78,.28);border-radius:20px;padding:18px 18px;color:var(--tx2);
+  box-shadow:0 14px 34px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.06)}
+.banner b{display:block;font-family:Fraunces,Georgia,serif;font-size:30px;line-height:1.15;margin:4px 0 2px;
+  background:var(--gold);-webkit-background-clip:text;background-clip:text;color:transparent}
+.grp{color:var(--acc);opacity:.85;font-weight:700}
+.fab{border-radius:18px;background:var(--gold);color:#1B1405;font-weight:400;box-shadow:0 10px 26px rgba(231,181,78,.35)}
+.total-box{background:#0D1430;border:1px solid var(--line);border-radius:14px}
+.total-box .tr.big{font-family:Fraunces,Georgia,serif;color:var(--acc2)}
+.cal-wk.now{background:var(--gold);color:#1B1405}
+.cal-day{background:linear-gradient(180deg,#151D38,#121933)}
+.cal-day.wk-now{background:#1A2448}
+.sheet{background:rgba(3,6,16,.7);backdrop-filter:blur(4px)}
+.sheet>div{background:linear-gradient(180deg,#121A35 0%,#0E1430 100%);border-top:1px solid rgba(231,181,78,.25)}
+.sel-bar{background:rgba(12,18,38,.96);border-top:1px solid rgba(231,181,78,.2)}
+.card.sel .sel-box{color:#1B1405}
+.toast{background:#141B33;border:1px solid rgba(231,181,78,.35);border-radius:14px}
+#login{margin-top:10vh}
+#login h1.brand{display:flex;align-items:center;gap:12px;font-size:30px;letter-spacing:-.3px;white-space:nowrap}
+#login h1.brand img{width:52px;height:52px;border-radius:14px;box-shadow:0 10px 26px rgba(0,0,0,.45)}
+#login h1.brand .wm span{background:var(--gold);-webkit-background-clip:text;background-clip:text;color:transparent}
+#login p#lg-tag{font-size:15px;margin:10px 0 6px}
+#login .chips{flex-wrap:nowrap;gap:6px}
+#login .chip{padding:6px 11px;font-size:13px}
+.lines-tbl input,.lines-tbl select{padding:10px 7px;font-size:15px}
+.lines-tbl select{-webkit-appearance:none;appearance:none;text-align:center;text-align-last:center;padding:10px 4px}
+#login>div:first-child{flex-wrap:wrap;gap:14px;align-items:center!important}
+@media(min-width:900px){main{padding-top:24px}.card{border-radius:18px}}
 </style>
 </head>
 <body>
@@ -126,7 +192,7 @@ main{padding:16px;max-width:860px;margin:0 auto 90px}
 <!-- LOGIN -->
 <div id="login">
   <div style="display:flex;justify-content:space-between;align-items:flex-start">
-    <h1>PAIDSMITH</h1>
+    <h1 class="brand"><img src="favicon.svg" alt=""><span class="wm">Paid<span>smith</span></span></h1>
     <div class="chips" style="margin:0">
       <span class="chip" id="lang-pt" onclick="setLang('pt')">PT</span>
       <span class="chip" id="lang-es" onclick="setLang('es')">ES</span>
@@ -1696,7 +1762,7 @@ function expBadge(x){
   if(!x.billable) return `<span class="badge" style="background:var(--bg2);color:var(--tx2)">${t('bOwn')}</span>`;
   if(isExpPaid(x)) return `<span class="badge paid">${t('bExpPaid')}</span>`;
   const inv = invOf(x);
-  if(inv) return `<span class="badge" style="background:rgba(79,140,255,.18);color:var(--acc)">${t('bOnInv')} · ${esc(inv.number)}</span>`;
+  if(inv) return `<span class="badge" style="background:rgba(231,181,78,.16);color:var(--acc)">${t('bOnInv')} · ${esc(inv.number)}</span>`;
   return `<span class="badge late">${t('bOwed')}</span>`;
 }
 function sumByCur(list){ const s={EUR:0,GBP:0}; list.forEach(x=>{ s[x.currency==='GBP'?'GBP':'EUR'] += Number(x.amount)||0; });
