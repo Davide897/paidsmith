@@ -42,13 +42,11 @@ Deno.serve(async (req) => {
   const lang = (body.lang && body.lang in LANG ? body.lang : "en") as keyof typeof LANG;
 
   const admin = createClient(url, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
-  const since = new Date(Date.now() - 864e5).toISOString();
-  const mine = await admin.from("ps_ai_usage").select("id", { count: "exact", head: true })
-    .eq("user_id", user.id).gte("created_at", since);
-  if ((mine.count ?? 0) >= PER_USER_DAY) return json(req, { error: "limit" }, 429);
-  const all = await admin.from("ps_ai_usage").select("id", { count: "exact", head: true })
-    .gte("created_at", new Date(new Date().toISOString().slice(0, 10) + "T00:00:00Z").toISOString());
-  if ((all.count ?? 0) >= GLOBAL_DAY) return json(req, { error: "busy" }, 503);
+  // reserva atómica de uma vaga ANTES de chamar a IA (com bloqueio); qualquer erro recusa o pedido
+  const { data: slot, error: slotErr } = await admin.rpc("ps_ai_reserve", { uid: user.id, per_user: PER_USER_DAY, global_day: GLOBAL_DAY });
+  if (slotErr || typeof slot !== "number") return json(req, { error: "ai_unavailable" }, 503);
+  if (slot === -1) return json(req, { error: "limit" }, 429);
+  if (slot === -2) return json(req, { error: "busy" }, 503);
 
   const system = `És o assistente de ajuda da Paidsmith. Responde SEMPRE em ${LANG[lang]}, de forma curta, clara e prática (passos numerados quando ajudar).
 Usa APENAS o manual abaixo. O manual está em português: quando citares botões, separadores ou ecrãs, usa SEMPRE o nome exato na língua da resposta, tirado do glossário (formato: PT = ES: … = EN: …). Se a resposta não estiver no manual, diz que não sabes ou que a app ainda não faz isso, e sugere enviar uma mensagem em Ajuda > Enviar mensagem.
@@ -84,7 +82,7 @@ ${GLOSSARY}`;
   } finally { clearTimeout(timer); }
   }
 
-  await admin.from("ps_ai_usage").insert({ user_id: user.id, ok: !!answer });
+  if (answer) await admin.from("ps_ai_usage").update({ ok: true }).eq("id", slot);
   if (!answer) return json(req, { error: "ai_unavailable" }, 502);
   return json(req, { answer });
 });
