@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paidsmith</title><link rel="icon" type="image/svg+xml" href="favicon.svg"><meta name="theme-color" content="#0B1020">
+<style>
+@font-face{font-family:'Fraunces';src:url(fonts/fraunces.woff2) format('woff2');font-weight:600 800}
+@font-face{font-family:'Manrope';src:url(fonts/manrope.woff2) format('woff2');font-weight:400 800}
+html{background:radial-gradient(900px 520px at 0% -8%,#1B2650 0%,rgba(11,16,32,0) 62%),#0B1020;color:#EEF0F7}
+body{font-family:Manrope,system-ui,sans-serif;max-width:760px;margin:0 auto;padding:28px 20px 60px;line-height:1.6}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font:700 22px Fraunces,Georgia,serif;color:#EEF0F7;text-decoration:none}
+.brand img{width:36px;height:36px;border-radius:10px}.brand span{color:#E7B54E}
+nav a{color:#8E97B5;margin-left:10px;text-decoration:none;font-weight:700}nav a.on{color:#E7B54E}
+h1{font:700 32px Fraunces,Georgia,serif;margin:28px 0 4px}h2{font:700 20px Fraunces,Georgia,serif;margin:26px 0 6px;color:#FBE3A1}
+.upd{color:#8E97B5;font-size:14px}a{color:#E7B54E}li{margin:4px 0}
+</style></head><body>
+<header><a class="brand" href="./"><img src="favicon.svg" alt="">Paid<span>smith</span></a>
+<nav><a href="?lang=pt" data-l="pt">PT</a><a href="?lang=es" data-l="es">ES</a><a href="?lang=en" data-l="en">EN</a></nav></header>
+<main id="doc"></main>
+<script src="legal.js"></script>
+<script>
+const q = new URLSearchParams(location.search).get('lang');
+const lang = ['pt','es','en'].includes(q) ? q : (localStorage.getItem('inv_lang') || 'en');
+const d = DOCS['terms'][lang];
+document.documentElement.lang = lang; document.title = d.title + ' · Paidsmith';
+document.getElementById('doc').innerHTML = '<h1>' + d.title + '</h1><p class="upd">' + ({pt:'Última atualização',es:'Última actualización',en:'Last updated'})[lang] + ': ' + OP.updated + '</p>' + d.body;
+document.querySelectorAll('nav a').forEach(a => a.classList.toggle('on', a.dataset.l === lang));
+</script></body></html>

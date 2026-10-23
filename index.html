@@ -558,7 +558,7 @@ function toast(m){ const t=document.createElement('div'); t.className='toast'; t
 // Fica desligado enquanto TS_SITE_KEY estiver vazio. A chave do site é pública; a secreta vive só no Supabase.
 const TS_SITE_KEY = '0x4AAAAAAFi8qBJoDdfq6zLv';
 // Termos e Privacidade: só aparecem quando os documentos estiverem publicados.
-const LEGAL_READY = false;
+const LEGAL_READY = true;
 let tsWidget = null;
 function initCaptcha(){
   if(!TS_SITE_KEY) return;
@@ -1681,7 +1681,8 @@ function rSettings(){
     <label>${t('newPassLbl')}</label><input id="st-newpass" type="password" autocomplete="new-password">
     <div class="row" style="margin-top:14px"><button class="btn-g" onclick="saveNewPass('st-newpass')">${t('changePass')}</button></div>
   </div>
-  <p class="hint">${t('installHint')}</p>`;
+  <p class="hint">${t('installHint')}</p>
+  <p class="hint" style="text-align:center;margin-top:18px"><a href="terms.html?lang=${L}" target="_blank" rel="noopener" style="color:var(--acc)">${t('legalTerms')}</a> · <a href="privacy.html?lang=${L}" target="_blank" rel="noopener" style="color:var(--acc)">${t('legalPrivacy')}</a></p>`;
 }
 async function saveSettings(){
   const g = id=>document.getElementById(id).value;
