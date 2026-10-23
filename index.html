@@ -106,6 +106,13 @@ main{padding:16px;max-width:860px;margin:0 auto 90px}
 .ph-grid .del-x{position:absolute;top:-8px;right:-8px;background:var(--bg);border:1px solid var(--line);border-radius:50%;
   width:26px;height:26px;padding:0;font-size:13px}
 .cam-btn{width:100%;padding:16px;font-size:17px;font-weight:700}
+.sel-box{width:24px;height:24px;border-radius:7px;border:2px solid var(--tx2);flex:none;display:flex;
+  align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff}
+.card.sel{border-color:var(--acc)}
+.card.sel .sel-box{background:var(--acc);border-color:var(--acc)}
+.sel-bar{position:fixed;left:0;right:0;bottom:calc(58px + env(safe-area-inset-bottom));z-index:16;
+  background:rgba(22,24,29,.97);border-top:1px solid var(--line);padding:10px 16px;display:flex;gap:8px}
+.sel-bar button{flex:1;padding:12px 6px}
 .ph-view{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:60;display:flex;align-items:center;justify-content:center}
 .ph-view img{max-width:96vw;max-height:92vh;border-radius:8px}
 .toast{position:fixed;top:calc(16px + env(safe-area-inset-top));left:50%;transform:translateX(-50%);
@@ -250,6 +257,9 @@ pt:{tag:'A tua app de faturação',email:'Email',pass:'Password',login:'Entrar',
   billNow:'🧾 Criar fatura com {n} despesas por faturar',pickClientToBill:'Escolhe um cliente no filtro de cima para criar a fatura com as despesas dele.',
   addExpBtn:'+ Juntar despesas por faturar deste cliente ({n})',expLinked:'{n} despesas com prova nesta fatura',
   receiptsPdf:'⬇ Recibos das despesas (PDF)',receiptsTitle:'Recibos de despesas',receiptsFor:'Fatura',
+  selPdf:'☑ Escolher fotos para PDF',selHint:'Toca nas despesas que queres no PDF. Só aparecem as que têm fotos.',
+  selAll:'Todas',selNone:'Nenhuma',selCancel:'Cancelar',selDl:'⬇ PDF ({n})',selEmpty:'Escolhe pelo menos uma despesa.',
+  expPdf:'⬇ Fotos desta despesa (PDF)',pdfBuilding:'A preparar o PDF…',
   photoUploading:'A enviar fotos…',photoPending:'{n} fotos por enviar',photoErr:'Erro a enviar foto: ',
   photoLoadErr:'Não deu para abrir esta foto (sem internet?)',
   cats:{fuel:'Combustível',food:'Refeições',hotel:'Alojamento',travel:'Viagem / transporte',parts:'Peças / material',tools:'Ferramentas',parking:'Portagens / estacionamento',other:'Outro'}},
@@ -333,6 +343,9 @@ en:{tag:'Your invoicing app',email:'Email',pass:'Password',login:'Sign in',signu
   billNow:'🧾 Create invoice with {n} uninvoiced expenses',pickClientToBill:'Pick a client in the filter above to create an invoice with their expenses.',
   addExpBtn:'+ Add this client\'s uninvoiced expenses ({n})',expLinked:'{n} expenses with proof on this invoice',
   receiptsPdf:'⬇ Expense receipts (PDF)',receiptsTitle:'Expense receipts',receiptsFor:'Invoice',
+  selPdf:'☑ Pick photos for PDF',selHint:'Tap the expenses you want in the PDF. Only those with photos are shown.',
+  selAll:'All',selNone:'None',selCancel:'Cancel',selDl:'⬇ PDF ({n})',selEmpty:'Pick at least one expense.',
+  expPdf:'⬇ Photos of this expense (PDF)',pdfBuilding:'Preparing the PDF…',
   photoUploading:'Uploading photos…',photoPending:'{n} photos to upload',photoErr:'Photo upload error: ',
   photoLoadErr:'Could not open this photo (no internet?)',
   cats:{fuel:'Fuel',food:'Meals',hotel:'Accommodation',travel:'Travel / transport',parts:'Parts / materials',tools:'Tools',parking:'Tolls / parking',other:'Other'}}
@@ -579,7 +592,7 @@ if('serviceWorker' in navigator && location.protocol==='https:'){
 }
 
 // ---------- NAV ----------
-function go(v){ S.view=v;
+function go(v){ S.view=v; S.eSel=null;
   document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
   ['inv','cal','exp','cli','sum','set'].forEach(x=>document.getElementById('v-'+x).classList.toggle('hidden',x!==v));
   document.getElementById('tb-title').textContent = {inv:t('tInv'),cal:t('tCal'),exp:t('tExp'),cli:t('tCli'),sum:t('tSum'),set:t('tSet')}[v];
@@ -1561,19 +1574,38 @@ function rExpenses(){
     if(forCli.length) html += `<button class="btn-p" style="width:100%;margin-bottom:12px" onclick="billExpenses('${S.eClient}')">${t('billNow').replace('{n}',forCli.length)}</button>`;
     else if(!S.eClient && pend.length) html += `<p class="hint" style="margin:0 0 10px">${t('pickClientToBill')}</p>`;
   }
+  const sel = S.eSel;
+  if(sel){
+    list = list.filter(x=>(x.photos||[]).length);
+    html += `<p class="hint" style="margin:0 0 10px">${t('selHint')}</p>`;
+  } else if(S.expenses.some(x=>(x.photos||[]).length))
+    html += `<button class="btn-g" style="width:100%;margin-bottom:12px" onclick="S.eSel=new Set();render()">${t('selPdf')}</button>`;
   if(!list.length) html += `<div class="card" style="text-align:center;color:var(--tx2);padding:34px">${t('emptyExp')}</div>`;
   list.forEach(x=>{
     const c = S.clients.find(k=>k.id===x.client_id);
     const p = (x.photos||[])[0];
-    html += `<div class="card inv-item" style="gap:12px" onclick="editExpense('${x.id}')">
+    const on = sel && sel.has(x.id);
+    html += `<div class="card inv-item${on?' sel':''}" style="gap:12px" onclick="${sel?`toggleSel('${x.id}')`:`editExpense('${x.id}')`}">
+      ${sel?`<div class="sel-box">${on?'✓':''}</div>`:''}
       ${p?`<img class="thumb" data-path="${esc(p.path)}" alt="">`:`<div class="thumb ph">🧾</div>`}
       <div style="flex:1;min-width:0"><b>${esc(x.description)}</b>
         <div style="font-size:13px;color:var(--tx2)">${dmy(x.exp_date)}${x.category?' · '+esc(catName(x.category)):''}${c?' · '+esc(c.company):''}${(x.photos||[]).length>1?' · 📷'+x.photos.length:''}</div></div>
       <div class="amt"><div style="font-weight:700">${fmt(x.amount, x.currency)}</div>${expBadge(x)}</div></div>`;
   });
+  if(sel){
+    S.eSelList = list.map(x=>x.id);
+    const n = list.filter(x=>sel.has(x.id)).length, full = n===list.length && n>0;
+    html += `<div style="height:70px"></div><div class="sel-bar">
+      <button class="btn-g" onclick="selAll(${!full})">${full ? t('selNone') : t('selAll')}</button>
+      <button class="btn-g" onclick="S.eSel=null;render()">${t('selCancel')}</button>
+      <button class="btn-p" onclick="downloadSelected()">${t('selDl').replace('{n}',n)}</button></div>`;
+  }
+  document.getElementById('fab').classList.toggle('hidden', !!sel);
   el.innerHTML = html;
   fillThumbs(el);
 }
+function toggleSel(id){ const s = S.eSel; s.has(id) ? s.delete(id) : s.add(id); render(); }
+function selAll(on){ S.eSel = new Set(on ? S.eSelList : []); render(); }
 
 // --- fotos: guardar no aparelho primeiro, enviar quando houver rede ---
 let _idb = null;
@@ -1662,6 +1694,7 @@ function editExpense(id){
   <button class="btn-p cam-btn" onclick="document.getElementById('ph-cam').click()">${t('takePhoto')}</button>
   <button class="btn-g" style="width:100%;margin-top:8px" onclick="document.getElementById('ph-pick').click()">${t('pickPhoto')}</button>
   <div class="ph-grid" id="ph-grid"></div>
+  <div id="ph-pdf"></div>
   <label>${t('expDesc')}</label><input value="${esc(X.description)}" placeholder="${t('expDescPh')}" oninput="X.description=this.value">
   <div class="row">
     <div style="flex:2"><label>${t('amountLbl')}</label><input type="number" inputmode="decimal" step="0.01" value="${X.amount}" oninput="X.amount=this.value"></div>
@@ -1698,6 +1731,9 @@ function drawPhotos(){
       : `<div class="ph-it"><img data-path="${esc(p.path)}" onclick="viewPhoto('${esc(p.path)}')" alt=""><button class="del-x" onclick="rmPhoto(${i})">✕</button></div>`).join('')
     : `<p class="hint" style="margin:0">${t('noPhotos')}</p>`;
   fillThumbs(el);
+  const pb = document.getElementById('ph-pdf');
+  if(pb) pb.innerHTML = (X.photos||[]).length
+    ? `<button class="btn-g" style="width:100%;margin-top:10px" onclick="downloadExpensePdf()">${t('expPdf')}</button>` : '';
 }
 async function openPdfProof(path){
   try{ const b = await photoBlob(path); window.open(URL.createObjectURL(b), '_blank'); }catch(e){ toast(t('photoLoadErr')); }
@@ -1817,8 +1853,11 @@ const receiptsName = inv => `Receipts_${(inv.number||'').replace(/[^\w-]/g,'_')}
 async function buildReceiptsPDF(exps, inv){
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({unit:'mm', format:'a4'});
-  const c = (inv && clientOf(inv)) || {};
-  const P = c.language==='pt'
+  // sem fatura: usa o cliente se as despesas forem todas do mesmo, senão o idioma da app
+  const cids = [...new Set(exps.map(x=>x.client_id))];
+  const c = (inv ? clientOf(inv) : cids.length===1 && S.clients.find(k=>k.id===cids[0])) || {};
+  const lang = inv ? c.language : (c.language || L);
+  const P = lang==='pt'
     ? {title:'RECIBOS DE DESPESAS', inv:'Fatura', date:'Data', desc:'Descrição', amt:'Valor', page:'Página', total:'Total', pdfNote:'(comprovativo em PDF, enviado à parte)'}
     : {title:'EXPENSE RECEIPTS', inv:'Invoice', date:'Date', desc:'Description', amt:'Amount', page:'Page', total:'Total', pdfNote:'(PDF receipt, sent separately)'};
   const W = 210, H = 297, M = 16;
@@ -1832,7 +1871,7 @@ async function buildReceiptsPDF(exps, inv){
   doc.setFont('helvetica','bold'); doc.setFontSize(8.5); doc.setTextColor(255,255,255);
   doc.text('#', M+3, y+5.3); doc.text(P.date, M+12, y+5.3); doc.text(P.desc, M+38, y+5.3); doc.text(P.amt, W-M-3, y+5.3, {align:'right'});
   y += 8;
-  const loc = c.language==='pt' ? 'pt-PT' : 'en-GB';
+  const loc = lang==='pt' ? 'pt-PT' : 'en-GB';
   const money = (v,cur) => new Intl.NumberFormat(loc,{style:'currency',currency:cur}).format(v||0);
   const tot = {EUR:0, GBP:0};
   exps.forEach((x,i)=>{
@@ -1879,6 +1918,28 @@ async function downloadReceipts(){
   const exps = invoiceExpenses(E).filter(x=>(x.photos||[]).length);
   try{ (await buildReceiptsPDF(exps, E)).save(receiptsName(E)); toast(t('pdfDone')); }
   catch(e){ toast(t('photoLoadErr')); }
+}
+// --- PDF de fotos escolhidas na aba Despesas (uma ou várias, tudo num só PDF) ---
+const fileSafe = s => String(s||'').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^\w-]+/g,'_').replace(/^_+|_+$/g,'').slice(0,40);
+async function savePhotosPdf(exps, name){
+  exps = exps.slice().sort((a,b)=>(a.exp_date||'').localeCompare(b.exp_date||''));
+  toast(t('pdfBuilding'));
+  try{ (await buildReceiptsPDF(exps, null)).save(name); toast(t('pdfDone')); }
+  catch(e){ toast(t('photoLoadErr')); }
+}
+function downloadSelected(){
+  const ids = new Set((S.eSelList||[]).filter(id=>S.eSel && S.eSel.has(id)));
+  const exps = S.expenses.filter(x=>ids.has(x.id) && (x.photos||[]).length);
+  if(!exps.length){ toast(t('selEmpty')); return; }
+  const name = exps.length===1
+    ? `${L==='pt'?'Recibo':'Receipt'}_${fileSafe(exps[0].description)}_${exps[0].exp_date||todayISO()}.pdf`
+    : `${L==='pt'?'Recibos':'Receipts'}_${todayISO()}_${exps.length}.pdf`;
+  savePhotosPdf(exps, name);
+}
+function downloadExpensePdf(){
+  if(!X || !(X.photos||[]).length) return;
+  savePhotosPdf([{...X, amount:Number(X.amount)||0}],
+    `${L==='pt'?'Recibo':'Receipt'}_${fileSafe(X.description)}_${X.exp_date||todayISO()}.pdf`);
 }
 applyLang();
 </script>
