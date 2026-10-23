@@ -1430,6 +1430,10 @@ function buildPDF(){
     const left = [st.business_name, hasId(st.nif)?`${P.nif}: ${st.nif}`:'', st.extra].filter(Boolean).join('  ·  ');
     doc.text(doc.splitTextToSize(left, CW-30)[0]||'', M, H-9);
     doc.text(`${P.page} ${i}/${n}`, W-M, H-9, {align:'right'});
+    // marca discreta da Paidsmith (não aparece nas faturas do administrador)
+    if(!S.isAdmin){ font('normal',6.5); doc.setTextColor(190,194,204);
+      doc.text(({'pt-PT':'Criado com Paidsmith','es-ES':'Creado con Paidsmith'})[P.locale] || 'Made with Paidsmith', W-M, H-4.5, {align:'right'});
+      font('normal',7.5); col(MUTED); }
   }
   return doc;
 }
