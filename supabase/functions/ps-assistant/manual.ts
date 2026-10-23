@@ -4,7 +4,7 @@ export const MANUAL = `
 # Paidsmith — manual completo
 
 ## O que é
-A Paidsmith é uma app de faturação para trabalhadores independentes e pequenas empresas: cria faturas em PDF, regista despesas com fotografia do recibo, mostra prazos de pagamento num calendário e faz o resumo do ano. Funciona no navegador do computador, Android e iPhone, e pode ser instalada como app. Idiomas: português, espanhol e inglês (Definições > Língua da aplicação; os botões PT/ES/EN também estão no ecrã de entrada). Moedas: euro (€) e libra (£).
+A Paidsmith é uma app de faturação para trabalhadores independentes e pequenas empresas: cria faturas em PDF, regista despesas com fotografia do recibo, mostra prazos de pagamento num calendário e faz o resumo do ano. Funciona no navegador do computador, Android e iPhone, e pode ser instalada como app. Idiomas: português, espanhol, inglês, francês, alemão, italiano, romeno e turco (Definições > Língua da aplicação; também no seletor de língua do ecrã de entrada). Moedas: EUR, GBP, USD, CHF, PLN, RON, TRY, SEK, DKK, NOK, CZK e HUF.
 
 ## Conta e entrada
 - Criar conta: escrever email e password (mínimo 8 caracteres), marcar "Li e aceito os Termos e a Política de Privacidade", passar a caixa "Confirme que é humano" e tocar em "Criar conta". Chega um email de confirmação; é preciso abri-lo antes de entrar. Se não aparecer, procurar na pasta de spam/lixo e marcar como "não é spam".
@@ -26,10 +26,10 @@ Faturas · Calendário · Despesas · Clientes · Resumo · Definições. O bot�
 ## Faturas
 - Lista com o total "Por receber", número de faturas e quantas estão em atraso. Filtros: empresa e "Todas / Não pagas / Pagas". As faturas aparecem agrupadas por empresa, com o estado PAGA, NÃO PAGA ou ATRASADA.
 - Criar: botão "+" no separador Faturas. Campos: Cliente/Empresa, Número, Data, Início e Fim do trabalho (o calendário pinta os dias entre eles), Prazo de pagamento (terça-feira da semana seguinte, 7, 14, 30, 45, 60 dias ou outro nº de dias) — mostra "Vence a" com a data calculada.
-- Linhas: descrição, quantidade, preço e moeda (EUR ou GBP) por linha; "+ Linha" para acrescentar.
+- Linhas: descrição, quantidade, preço e moeda (12 moedas) por linha; "+ Linha" para acrescentar.
 - Linhas predefinidas: "💾 Guardar estas linhas como predefinidas" guarda as linhas atuais com um nome; podem ficar ligadas a um cliente e entram sozinhas em cada fatura nova desse cliente (só mudas o valor). "📋 Usar linhas predefinidas…" para as pôr à mão. Gerir em Definições > Linhas predefinidas.
 - IVA: "Sem IVA" ou "Com IVA" com a taxa em %. A taxa por defeito muda-se em Definições.
-- Faturas com libras: opção "Mostrar total convertido £ → € (câmbio de hoje)" e "Valor a pagar no PDF": só o total convertido em € ou os 2 valores (€ + £). O câmbio é indicativo.
+- Faturas noutras moedas: opção para mostrar também o total convertido em € (câmbio do dia, BCE) e "Valor a pagar no PDF": só o total convertido em € ou cada moeda à parte. O câmbio é indicativo.
 - Conta bancária para receber: escolhe qual das tuas contas aparece no PDF.
 - Notas: texto livre que aparece no PDF.
 - Guardar; Marcar PAGA ✓ / Marcar NÃO paga; Apagar fatura.
@@ -54,10 +54,10 @@ Mostra o mês com as faturas: paga (verde), a vencer (amarelo), em atraso (verme
 - Desligar despesas nas faturas: Definições > Despesas > "Juntar despesas às faturas".
 
 ## Clientes
-Criar com "+". Campos: Empresa, Nome de contacto, Emails (vários, separados por vírgula), Morada e NIF/VAT (opcionais, aparecem no PDF), Língua dos emails e da fatura (Português, Espanhol ou Inglês — o PDF e o email saem nessa língua), Texto do email para este cliente com variáveis {numero} {total} {vencimento} {empresa} {cliente}. Apagar cliente: as faturas ficam sem cliente associado.
+Criar com "+". Campos: Empresa, Nome de contacto, Emails (vários, separados por vírgula), Morada e NIF/VAT (opcionais, aparecem no PDF), Língua dos emails e da fatura (uma das 8 línguas da app — o PDF e o email saem nessa língua), Texto do email para este cliente com variáveis {numero} {total} {vencimento} {empresa} {cliente}. Apagar cliente: as faturas ficam sem cliente associado.
 
 ## Resumo
-Resumo do ano escolhido: Total faturado, Já pago (com %), A receber no prazo, Em atraso, Faturado este mês e Por empresa. Os valores são somados em €; as faturas em £ são convertidas ao câmbio de hoje. O ano conta pela data de emissão.
+Resumo do ano escolhido: Total faturado, Já pago (com %), A receber no prazo, Em atraso, Faturado este mês e Por empresa. Os valores são somados em €; as faturas noutras moedas são convertidas ao câmbio de hoje. O ano conta pela data de emissão.
 
 ## Definições
 - Subscrição: estado (período experimental, ativa até, pagamento por confirmar) e botão Subscrever.
@@ -82,7 +82,7 @@ A app funciona offline: o que guardares fica no aparelho e é enviado quando a l
 - Não é software de faturação certificado pela Autoridade Tributária portuguesa nem por outra administração fiscal. Em Portugal, quem está obrigado a software certificado ou ao Portal das Finanças continua a ter de emitir a fatura oficial lá. Cada utilizador é responsável pelas regras fiscais do seu país.
 - Não envia emails diretamente: usa a partilha/Mail do aparelho.
 - Não exporta para Excel/CSV, não liga a bancos, não faz contabilidade nem declarações de impostos, não faz assinaturas digitais.
-- Só euro e libra.
+- Moedas: só as 12 da lista (EUR, GBP, USD, CHF, PLN, RON, TRY, SEK, DKK, NOK, CZK, HUF).
 Se pedirem algo que não existe: dizer que ainda não existe e sugerir enviar a ideia em Ajuda > Enviar mensagem (Sugestão).
 
 ## Contactos
@@ -91,56 +91,61 @@ Ajuda > Enviar mensagem (Bug, Sugestão, Pergunta) — resposta pela equipa. Ema
 
 // Nomes reais dos botões e ecrãs em cada língua (gerado a partir da app).
 export const GLOSSARY = `
-Faturas = ES: Facturas = EN: Invoices
-Calendário = ES: Calendario = EN: Calendar
-Despesas = ES: Gastos = EN: Expenses
-Clientes = ES: Clientes = EN: Clients
-Resumo = ES: Resumen = EN: Summary
-Definições = ES: Ajustes = EN: Settings
-Nova fatura = ES: Nueva factura = EN: New invoice
-⬇ Descarregar PDF = ES: ⬇ Descargar PDF = EN: ⬇ Download PDF
-✉ Enviar por email = ES: ✉ Enviar por email = EN: ✉ Send by email
-✉ Abrir Mail só com texto (destinatários preenchidos) = ES: ✉ Abrir Mail solo con texto (destinatarios rellenados) = EN: ✉ Open Mail with text only (recipients pre-filled)
-Marcar PAGA ✓ = ES: Marcar PAGADA ✓ = EN: Mark as PAID ✓
-Marcar NÃO paga = ES: Marcar NO pagada = EN: Mark as UNPAID
-+ Linha = ES: + Línea = EN: + Line
-💾 Guardar estas linhas como predefinidas = ES: 💾 Guardar estas líneas como predefinidas = EN: 💾 Save these lines as a preset
-📋 Usar linhas predefinidas… = ES: 📋 Usar líneas predefinidas… = EN: 📋 Use preset lines…
-⬇ Recibos das despesas (PDF) = ES: ⬇ Recibos de los gastos (PDF) = EN: ⬇ Expense receipts (PDF)
-+ Juntar despesas por faturar deste cliente ({n}) = ES: + Añadir gastos por facturar de este cliente ({n}) = EN: + Add this client's uninvoiced expenses ({n})
-📷 Tirar foto ao recibo = ES: 📷 Hacer foto al recibo = EN: 📷 Take photo of receipt
-🖼 Escolher da galeria / ficheiro = ES: 🖼 Elegir de la galería / archivo = EN: 🖼 Choose from gallery / file
-☑ Escolher fotos para PDF = ES: ☑ Elegir fotos para PDF = EN: ☑ Pick photos for PDF
-⬇ Fotos desta despesa (PDF) = ES: ⬇ Fotos de este gasto (PDF) = EN: ⬇ Photos of this expense (PDF)
-Marcar PAGA ✓ = ES: Marcar COBRADO ✓ = EN: Mark as PAID ✓
-Por receber = ES: Por cobrar = EN: Owed
-Pagas = ES: Cobrados = EN: Paid
-Minhas (não cobrar) = ES: Míos (no cobrar) = EN: Mine (not charged)
-Todas = ES: Todas = EN: All
-Subscrever = ES: Suscribirse = EN: Subscribe
-Já fiz a transferência = ES: Ya he hecho la transferencia = EN: I have made the transfer
-Ajuda, bugs e sugestões = ES: Ayuda, errores y sugerencias = EN: Help, bugs and ideas
-Enviar = ES: Enviar = EN: Send
-Bug = ES: Error = EN: Bug
-Sugestão = ES: Sugerencia = EN: Idea
-Pergunta = ES: Pregunta = EN: Question
-Prazos de pagamento = ES: Plazos de pago = EN: Payment terms
-Contas bancárias = ES: Cuentas bancarias = EN: Bank accounts
-Linhas predefinidas = ES: Líneas predefinidas = EN: Preset lines
-Mudar password = ES: Cambiar contraseña = EN: Change password
-Esqueci-me da password = ES: He olvidado mi contraseña = EN: Forgot password
-Criar conta = ES: Crear cuenta = EN: Create account
-Entrar = ES: Entrar = EN: Sign in
-Lembrar o meu email = ES: Recordar mi email = EN: Remember my email
-Língua da aplicação = ES: Idioma de la aplicación = EN: App language
-Os teus dados (aparecem em todos os PDFs) = ES: Tus datos (aparecen en todos los PDF) = EN: Your details (shown on every PDF)
-Prazo de pagamento = ES: Plazo de pago = EN: Payment terms
-Mostrar total convertido £ → € (câmbio de hoje) = ES: Mostrar total convertido £ → € (cambio de hoy) = EN: Show converted total £ → € (today's rate)
-Valor a pagar no PDF = ES: Importe a pagar en el PDF = EN: Amount due on the PDF
-Conta bancária para receber (aparece no PDF) = ES: Cuenta bancaria para cobrar (aparece en el PDF) = EN: Bank account to receive payment (shown on the PDF)
-🧾 Criar fatura com {n} despesas por faturar = ES: 🧾 Crear factura con {n} gastos por facturar = EN: 🧾 Create invoice with {n} uninvoiced expenses
-Juntar despesas às faturas = ES: Añadir gastos a las facturas = EN: Add expenses to invoices
-Língua dos emails e da fatura = ES: Idioma de los emails y de la factura = EN: Language for emails and the invoice
-Texto do email para este cliente (escreves uma vez, fica gravado) = ES: Texto del email para este cliente (lo escribes una vez y queda guardado) = EN: Email text for this client (write it once, it stays saved)
-Resumo do ano = ES: Resumen del año = EN: Year summary
+PT: Faturas = ES: Facturas = EN: Invoices = FR: Factures = DE: Rechnungen = IT: Fatture = RO: Facturi = TR: Faturalar
+PT: Calendário = ES: Calendario = EN: Calendar = FR: Calendrier = DE: Kalender = IT: Calendario = RO: Calendar = TR: Takvim
+PT: Despesas = ES: Gastos = EN: Expenses = FR: Dépenses = DE: Ausgaben = IT: Spese = RO: Cheltuieli = TR: Giderler
+PT: Clientes = ES: Clientes = EN: Clients = FR: Clients = DE: Kunden = IT: Clienti = RO: Clienți = TR: Müşteriler
+PT: Resumo = ES: Resumen = EN: Summary = FR: Récapitulatif = DE: Übersicht = IT: Riepilogo = RO: Rezumat = TR: Özet
+PT: Definições = ES: Ajustes = EN: Settings = FR: Paramètres = DE: Einstellungen = IT: Impostazioni = RO: Setări = TR: Ayarlar
+PT: Nova fatura = ES: Nueva factura = EN: New invoice = FR: Nouvelle facture = DE: Neue Rechnung = IT: Nuova fattura = RO: Factură nouă = TR: Yeni fatura
+PT: ⬇ Descarregar PDF = ES: ⬇ Descargar PDF = EN: ⬇ Download PDF = FR: ⬇ Télécharger le PDF = DE: ⬇ PDF herunterladen = IT: ⬇ Scarica PDF = RO: ⬇ Descarcă PDF = TR: ⬇ PDF indir
+PT: ✉ Enviar por email = ES: ✉ Enviar por email = EN: ✉ Send by email = FR: ✉ Envoyer par e-mail = DE: ✉ Per E-Mail senden = IT: ✉ Invia per email = RO: ✉ Trimite pe email = TR: ✉ E-postayla gönder
+PT: ✉ Abrir Mail só com texto (destinatários preenchidos) = ES: ✉ Abrir Mail solo con texto (destinatarios rellenados) = EN: ✉ Open Mail with text only (recipients pre-filled) = FR: ✉ Ouvrir Mail avec le texte seul (destinataires préremplis) = DE: ✉ Mail nur mit Text öffnen (Empfänger vorausgefüllt) = IT: ✉ Apri Mail solo con il testo (destinatari già inseriti) = RO: ✉ Deschide Mail doar cu text (destinatari completați) = TR: ✉ Mail'i yalnızca metinle aç (alıcılar dolu)
+PT: Marcar PAGA ✓ = ES: Marcar PAGADA ✓ = EN: Mark as PAID ✓ = FR: Marquer comme PAYÉE ✓ = DE: Als BEZAHLT markieren ✓ = IT: Segna come PAGATA ✓ = RO: Marchează ca PLĂTITĂ ✓ = TR: ÖDENDİ olarak işaretle ✓
+PT: Marcar NÃO paga = ES: Marcar NO pagada = EN: Mark as UNPAID = FR: Marquer comme IMPAYÉE = DE: Als UNBEZAHLT markieren = IT: Segna come NON PAGATA = RO: Marchează ca NEPLĂTITĂ = TR: ÖDENMEDİ olarak işaretle
+PT: + Linha = ES: + Línea = EN: + Line = FR: + Ligne = DE: + Position = IT: + Riga = RO: + Linie = TR: + Kalem
+PT: 💾 Guardar estas linhas como predefinidas = ES: 💾 Guardar estas líneas como predefinidas = EN: 💾 Save these lines as a preset = FR: 💾 Enregistrer ces lignes comme modèle = DE: 💾 Diese Positionen als Vorlage speichern = IT: 💾 Salva queste righe come predefinite = RO: 💾 Salvează aceste linii ca predefinite = TR: 💾 Bu kalemleri hazır şablon olarak kaydet
+PT: 📋 Usar linhas predefinidas… = ES: 📋 Usar líneas predefinidas… = EN: 📋 Use preset lines… = FR: 📋 Utiliser des lignes prédéfinies… = DE: 📋 Vorlagenpositionen verwenden… = IT: 📋 Usa righe predefinite… = RO: 📋 Folosește linii predefinite… = TR: 📋 Hazır kalemleri kullan…
+PT: ⬇ Recibos das despesas (PDF) = ES: ⬇ Recibos de los gastos (PDF) = EN: ⬇ Expense receipts (PDF) = FR: ⬇ Justificatifs de dépenses (PDF) = DE: ⬇ Ausgabenbelege (PDF) = IT: ⬇ Ricevute delle spese (PDF) = RO: ⬇ Bonurile cheltuielilor (PDF) = TR: ⬇ Gider fişleri (PDF)
+PT: + Juntar despesas por faturar deste cliente ({n}) = ES: + Añadir gastos por facturar de este cliente ({n}) = EN: + Add this client's uninvoiced expenses ({n}) = FR: + Ajouter les dépenses non facturées de ce client ({n}) = DE: + Nicht abgerechnete Ausgaben dieses Kunden hinzufügen ({n}) = IT: + Aggiungi le spese non fatturate di questo cliente ({n}) = RO: + Adaugă cheltuielile nefacturate ale acestui client ({n}) = TR: + Bu müşterinin faturalanmamış giderlerini ekle ({n})
+PT: 📷 Tirar foto ao recibo = ES: 📷 Hacer foto al recibo = EN: 📷 Take photo of receipt = FR: 📷 Photographier le justificatif = DE: 📷 Beleg fotografieren = IT: 📷 Fotografa la ricevuta = RO: 📷 Fă o poză bonului = TR: 📷 Fişin fotoğrafını çek
+PT: 🖼 Escolher da galeria / ficheiro = ES: 🖼 Elegir de la galería / archivo = EN: 🖼 Choose from gallery / file = FR: 🖼 Choisir dans la galerie / un fichier = DE: 🖼 Aus Galerie / Datei wählen = IT: 🖼 Scegli dalla galleria / file = RO: 🖼 Alege din galerie / fișier = TR: 🖼 Galeriden / dosyadan seç
+PT: ☑ Escolher fotos para PDF = ES: ☑ Elegir fotos para PDF = EN: ☑ Pick photos for PDF = FR: ☑ Choisir les photos pour le PDF = DE: ☑ Fotos für PDF auswählen = IT: ☑ Scegli le foto per il PDF = RO: ☑ Alege poze pentru PDF = TR: ☑ PDF için fotoğraf seç
+PT: ⬇ Fotos desta despesa (PDF) = ES: ⬇ Fotos de este gasto (PDF) = EN: ⬇ Photos of this expense (PDF) = FR: ⬇ Photos de cette dépense (PDF) = DE: ⬇ Fotos dieser Ausgabe (PDF) = IT: ⬇ Foto di questa spesa (PDF) = RO: ⬇ Pozele acestei cheltuieli (PDF) = TR: ⬇ Bu giderin fotoğrafları (PDF)
+PT: Marcar PAGA ✓ = ES: Marcar COBRADO ✓ = EN: Mark as PAID ✓ = FR: Marquer comme PAYÉE ✓ = DE: Als BEZAHLT markieren ✓ = IT: Segna come PAGATA ✓ = RO: Marchează ca PLĂTITĂ ✓ = TR: ÖDENDİ olarak işaretle ✓
+PT: Por receber = ES: Por cobrar = EN: Owed = FR: Dues = DE: Offen = IT: Da ricevere = RO: De încasat = TR: Alacak
+PT: Pagas = ES: Cobrados = EN: Paid = FR: Payées = DE: Bezahlt = IT: Pagate = RO: Plătite = TR: Ödenmiş
+PT: Minhas (não cobrar) = ES: Míos (no cobrar) = EN: Mine (not charged) = FR: Les miennes (non refacturées) = DE: Eigene (nicht berechnet) = IT: Mie (non addebitate) = RO: Ale mele (nu se refacturează) = TR: Benim (yansıtılmayan)
+PT: Todas = ES: Todas = EN: All = FR: Toutes = DE: Alle = IT: Tutte = RO: Toate = TR: Tümü
+PT: Subscrever = ES: Suscribirse = EN: Subscribe = FR: S'abonner = DE: Abonnieren = IT: Abbonati = RO: Abonează-te = TR: Abone ol
+PT: Já fiz o pagamento = ES: Ya he pagado = EN: I have paid = FR: J'ai payé = DE: Ich habe bezahlt = IT: Ho pagato = RO: Am plătit = TR: Ödemeyi yaptım
+PT: Cartão, Apple Pay, Google Pay ou Revolut = ES: Tarjeta, Apple Pay, Google Pay o Revolut = EN: Card, Apple Pay, Google Pay or Revolut = FR: Carte, Apple Pay, Google Pay ou Revolut = DE: Karte, Apple Pay, Google Pay oder Revolut = IT: Carta, Apple Pay, Google Pay o Revolut = RO: Card, Apple Pay, Google Pay sau Revolut = TR: Kart, Apple Pay, Google Pay veya Revolut
+PT: Ajuda, bugs e sugestões = ES: Ayuda, errores y sugerencias = EN: Help, bugs and ideas = FR: Aide, bugs et idées = DE: Hilfe, Fehler und Ideen = IT: Aiuto, bug e idee = RO: Ajutor, erori și idei = TR: Yardım, hatalar ve fikirler
+PT: Enviar = ES: Enviar = EN: Send = FR: Envoyer = DE: Senden = IT: Invia = RO: Trimite = TR: Gönder
+PT: Bug = ES: Error = EN: Bug = FR: Bug = DE: Fehler = IT: Bug = RO: Eroare = TR: Hata
+PT: Sugestão = ES: Sugerencia = EN: Idea = FR: Idée = DE: Idee = IT: Idea = RO: Idee = TR: Fikir
+PT: Pergunta = ES: Pregunta = EN: Question = FR: Question = DE: Frage = IT: Domanda = RO: Întrebare = TR: Soru
+PT: Ajuda = ES: Ayuda = EN: Help = FR: Aide = DE: Hilfe = IT: Aiuto = RO: Ajutor = TR: Yardım
+PT: ✉ Enviar mensagem = ES: ✉ Enviar mensaje = EN: ✉ Send a message = FR: ✉ Envoyer un message = DE: ✉ Nachricht senden = IT: ✉ Invia un messaggio = RO: ✉ Trimite un mesaj = TR: ✉ Mesaj gönder
+PT: Prazos de pagamento = ES: Plazos de pago = EN: Payment terms = FR: Conditions de paiement = DE: Zahlungsziele = IT: Termini di pagamento = RO: Termene de plată = TR: Ödeme vadeleri
+PT: Contas bancárias = ES: Cuentas bancarias = EN: Bank accounts = FR: Comptes bancaires = DE: Bankkonten = IT: Conti bancari = RO: Conturi bancare = TR: Banka hesapları
+PT: Linhas predefinidas = ES: Líneas predefinidas = EN: Preset lines = FR: Lignes prédéfinies = DE: Vorlagenpositionen = IT: Righe predefinite = RO: Linii predefinite = TR: Hazır kalemler
+PT: Mudar password = ES: Cambiar contraseña = EN: Change password = FR: Changer le mot de passe = DE: Passwort ändern = IT: Cambia password = RO: Schimbă parola = TR: Şifreyi değiştir
+PT: Esqueci-me da password = ES: He olvidado mi contraseña = EN: Forgot password = FR: Mot de passe oublié = DE: Passwort vergessen = IT: Password dimenticata = RO: Am uitat parola = TR: Şifremi unuttum
+PT: Criar conta = ES: Crear cuenta = EN: Create account = FR: Créer un compte = DE: Konto erstellen = IT: Crea account = RO: Creează cont = TR: Hesap oluştur
+PT: Entrar = ES: Entrar = EN: Sign in = FR: Se connecter = DE: Anmelden = IT: Accedi = RO: Conectează-te = TR: Giriş yap
+PT: Lembrar o meu email = ES: Recordar mi email = EN: Remember my email = FR: Se souvenir de mon e-mail = DE: E-Mail merken = IT: Ricorda la mia email = RO: Ține minte emailul meu = TR: E-postamı hatırla
+PT: Língua da aplicação = ES: Idioma de la aplicación = EN: App language = FR: Langue de l'application = DE: App-Sprache = IT: Lingua dell'app = RO: Limba aplicației = TR: Uygulama dili
+PT: Os teus dados (aparecem em todos os PDFs) = ES: Tus datos (aparecen en todos los PDF) = EN: Your details (shown on every PDF) = FR: Vos coordonnées (affichées sur chaque PDF) = DE: Ihre Daten (erscheinen auf jedem PDF) = IT: I tuoi dati (compaiono in ogni PDF) = RO: Datele tale (apar pe fiecare PDF) = TR: Bilgileriniz (her PDF'te görünür)
+PT: Prazo de pagamento = ES: Plazo de pago = EN: Payment terms = FR: Conditions de paiement = DE: Zahlungsziel = IT: Termini di pagamento = RO: Termen de plată = TR: Ödeme vadesi
+PT: Mostrar também o total convertido em € (câmbio de hoje) = ES: Mostrar también el total convertido a € (cambio de hoy) = EN: Also show the total converted to € (today's rate) = FR: Afficher aussi le total converti en € (taux du jour) = DE: Gesamtbetrag zusätzlich in € anzeigen (heutiger Kurs) = IT: Mostra anche il totale convertito in € (cambio di oggi) = RO: Afișează și totalul convertit în € (cursul de azi) = TR: € cinsine çevrilmiş toplamı da göster (bugünkü kur)
+PT: Valor a pagar no PDF = ES: Importe a pagar en el PDF = EN: Amount due on the PDF = FR: Montant dû sur le PDF = DE: Fälliger Betrag im PDF = IT: Importo da pagare nel PDF = RO: Suma de plată pe PDF = TR: PDF'teki ödenecek tutar
+PT: Conta bancária para receber (aparece no PDF) = ES: Cuenta bancaria para cobrar (aparece en el PDF) = EN: Bank account to receive payment (shown on the PDF) = FR: Compte bancaire de réception du paiement (affiché sur le PDF) = DE: Bankkonto für den Zahlungseingang (erscheint im PDF) = IT: Conto bancario per ricevere il pagamento (compare nel PDF) = RO: Contul bancar pentru încasare (apare pe PDF) = TR: Ödemenin alınacağı banka hesabı (PDF'te görünür)
+PT: 🧾 Criar fatura com {n} despesas por faturar = ES: 🧾 Crear factura con {n} gastos por facturar = EN: 🧾 Create invoice with {n} uninvoiced expenses = FR: 🧾 Créer une facture avec {n} dépenses non facturées = DE: 🧾 Rechnung mit {n} nicht abgerechneten Ausgaben erstellen = IT: 🧾 Crea fattura con {n} spese non fatturate = RO: 🧾 Creează factură cu {n} cheltuieli nefacturate = TR: 🧾 Faturalanmamış giderlerle fatura oluştur ({n})
+PT: Juntar despesas às faturas = ES: Añadir gastos a las facturas = EN: Add expenses to invoices = FR: Ajouter les dépenses aux factures = DE: Ausgaben zu Rechnungen hinzufügen = IT: Aggiungi le spese alle fatture = RO: Adaugă cheltuielile pe facturi = TR: Giderleri faturalara ekle
+PT: Língua dos emails e da fatura = ES: Idioma de los emails y de la factura = EN: Language for emails and the invoice = FR: Langue des e-mails et de la facture = DE: Sprache für E-Mails und Rechnung = IT: Lingua delle email e della fattura = RO: Limba emailurilor și a facturii = TR: E-postaların ve faturanın dili
+PT: Texto do email para este cliente (escreves uma vez, fica gravado) = ES: Texto del email para este cliente (lo escribes una vez y queda guardado) = EN: Email text for this client (write it once, it stays saved) = FR: Texte de l'e-mail pour ce client (à écrire une fois, il reste enregistré) = DE: E-Mail-Text für diesen Kunden (einmal schreiben, bleibt gespeichert) = IT: Testo dell'email per questo cliente (lo scrivi una volta e resta salvato) = RO: Textul emailului pentru acest client (îl scrii o dată și rămâne salvat) = TR: Bu müşteri için e-posta metni (bir kez yazın, kayıtlı kalır)
+PT: Resumo do ano = ES: Resumen del año = EN: Year summary = FR: Récapitulatif de l'année = DE: Jahresübersicht = IT: Riepilogo dell'anno = RO: Rezumatul anului = TR: Yıllık özet
+PT: Moeda = ES: Moneda = EN: Currency = FR: Devise = DE: Währung = IT: Valuta = RO: Monedă = TR: Para birimi
+PT: Ver o tutorial outra vez = ES: Ver el tutorial otra vez = EN: Show the tutorial again = FR: Revoir le tutoriel = DE: Tutorial erneut anzeigen = IT: Mostra di nuovo il tutorial = RO: Arată din nou tutorialul = TR: Eğitimi yeniden göster
 `;
