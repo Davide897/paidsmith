@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://dsqgaajxaswetbctxigt.supabase.co; font-src 'self' data:; connect-src 'self' https://dsqgaajxaswetbctxigt.supabase.co wss://dsqgaajxaswetbctxigt.supabase.co https://api.frankfurter.dev https://open.er-api.com; frame-src https://challenges.cloudflare.com; worker-src 'self' blob:; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -58,7 +58,8 @@ main{padding:16px;max-width:860px;margin:0 auto 90px}
   color:var(--tx2);font-size:14px;cursor:pointer}
 .chip.on{background:var(--acc);border-color:var(--acc);color:#fff}
 .row{display:flex;gap:10px;align-items:center}
-.row>*{flex:1}
+.row>*{flex:1;min-width:0}
+input,select,textarea{max-width:100%;min-width:0}
 .inv-item{display:flex;justify-content:space-between;align-items:center;cursor:pointer}
 .inv-item .amt{text-align:right;white-space:nowrap}
 .badge{display:inline-block;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:700}
@@ -145,6 +146,8 @@ button:active{transform:scale(.97)}
 .btn-green{background:linear-gradient(135deg,#86EFAC,#22C55E);color:#052012}
 input,select,textarea{background:#0D1430;border:1px solid var(--line);border-radius:12px}
 input:focus,select:focus,textarea:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(231,181,78,.15)}
+#sheet h2[tabindex="-1"]:focus{outline:none}
+[role=button]:focus-visible,button:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid #E7B54E;outline-offset:2px}
 label{color:var(--tx2);font-weight:600;letter-spacing:.2px}
 #topbar{background:rgba(11,16,32,.82);border-bottom:1px solid rgba(231,181,78,.14)}
 #topbar h1{font-size:21px;display:flex;align-items:center;gap:10px}
@@ -320,7 +323,7 @@ body.standalone .lp-auth{background:none;border:none;box-shadow:none;padding:0}
   </div>
 </div>
 
-<div id="sheet" class="sheet hidden"><div id="sheet-body"></div></div>
+<div id="sheet" class="sheet hidden" role="dialog" aria-modal="true" aria-labelledby="sheet-title"><div id="sheet-body"></div></div>
 
 <script>
 const SB_URL = "https://dsqgaajxaswetbctxigt.supabase.co";
@@ -376,6 +379,7 @@ const curParts = totals => CURRENCIES.filter(c=>totals[c]).map(c=>fmt(totals[c],
 const rateTxt = c => S.rates && S.rates[c] ? `1 ${c} = ${(1/S.rates[c]).toFixed(4)} EUR` : '';
 const dmy = d => { if(!d) return '—'; const [y,m,dd]=d.split('-'); return `${dd}/${m}/${y}`; };
 const esc = s => String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+const ja = v => esc(JSON.stringify(String(v ?? '')));   // argumento seguro dentro de onclick="..."
 const todayISO = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; };
 function toast(m){ const t=document.createElement('div'); t.className='toast'; t.textContent=m;
   document.body.appendChild(t); setTimeout(()=>t.remove(),2600); }
@@ -480,7 +484,7 @@ function lgv(id){ return document.getElementById(id).value.trim(); }
 async function logout(){
   if(S.user){
     let photos = 0; try{ photos = (await idbKeys()).filter(k=>String(k).startsWith(S.user.id+'/')).length; }catch(e){}
-    if((getQueue().length || getConflicts().length || photos) && !confirm(t('pendingLogout'))) return;
+    if((getQueue().length || getConflicts().length || photos || getRm().length) && !confirm(t('pendingLogout'))) return;
     await clearLocalUser(S.user.id);
   }
   try{ await sb.auth.signOut(); }catch(e){}
@@ -489,7 +493,7 @@ async function logout(){
 }
 // apaga deste aparelho tudo o que é da conta: cópia dos dados, fila, avisos e fotos por enviar (RGPD / aparelhos partilhados)
 async function clearLocalUser(uid){
-  ['inv_cache_','inv_queue_','inv_conflicts_','inv_photo_fail_','inv_tut_'].forEach(k=>localStorage.removeItem(k+uid));
+  ['inv_cache_','inv_queue_','inv_conflicts_','inv_photo_fail_','inv_tut_','inv_rmfiles_'].forEach(k=>localStorage.removeItem(k+uid));
   localStorage.removeItem('inv_last_user');
   try{ for(const k of await idbKeys()) if(String(k).startsWith(uid+'/')) await idbDel(k); }catch(e){}
 }
@@ -637,8 +641,12 @@ async function sendOp(op){
   const r = op.kind==='delete' ? await q.delete().eq('id',op.id) : await q.upsert(op.rec);
   if(r.error){ r.error.status = r.status; throw r.error; }
 }
+const SET_GUARDED = ['business_name','address','nif','iban','extra','default_vat','exp_invoice','line_presets','default_terms','terms_rules'];
 async function dbWrite(table, kind, rec, id){
   if(table!=='inv_settings' && kind!=='delete' && !hasAccess()){ openPaywall(); throw new Error(t('subNeeded')); }
+  // definições sem acesso: só preferências de visualização (o servidor recusa o resto, B3)
+  if(table==='inv_settings' && !hasAccess() && S.settings && SET_GUARDED.some(k=>JSON.stringify(rec[k]??null)!==JSON.stringify(S.settings[k]??null))){
+    openPaywall(); throw new Error(t('subNeeded')); }
   const op = {table, kind, rec, id: id || (rec && rec.id)};
   applyLocal(op); saveCache();
   if(!getQueue().length && navigator.onLine){
@@ -689,7 +697,7 @@ window.addEventListener('online', async ()=>{
   updateNetBadge();
   if(!S.user) return;
   const s = await sb.auth.getSession();
-  if(s.data.session){ S.user = s.data.session.user; if(S.offline){ await loadAll(); render(); } syncQueue(); }
+  if(s.data.session){ S.user = s.data.session.user; if(S.offline){ await loadAll(); render(); } syncQueue(); flushFileRemovals(); }
 });
 window.addEventListener('offline', updateNetBadge);
 if('serviceWorker' in navigator && location.protocol==='https:'){
@@ -802,7 +810,7 @@ function rInvoices(){
     html += `<div class="grp">${esc(k)}</div>`;
     groups[k].forEach(i=>{
       const late = isLate(i);
-      html += `<div class="card inv-item" onclick="editInvoice('${i.id}')">
+      html += `<div class="card inv-item" onclick="editInvoice(${ja(i.id)})">
         <div><b>${esc(i.number)}</b>
           <div style="font-size:13px;color:var(--tx2)">${dmy(i.issue_date)}${(p=>p?` · ${dmy(p.s)}${p.e!==p.s?' → '+dmy(p.e):''}`:'')(periodOf(i))}${dueOf(i)&&i.status!=='paid'?`<br>${t('dueIs')} ${dmy(dueOf(i))}`:''}</div></div>
         <div class="amt"><div style="font-weight:700">${totalLabel(i)}</div>
@@ -1380,7 +1388,7 @@ function calNav(d){ S.calM+=d; if(S.calM<0){S.calM=11;S.calY--;} if(S.calM>11){S
 function dayDetail(iso){
   const invs = S.invoices.filter(i=>{ const p=periodOf(i); return (p && iso>=p.s && iso<=p.e) || dueOf(i)===iso; });
   openSheet(`<h2>${t('dueOn')} ${dmy(iso)}</h2>`+ invs.map(i=>{ const c=clientOf(i);
-    return `<div class="card inv-item" onclick="closeSheet();editInvoice('${i.id}')">
+    return `<div class="card inv-item" onclick="closeSheet();editInvoice(${ja(i.id)})">
       <div><b>${esc(i.number)}</b><div style="font-size:13px;color:var(--tx2)">${esc(c?c.company:'')}</div></div>
       <div class="amt"><div style="font-weight:700">${totalLabel(i)}</div>
       <span class="badge ${i.status==='paid'?'paid':isLate(i)?'late':'unpaid'}">${i.status==='paid'?t('bPaid'):isLate(i)?t('bLate'):t('bUnpaid')}</span></div></div>`;}).join('')
@@ -1477,7 +1485,7 @@ let C = null;
 function rClients(){
   const el = document.getElementById('v-cli');
   el.innerHTML = (S.clients.length? '' : `<div class="card" style="text-align:center;color:var(--tx2);padding:34px">${t('emptyCli')}</div>`)
-  + S.clients.map(c=>`<div class="card inv-item" onclick="editClient('${c.id}')">
+  + S.clients.map(c=>`<div class="card inv-item" onclick="editClient(${ja(c.id)})">
       <div><b>${esc(c.company)}</b>
         <div style="font-size:13px;color:var(--tx2)">${esc((c.emails||[]).join(', '))||t('noEmail')}</div></div>
       <span class="badge" style="background:var(--bg2);color:var(--tx2)">${(LANG_NAMES[c.language]||LANG_NAMES.en).split(' ')[0]} ${(LANGS.includes(c.language)?c.language:'en').toUpperCase()}</span>
@@ -1556,7 +1564,7 @@ function rSettings(){
   </div>
   <div class="card">
     <h3 style="margin-bottom:4px">${t('banksTitle')}</h3>
-    ${(S.banks||[]).map(b=>`<div class="card inv-item" style="margin-top:10px" onclick="editBank('${b.id}')">
+    ${(S.banks||[]).map(b=>`<div class="card inv-item" style="margin-top:10px" onclick="editBank(${ja(b.id)})">
       <div><b>${esc(b.label)}</b>
         <div style="font-size:13px;color:var(--tx2)">${esc(b.iban||'')}${b.swift?' · '+esc(b.swift):''}</div></div>
       <span style="color:var(--tx2)">›</span></div>`).join('')}
@@ -1569,12 +1577,12 @@ function rSettings(){
           <span style="font-size:12px;color:var(--tx2)">${t('presetLinesN').replace('{n}',(p.lines||[]).length)}</span></div>
         <div style="font-size:12.5px;color:var(--tx2);margin-top:3px">${(p.lines||[]).map(l=>esc(l.desc)).join(' · ')}</div>
         <label style="margin-top:8px">${t('presetAutoFor')}</label>
-        <select onchange="setPresetClient('${p.id}',this.value)">
+        <select onchange="setPresetClient(${ja(p.id)},this.value)">
           <option value="" ${!p.client_id?'selected':''}>${t('presetNone')}</option>
           ${S.clients.map(k=>`<option value="${k.id}" ${p.client_id===k.id?'selected':''}>${esc(k.company)}</option>`).join('')}</select>
         <div class="row" style="margin-top:8px">
-          <button class="btn-g" onclick="renamePreset('${p.id}')">${t('presetRename')}</button>
-          <button class="btn-red" onclick="delPreset('${p.id}')">${t('presetDel')}</button></div></div>`).join('')
+          <button class="btn-g" onclick="renamePreset(${ja(p.id)})">${t('presetRename')}</button>
+          <button class="btn-red" onclick="delPreset(${ja(p.id)})">${t('presetDel')}</button></div></div>`).join('')
       : `<p class="hint" style="margin-top:0">${t('presetsEmpty')}</p>`}
     <p class="hint">${t('presetsHint')}</p>
   </div>
@@ -2064,7 +2072,7 @@ function openPaywall(){
     <b>${psMoney(psPrice('EUR'),'EUR')} ${t('subPerMonth')}</b><span>${t('subOrGbp').replace('{p}', psMoney(psPrice('GBP'),'GBP'))}</span></div>
   ${st.kind==='paid' ? `<p class="hint" style="color:var(--green)">${t('subActiveUntil')} ${dmy(st.until.slice(0,10))}</p>` : ''}
   ${pend ? `<div class="card" style="margin-top:12px">${t('subPendingInfo').replace('{ref}', esc(pend.reference)).replace('{amt}', psMoney(pend.amount, pend.currency))}
-      <button class="btn-g" style="width:100%;margin-top:12px" onclick="cancelClaim('${pend.id}')">${t('subCancelClaim')}</button></div>`
+      <button class="btn-g" style="width:100%;margin-top:12px" onclick="cancelClaim(${ja(pend.id)})">${t('subCancelClaim')}</button></div>`
   : !(hasRev || hasIban) ? `<p class="hint">${t('subTransferOff')}</p>`
   : `<div class="row" style="margin-top:12px">
       <div><label>${t('subMonthsLbl')}</label><select onchange="PW.months=Number(this.value);drawPay()">
@@ -2148,8 +2156,8 @@ function adminCard(){
     ${pend.length ? pend.map(c=>`<div class="card" style="margin-top:8px">
         <b>${esc(c.email||'')}</b>
         <div style="font-size:13px;color:var(--tx2)">${psMoney(c.amount, c.currency)} · ${c.months===1?t('sub1m'):t('subNm').replace('{n}',c.months)} · ${t('subReference')}: <b>${esc(c.reference)}</b> · ${dmy(c.created_at.slice(0,10))}</div>
-        <div class="row" style="margin-top:8px"><button class="btn-green" onclick="reviewClaim('${c.id}',true)">${t('admApprove')}</button>
-          <button class="btn-red" onclick="reviewClaim('${c.id}',false)">${t('admReject')}</button></div></div>`).join('')
+        <div class="row" style="margin-top:8px"><button class="btn-green" onclick="reviewClaim(${ja(c.id)},true)">${t('admApprove')}</button>
+          <button class="btn-red" onclick="reviewClaim(${ja(c.id)},false)">${t('admReject')}</button></div></div>`).join('')
       : `<p class="hint">${t('admNoClaims')}</p>`}
     <h3 style="margin-top:16px;font-size:16px">${t('admBankTitle')}</h3>
     ${(S.banks||[]).length ? `<label>${t('admUseBank')}</label><select onchange="useBankFor('eur', this.value)">
@@ -2237,13 +2245,57 @@ async function delBank(){
 }
 
 // ---------- SHEET ----------
+let sheetReturn = null;
 function openSheet(html){
+  const sh = document.getElementById('sheet'), wasOpen = !sh.classList.contains('hidden');
+  if(!wasOpen) sheetReturn = document.activeElement;
   document.getElementById('sheet-body').innerHTML = html;
-  document.getElementById('sheet').classList.remove('hidden');
+  sh.classList.remove('hidden');
+  // título do diálogo para leitores de ecrã e foco dentro dele (sem abrir o teclado no telemóvel)
+  const h = sh.querySelector('h2'); if(h){ h.id = 'sheet-title'; h.tabIndex = -1; try{ h.focus({preventScroll:true}); }catch(e){} }
   if(document.getElementById('lines')){ drawLines(); if(E) prefetchPhotos(invoiceExpenses(E)); }
   if(document.getElementById('due-txt')) drawDue();
 }
-function closeSheet(){ document.getElementById('sheet').classList.add('hidden'); }
+function closeSheet(){
+  document.getElementById('sheet').classList.add('hidden');
+  if(sheetReturn && document.contains(sheetReturn)){ try{ sheetReturn.focus({preventScroll:true}); }catch(e){} }
+  sheetReturn = null;
+}
+// B9: elementos clicáveis que não são botões passam a ser alcançáveis por teclado e anunciados como botões;
+// cada <label> fica ligado ao seu campo; Esc fecha o diálogo e o Tab não sai dele.
+const NATIVE = 'button,a,input,select,textarea,label,option,summary,details';
+function a11yFix(root){
+  if(!root || !root.querySelectorAll) return;
+  root.querySelectorAll('[onclick]').forEach(el=>{
+    if(el.matches(NATIVE) || el.hasAttribute('role')) return;
+    el.setAttribute('role','button'); if(!el.hasAttribute('tabindex')) el.tabIndex = 0;
+  });
+  root.querySelectorAll('label:not([for])').forEach(lab=>{
+    if(lab.querySelector('input,select,textarea')) return;
+    const c = lab.nextElementSibling;
+    if(!c || !c.matches('input,select,textarea')) return;
+    if(c.id) lab.htmlFor = c.id; else if(!c.hasAttribute('aria-label')) c.setAttribute('aria-label', lab.textContent.trim());
+  });
+}
+let a11yPending = false;
+new MutationObserver(()=>{ if(a11yPending) return; a11yPending = true;
+  requestAnimationFrame(()=>{ a11yPending = false; a11yFix(document.body); }); })
+  .observe(document.documentElement, {childList:true, subtree:true});
+document.addEventListener('keydown', e=>{
+  const el = e.target;
+  if((e.key==='Enter' || e.key===' ') && el && el.getAttribute && el.getAttribute('role')==='button' && !el.matches(NATIVE)){ e.preventDefault(); el.click(); return; }
+  const sh = document.getElementById('sheet');
+  if(!sh || sh.classList.contains('hidden')) return;
+  if(e.key==='Escape'){ e.preventDefault(); closeSheet(); return; }
+  if(e.key==='Tab'){
+    const f = [...sh.querySelectorAll('a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])')].filter(x=>x.offsetParent!==null);
+    if(!f.length) return;
+    const first = f[0], last = f[f.length-1];
+    if(!sh.contains(document.activeElement)){ e.preventDefault(); first.focus(); }
+    else if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); }
+    else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); }
+  }
+});
 
 // ---------- DESPESAS ----------
 const BUCKET = 'inv-receipts';
@@ -2284,7 +2336,7 @@ function rExpenses(){
     <div class="chips">${chips.map(([k,l])=>`<span class="chip ${S.eStatus===k?'on':''}" onclick="S.eStatus='${k}';render()">${l}</span>`).join('')}</div>`;
   if(S.eStatus==='pending' && expInvOn()){
     const forCli = S.eClient ? pend.filter(x=>x.client_id===S.eClient) : [];
-    if(forCli.length) html += `<button class="btn-p" style="width:100%;margin-bottom:12px" onclick="billExpenses('${S.eClient}')">${t('billNow').replace('{n}',forCli.length)}</button>`;
+    if(forCli.length) html += `<button class="btn-p" style="width:100%;margin-bottom:12px" onclick="billExpenses(${ja(S.eClient)})">${t('billNow').replace('{n}',forCli.length)}</button>`;
     else if(!S.eClient && pend.length) html += `<p class="hint" style="margin:0 0 10px">${t('pickClientToBill')}</p>`;
   }
   const sel = S.eSel;
@@ -2298,7 +2350,7 @@ function rExpenses(){
     const c = S.clients.find(k=>k.id===x.client_id);
     const p = (x.photos||[])[0];
     const on = sel && sel.has(x.id);
-    html += `<div class="card inv-item${on?' sel':''}" style="gap:12px" onclick="${sel?`toggleSel('${x.id}')`:`editExpense('${x.id}')`}">
+    html += `<div class="card inv-item${on?' sel':''}" style="gap:12px" onclick="${sel?`toggleSel(${ja(x.id)})`:`editExpense(${ja(x.id)})`}">
       ${sel?`<div class="sel-box">${on?'✓':''}</div>`:''}
       ${p?`<img class="thumb" data-path="${esc(p.path)}" alt="">`:`<div class="thumb ph">🧾</div>`}
       <div style="flex:1;min-width:0"><b>${esc(x.description)}</b>
@@ -2375,7 +2427,29 @@ function viewPhoto(path){
   }).catch(()=>toast(t('photoLoadErr')));
 }
 let uploading = false;
+const rmKey = () => 'inv_rmfiles_' + S.user.id;
+const getRm = () => { try{ return JSON.parse(localStorage.getItem(rmKey())||'[]'); }catch(e){ return []; } };
+function queueFileRemoval(paths){
+  const own = paths.filter(x=>String(x).startsWith(S.user.id+'/'));
+  localStorage.setItem(rmKey(), JSON.stringify([...new Set([...getRm(), ...own])]));
+  flushFileRemovals();
+}
+let rmBusy = false;
+async function flushFileRemovals(){
+  if(rmBusy || !S.user || !navigator.onLine) return;
+  const list = getRm(); if(!list.length) return;
+  rmBusy = true;
+  try{
+    for(let i=0; i<list.length; i+=100){
+      const chunk = list.slice(i, i+100);
+      const {error} = await sb.storage.from(BUCKET).remove(chunk);
+      if(error && isNetErr(error)) break;            // sem rede: fica para depois
+      const left = getRm().filter(x=>!chunk.includes(x)); localStorage.setItem(rmKey(), JSON.stringify(left));
+    }
+  }catch(e){} finally { rmBusy = false; }
+}
 async function uploadPendingPhotos(){
+  flushFileRemovals();
   if(uploading || !S.user || !navigator.onLine) return;
   uploading = true;
   try{
@@ -2430,7 +2504,7 @@ function editExpense(id){
   <label><input type="checkbox" style="width:auto;margin-right:8px" ${X.billable?'checked':''} onchange="X.billable=this.checked">${t('billableLbl')}</label>
   <label>${t('expNotesLbl')}</label><textarea rows="2" oninput="X.notes=this.value">${esc(X.notes)}</textarea>
   ${inv?`<div class="card" style="margin-top:12px">${t('billedIn')} <b>${esc(inv.number)}</b>
-    <button class="btn-g" style="margin-left:8px;padding:6px 10px;font-size:13px" onclick="closeSheet();editInvoice('${inv.id}')">${t('openInv')}</button>
+    <button class="btn-g" style="margin-left:8px;padding:6px 10px;font-size:13px" onclick="closeSheet();editInvoice(${ja(inv.id)})">${t('openInv')}</button>
     ${inv.status!=='paid'?`<div class="hint">${t('paidByInv')}</div>`:''}</div>`:''}
   ${!inv && X.status==='paid' && X.paid_at ? `<p class="hint" style="color:var(--green)">${t('expPaidOn')} ${dmy(X.paid_at)}</p>` : ''}
   <div class="row" style="margin-top:18px">
@@ -2445,8 +2519,8 @@ function editExpense(id){
 function drawPhotos(){
   const el = document.getElementById('ph-grid'); if(!el) return;
   el.innerHTML = (X.photos||[]).length ? X.photos.map((p,i)=> /\.pdf$/i.test(p.path)
-      ? `<div class="ph-it"><div class="thumb ph" style="width:84px;height:84px" onclick="openPdfProof('${esc(p.path)}')">PDF</div><button class="del-x" onclick="rmPhoto(${i})">✕</button></div>`
-      : `<div class="ph-it"><img data-path="${esc(p.path)}" onclick="viewPhoto('${esc(p.path)}')" alt=""><button class="del-x" onclick="rmPhoto(${i})">✕</button></div>`).join('')
+      ? `<div class="ph-it"><div class="thumb ph" style="width:84px;height:84px" onclick="openPdfProof(${ja(p.path)})">PDF</div><button class="del-x" onclick="rmPhoto(${i})">✕</button></div>`
+      : `<div class="ph-it"><img data-path="${esc(p.path)}" onclick="viewPhoto(${ja(p.path)})" alt=""><button class="del-x" onclick="rmPhoto(${i})">✕</button></div>`).join('')
     : `<p class="hint" style="margin:0">${t('noPhotos')}</p>`;
   fillThumbs(el);
   const pb = document.getElementById('ph-pdf');
@@ -2498,7 +2572,7 @@ async function saveExpense(){
   catch(e){ toast('Erro: '+(e.message||e)); await loadAll(); render(); return; }
   const removed = X._removed.filter(p=>!X._added.includes(p));
   for(const p of X._removed){ try{ await idbDel(p); }catch(e){} }
-  if(removed.length && navigator.onLine) sb.storage.from(BUCKET).remove(removed).catch(()=>{});
+  if(removed.length) queueFileRemoval(removed);
   closeSheet(); render(); if(mode==='online') toast(X._paidMsg || t('savedExp'));
   uploadPendingPhotos();
 }
@@ -2514,7 +2588,7 @@ async function delExpense(){
   try{ mode = await dbWrite('inv_expenses','delete',null,X.id); }
   catch(e){ toast('Erro: '+(e.message||e)); await loadAll(); render(); return; }
   for(const p of paths){ try{ await idbDel(p); }catch(e){} }
-  if(paths.length && navigator.onLine) sb.storage.from(BUCKET).remove(paths).catch(()=>{});
+  if(paths.length) queueFileRemoval(paths);
   closeSheet(); render(); if(mode==='online') toast(t('deletedExp'));
 }
 
