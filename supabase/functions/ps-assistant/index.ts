@@ -31,6 +31,9 @@ Deno.serve(async (req) => {
   });
   const { data: { user } } = await userClient.auth.getUser();
   if (!user) return json(req, { error: "unauthorized" }, 401);
+  // M9: só contas com acesso (experimental, paga ou pagamento por confirmar) gastam a quota partilhada
+  const { data: acc, error: accErr } = await userClient.rpc("has_access");
+  if (accErr || acc !== true) return json(req, { error: "no_access" }, 402);
 
   let body: { messages?: { role: string; content: string }[]; lang?: string };
   try { body = await req.json(); } catch { return json(req, { error: "bad_request" }, 400); }

@@ -6,10 +6,18 @@ const ADMIN_EMAIL = "davide_sobral@outlook.pt";
 const APP_URL = "https://davide897.github.io/paidsmith/";
 const esc = (s: unknown) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]!));
 
+// comparação em tempo constante (não deixa adivinhar o segredo pelo tempo de resposta)
+function sameSecret(a: string, b: string): boolean {
+  const x = new TextEncoder().encode(a), y = new TextEncoder().encode(b);
+  let d = x.length ^ y.length;
+  for (let i = 0; i < y.length; i++) d |= (x[i] ?? 0) ^ y[i];
+  return d === 0;
+}
+
 Deno.serve(async (req) => {
   if (req.method !== "POST") return new Response("method", { status: 405 });
   const secret = Deno.env.get("PS_NOTIFY_SECRET") || "";
-  if (!secret || req.headers.get("x-ps-secret") !== secret) return new Response("forbidden", { status: 403 });
+  if (!secret || !sameSecret(req.headers.get("x-ps-secret") || "", secret)) return new Response("forbidden", { status: 403 });
 
   let body: { type?: string; record?: Record<string, unknown> };
   try { body = await req.json(); } catch { return new Response("bad", { status: 400 }); }
@@ -39,7 +47,8 @@ Deno.serve(async (req) => {
     await client.send({ from: `Paidsmith <${Deno.env.get("BREVO_SENDER_EMAIL")}>`, to: ADMIN_EMAIL, subject, html,
       content: html.replace(/<[^>]+>/g, "") });
   } catch (e) {
-    return new Response("smtp: " + String(e).slice(0, 200), { status: 502 });
+    console.error("smtp", e);   // o detalhe fica nos registos da função, não na resposta
+    return new Response("smtp", { status: 502 });
   } finally { try { await client.close(); } catch (_) { /* nada */ } }
   return new Response("ok");
 });
