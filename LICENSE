@@ -1,0 +1,19 @@
+Paidsmith
+Copyright (c) 2026 Davide Sobral (NIF 251228320), Setúbal, Portugal.
+All rights reserved. Todos os direitos reservados.
+
+This repository is public only so that the Paidsmith web app can be published
+with GitHub Pages. Publishing the source code does NOT grant any licence.
+
+Without prior written permission from the copyright holder, you may not copy,
+modify, distribute, sublicense, sell, host or publish this software or any part
+of it (code, texts, translations, design, logo and images), nor use it to
+build a competing product.
+
+Using the Paidsmith service at https://davide897.github.io/paidsmith/ is
+governed by its Terms of Use (terms.html), not by this file.
+
+Contact: davide_sobral@outlook.pt
+
+-------------------------------------------------------------------------------
+Third-party components keep their own licences. See THIRD_PARTY_NOTICES.md.
