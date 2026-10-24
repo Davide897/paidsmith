@@ -1,4 +1,4 @@
-const CACHE = 'invoices-v23';
+const CACHE = 'invoices-v24';
 const SHELL = [
   './', './index.html', './manifest.json', './icon.png', './icon-192.png', './icon-512.png',
   './icon-32.png', './favicon.svg', './logo.svg', './fonts/fraunces.woff2', './fonts/manrope.woff2', './fonts/noto-regular.ttf', './fonts/noto-bold.ttf',
