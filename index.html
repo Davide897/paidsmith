@@ -696,12 +696,14 @@ function render(){ drawSubBar(); if(S.view==='inv') rInvoices(); else if(S.view=
   else if(S.view==='cli') rClients(); else if(S.view==='sum') rSummary(); else rSettings(); }
 
 // ---------- CÁLCULO ----------
+// arredonda ao cêntimo (meio para cima); toPrecision tira o erro de vírgula flutuante (8,395 → 8,40 e não 8,39)
+const r2 = v => Math.round(Number(((Number(v)||0)*100).toPrecision(12)))/100;
+const lineAmt = l => r2((Number(l.qty)||0)*(Number(l.price)||0));
 function invTotals(inv){
   const t = {}; CURRENCIES.forEach(c=>{ t[c] = {sub:0,vat:0,tot:0}; });
-  (inv.lines||[]).forEach(l=>{ const c = normCur(l.currency);
-    t[c].sub += (Number(l.qty)||0)*(Number(l.price)||0); });
+  (inv.lines||[]).forEach(l=>{ const c = normCur(l.currency); t[c].sub = r2(t[c].sub + lineAmt(l)); });
   const r = inv.vat_rate!=null ? Number(inv.vat_rate)/100 : 0;
-  CURRENCIES.forEach(c=>{ t[c].vat = t[c].sub*r; t[c].tot = t[c].sub+t[c].vat; });
+  CURRENCIES.forEach(c=>{ t[c].vat = r2(t[c].sub*r); t[c].tot = r2(t[c].sub+t[c].vat); });
   return t;
 }
 function totalLabel(inv){
@@ -710,8 +712,8 @@ function totalLabel(inv){
 }
 function convertedTotal(inv){
   const t = invTotals(inv); let sum = 0;
-  for(const c of CURRENCIES){ if(!t[c].tot) continue; const v = toEUR(t[c].tot, c); if(v==null) return null; sum += v; }
-  return sum;
+  for(const c of CURRENCIES){ if(!t[c].tot) continue; const v = toEUR(t[c].tot, c); if(v==null) return null; sum += r2(v); }
+  return r2(sum);
 }
 function periodOf(inv){
   const s = inv.period_start || inv.due_date, e = inv.period_end || inv.due_date;
@@ -1121,7 +1123,7 @@ function buildPDF(){
     const q = Number(l.qty)||0, pr = Number(l.price)||0;
     doc.text(String(q), xQty, y+5.3, {align:'right'});
     doc.text(money(pr,cur), xPrice, y+5.3, {align:'right'});
-    font('bold',10); doc.text(money(q*pr,cur), xTot, y+5.3, {align:'right'});
+    font('bold',10); doc.text(money(lineAmt(l),cur), xTot, y+5.3, {align:'right'});
     y += rh;
     doc.setDrawColor(LINE[0],LINE[1],LINE[2]); doc.line(M, y, W-M, y);
   });
