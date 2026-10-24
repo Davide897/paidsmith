@@ -72,7 +72,8 @@ Deno.serve(async (req) => {
   if (cErr) { console.error("claims", cErr); return json(req, { error: "db" }, 500); }
 
   // M2: o mesmo email não volta a ter período experimental (guarda-se só um hash)
-  await admin.rpc("ps_mark_trial_used", { e: user.email || "" });
+  const { error: tErr } = await admin.rpc("ps_mark_trial_used", { e: user.email || "" });
+  if (tErr) { console.error("trial", tErr); return json(req, { error: "db" }, 500); }
 
   // 3) utilizador: o resto (definições, clientes, faturas, despesas, bancos, subscrição, mensagens, uso da IA) cai em cascata
   const { error: uErr } = await admin.auth.admin.deleteUser(user.id);
