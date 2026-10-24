@@ -29,7 +29,7 @@ pt: { title: 'Termos de Utilização', body: `
 <ul><li>Cada conta nova tem <b>30 dias grátis</b>, sem pedir dados de pagamento.</li>
 <li>Depois, o preço é <b>${PRICE}</b>, ${OP.vat.pt}.</li>
 <li>O pagamento é feito <b>antecipadamente</b>, por transferência bancária para os dados indicados na aplicação (1, 3 ou 12 meses) ou, quando disponível, por cartão. O pagamento por transferência <b>não se renova sozinho</b>.</li>
-<li>Depois de comunicares a transferência, tens 7 dias de acesso enquanto a confirmamos. Se a transferência não chegar, o acesso volta ao estado anterior.</li>
+<li>Depois de comunicares a transferência, tens 2 dias de acesso enquanto a confirmamos. Se a transferência não chegar, o acesso volta ao estado anterior.</li>
 <li>Se a subscrição terminar, continuas a poder <b>ver, descarregar e apagar</b> os teus dados. Só deixas de poder criar ou alterar faturas, despesas e clientes.</li>
 <li>Podemos alterar o preço com pelo menos 30 dias de aviso. A alteração não afeta períodos já pagos.</li></ul>
 <h2>5. Direito de livre resolução</h2>
@@ -63,7 +63,7 @@ es: { title: 'Términos de Uso', body: `
 <ul><li>Cada cuenta nueva tiene <b>30 días gratis</b>, sin pedir datos de pago.</li>
 <li>Después, el precio es <b>${PRICE}</b>, ${OP.vat.es}.</li>
 <li>El pago es <b>por adelantado</b>, por transferencia bancaria a los datos indicados en la aplicación (1, 3 o 12 meses) o, cuando esté disponible, con tarjeta. El pago por transferencia <b>no se renueva automáticamente</b>.</li>
-<li>Tras comunicar la transferencia, tienes 7 días de acceso mientras la confirmamos. Si la transferencia no llega, el acceso vuelve al estado anterior.</li>
+<li>Tras comunicar la transferencia, tienes 2 días de acceso mientras la confirmamos. Si la transferencia no llega, el acceso vuelve al estado anterior.</li>
 <li>Si la suscripción termina, puedes seguir <b>viendo, descargando y borrando</b> tus datos. Solo dejas de poder crear o modificar facturas, gastos y clientes.</li>
 <li>Podemos cambiar el precio con al menos 30 días de aviso. El cambio no afecta a periodos ya pagados.</li></ul>
 <h2>5. Derecho de desistimiento</h2>
@@ -97,7 +97,7 @@ en: { title: 'Terms of Use', body: `
 <ul><li>Every new account gets a <b>30-day free trial</b>, with no payment details required.</li>
 <li>After that the price is <b>${PRICE_EN}</b>, ${OP.vat.en}.</li>
 <li>Payment is made <b>in advance</b>, by bank transfer to the details shown in the app (1, 3 or 12 months) or, when available, by card. Payment by transfer <b>does not renew automatically</b>.</li>
-<li>After you report a transfer, you keep access for 7 days while we confirm it. If the transfer does not arrive, access returns to its previous state.</li>
+<li>After you report a transfer, you keep access for 2 days while we confirm it. If the transfer does not arrive, access returns to its previous state.</li>
 <li>If your subscription ends you can still <b>view, download and delete</b> your data; you just can no longer create or edit invoices, expenses and clients.</li>
 <li>We may change the price with at least 30 days' notice. Changes do not affect periods already paid.</li></ul>
 <h2>5. Right of withdrawal</h2>
@@ -230,7 +230,7 @@ DOCS.terms.fr = { title: "Conditions d'utilisation", body: `
 <ul><li>Chaque nouveau compte bénéficie d'un <b>essai gratuit de 30 jours</b>, sans demande de coordonnées de paiement.</li>
 <li>Ensuite, le prix est de <b>${PRICE_EN}</b>, ${OP.vat.fr}.</li>
 <li>Le paiement s'effectue <b>à l'avance</b>, par virement bancaire vers les coordonnées indiquées dans l'application (1, 3 ou 12 mois) ou, lorsque cette option est disponible, par carte. Le paiement par virement <b>ne se renouvelle pas automatiquement</b>.</li>
-<li>Après avoir signalé un virement, vous conservez l'accès pendant 7 jours, le temps que nous le confirmions. Si le virement n'arrive pas, l'accès revient à son état antérieur.</li>
+<li>Après avoir signalé un virement, vous conservez l'accès pendant 2 jours, le temps que nous le confirmions. Si le virement n'arrive pas, l'accès revient à son état antérieur.</li>
 <li>Si votre abonnement prend fin, vous pouvez toujours <b>consulter, télécharger et supprimer</b> vos données ; vous ne pouvez simplement plus créer ni modifier de factures, de dépenses et de clients.</li>
 <li>Nous pouvons modifier le prix moyennant un préavis d'au moins 30 jours. Les modifications n'affectent pas les périodes déjà payées.</li></ul>
 <h2>5. Droit de rétractation</h2>
@@ -295,7 +295,7 @@ DOCS.terms.de = { title: "Nutzungsbedingungen", body: `
 <ul><li>Jedes neue Konto erhält eine <b>30-tägige kostenlose Testphase</b>, ohne Angabe von Zahlungsdaten.</li>
 <li>Danach beträgt der Preis <b>${PRICE_EN}</b>, ${OP.vat.de}.</li>
 <li>Die Zahlung erfolgt <b>im Voraus</b>, per Banküberweisung an die in der App angezeigte Bankverbindung (1, 3 oder 12 Monate) oder, sofern verfügbar, per Karte. Die Zahlung per Überweisung <b>verlängert sich nicht automatisch</b>.</li>
-<li>Nachdem Sie eine Überweisung gemeldet haben, behalten Sie 7 Tage lang Zugang, während wir sie prüfen. Geht die Überweisung nicht ein, wird der Zugang auf den vorherigen Stand zurückgesetzt.</li>
+<li>Nachdem Sie eine Überweisung gemeldet haben, behalten Sie 2 Tage lang Zugang, während wir sie prüfen. Geht die Überweisung nicht ein, wird der Zugang auf den vorherigen Stand zurückgesetzt.</li>
 <li>Endet Ihr Abonnement, können Sie Ihre Daten weiterhin <b>ansehen, herunterladen und löschen</b>; Sie können lediglich keine Rechnungen, Ausgaben und Kunden mehr anlegen oder bearbeiten.</li>
 <li>Wir können den Preis mit einer Ankündigungsfrist von mindestens 30 Tagen ändern. Änderungen betreffen keine bereits bezahlten Zeiträume.</li></ul>
 <h2>5. Widerrufsrecht</h2>
@@ -360,7 +360,7 @@ DOCS.terms.it = { title: "Termini di utilizzo", body: `
 <ul><li>Ogni nuovo account ha una <b>prova gratuita di 30 giorni</b>, senza bisogno di dati di pagamento.</li>
 <li>Successivamente il prezzo è di <b>${PRICE_EN}</b>, ${OP.vat.it}.</li>
 <li>Il pagamento è <b>anticipato</b>, tramite bonifico bancario alle coordinate indicate nell'app (1, 3 o 12 mesi) oppure, quando disponibile, con carta. Il pagamento tramite bonifico <b>non si rinnova automaticamente</b>.</li>
-<li>Dopo aver comunicato un bonifico, mantieni l'accesso per 7 giorni mentre lo verifichiamo. Se il bonifico non arriva, l'accesso torna allo stato precedente.</li>
+<li>Dopo aver comunicato un bonifico, mantieni l'accesso per 2 giorni mentre lo verifichiamo. Se il bonifico non arriva, l'accesso torna allo stato precedente.</li>
 <li>Se l'abbonamento termina, puoi comunque <b>visualizzare, scaricare ed eliminare</b> i tuoi dati; semplicemente non puoi più creare o modificare fatture, spese e clienti.</li>
 <li>Possiamo modificare il prezzo con un preavviso di almeno 30 giorni. Le modifiche non riguardano i periodi già pagati.</li></ul>
 <h2>5. Diritto di recesso</h2>
@@ -424,7 +424,7 @@ DOCS.terms.ro = { title: "Termeni de utilizare", body: `<h2>1. Cine furnizează 
 <ul><li>Fiecare cont nou primește o <b>perioadă de probă gratuită de 30 de zile</b>, fără să fie nevoie de date de plată.</li>
 <li>După aceea, prețul este de <b>${PRICE_EN}</b>, ${OP.vat.ro}.</li>
 <li>Plata se face <b>în avans</b>, prin transfer bancar în contul indicat în aplicație (1, 3 sau 12 luni) sau, când este disponibilă, cu cardul. Plata prin transfer <b>nu se reînnoiește automat</b>.</li>
-<li>După ce raportezi un transfer, îți păstrezi accesul timp de 7 zile cât timp îl confirmăm. Dacă transferul nu ajunge, accesul revine la starea anterioară.</li>
+<li>După ce raportezi un transfer, îți păstrezi accesul timp de 2 zile cât timp îl confirmăm. Dacă transferul nu ajunge, accesul revine la starea anterioară.</li>
 <li>Dacă abonamentul tău se încheie, poți în continuare să <b>vizualizezi, descarci și ștergi</b> datele tale; doar că nu mai poți crea sau edita facturi, cheltuieli și clienți.</li>
 <li>Putem modifica prețul cu un preaviz de cel puțin 30 de zile. Modificările nu afectează perioadele deja plătite.</li></ul>
 <h2>5. Dreptul de retragere</h2>
@@ -487,7 +487,7 @@ DOCS.terms.tr = { title: "Kullanım Koşulları", body: `<h2>1. Hizmeti kim sağ
 <ul><li>Her yeni hesap, ödeme bilgisi gerektirmeden <b>30 günlük ücretsiz deneme</b> alır.</li>
 <li>Bu sürenin ardından fiyat <b>${PRICE_EN}</b> olup ${OP.vat.tr}.</li>
 <li>Ödeme, uygulamada gösterilen hesaba banka havalesiyle (1, 3 veya 12 ay) ya da mümkün olduğunda kartla <b>peşin</b> yapılır. Havale ile yapılan ödeme <b>otomatik olarak yenilenmez</b>.</li>
-<li>Bir havaleyi bildirdikten sonra, biz onu onaylarken 7 gün boyunca erişiminiz devam eder. Havale ulaşmazsa erişim önceki durumuna döner.</li>
+<li>Bir havaleyi bildirdikten sonra, biz onu onaylarken 2 gün boyunca erişiminiz devam eder. Havale ulaşmazsa erişim önceki durumuna döner.</li>
 <li>Aboneliğiniz sona ererse verilerinizi yine de <b>görüntüleyebilir, indirebilir ve silebilirsiniz</b>; yalnızca artık fatura, gider ve müşteri oluşturamaz veya düzenleyemezsiniz.</li>
 <li>Fiyatı en az 30 gün önceden bildirerek değiştirebiliriz. Değişiklikler, önceden ödenmiş dönemleri etkilemez.</li></ul>
 <h2>5. Cayma hakkı</h2>
@@ -550,7 +550,7 @@ DOCS.terms.pl = { title: "Regulamin", body: `<h2>1. Kto świadczy usługę</h2>
 <ul><li>Każde nowe konto otrzymuje <b>30-dniowy bezpłatny okres próbny</b>, bez podawania danych płatniczych.</li>
 <li>Po jego zakończeniu cena wynosi <b>${PRICE_EN}</b>, ${OP.vat.pl}.</li>
 <li>Płatność jest dokonywana <b>z góry</b>, przelewem bankowym na dane podane w aplikacji (1, 3 lub 12 miesięcy) albo, gdy jest to dostępne, kartą. Płatność przelewem <b>nie odnawia się automatycznie</b>.</li>
-<li>Po zgłoszeniu przelewu zachowujesz dostęp przez 7 dni, w czasie gdy go potwierdzamy. Jeśli przelew nie dotrze, dostęp wraca do poprzedniego stanu.</li>
+<li>Po zgłoszeniu przelewu zachowujesz dostęp przez 2 dni, w czasie gdy go potwierdzamy. Jeśli przelew nie dotrze, dostęp wraca do poprzedniego stanu.</li>
 <li>Jeśli twoja subskrypcja wygaśnie, nadal możesz <b>przeglądać, pobierać i usuwać</b> swoje dane; nie możesz jedynie tworzyć ani edytować faktur, wydatków i klientów.</li>
 <li>Możemy zmienić cenę z co najmniej 30-dniowym wyprzedzeniem. Zmiany nie dotyczą okresów już opłaconych.</li></ul>
 <h2>5. Prawo odstąpienia</h2>
