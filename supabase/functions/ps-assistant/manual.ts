@@ -40,6 +40,7 @@ Faturas · Calendário · Despesas · Clientes · Resumo · Definições. O bot�
 
 ## Calendário
 Mostra o mês com as faturas: paga (verde), a vencer (amarelo), em atraso (vermelho) e dia de pagamento previsto (tracejado). Mostra também a semana do ano e o total por receber este mês. Setas ‹ › para mudar de mês. Os dias entre o início e o fim do trabalho de uma fatura ficam pintados.
+Em Definições → Calendário cada pessoa escolhe o dia em que a semana começa (segunda-feira, domingo ou sábado) e como se numeram as semanas: ISO 8601 (o habitual na Europa, número da segunda-feira) ou contado a partir do 1.º dia da semana. Só muda a vista; as faturas não mudam.
 
 ## Despesas
 - Topo: "Por receber dos clientes" (despesas que um cliente te tem de pagar).
