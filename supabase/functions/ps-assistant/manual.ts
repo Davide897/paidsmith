@@ -69,17 +69,18 @@ Resumo do ano escolhido: Total faturado, Já pago (com %), A receber no prazo, E
 - Prazos de pagamento: prazo por defeito e regras pelo número da fatura.
 - Contas bancárias: nome da conta, titular, banco, IBAN, SWIFT/BIC, linha extra (ex.: sort code). Várias contas; escolhe-se na fatura.
 - Linhas predefinidas, Despesas, Mudar password, ligações para Termos e Privacidade.
+- Os meus dados: "Exportar os meus dados" descarrega um ficheiro JSON com tudo (definições, clientes, faturas, despesas, contas bancárias, subscrição, pagamentos e mensagens); as fotos dos recibos não vão no ficheiro, guardam-se em Despesas > "Escolher fotos para PDF". "Apagar conta" apaga de vez a conta, os dados e todas as fotos (é preciso escrever o email para confirmar; não dá para desfazer). Ficam só os registos dos pagamentos confirmados da subscrição, por obrigação fiscal. Antes de apagar, guardar os PDFs das faturas que a lei obriga a conservar.
 
 ## Sem internet
-A app funciona offline: o que guardares fica no aparelho e é enviado quando a ligação voltar. No topo aparece "Offline" ou "N por sincronizar". Não sair da conta com alterações por sincronizar.
+A app funciona offline: o que guardares fica no aparelho e é enviado quando a ligação voltar. No topo aparece "Offline" ou "N por sincronizar". Não sair da conta com alterações por sincronizar. Ao sair ("Sair"), a cópia dos dados e as fotos por enviar são apagadas deste aparelho; voltam ao entrar outra vez, vindas do servidor.
 
 ## Preço e pagamento
 - 30 dias grátis em cada conta nova, sem dados de pagamento.
 - Depois: 6,99 € por mês (ou 5,99 £). Isento de IVA (art. 53.º do CIVA).
-- Pagar: Definições > Subscrição > Subscrever, ou a barra dourada no topo. Por agora só por transferência bancária: escolher 1, 3 ou 12 meses, transferir o valor para o IBAN mostrado com a referência PS-… no descritivo e tocar em "Já fiz a transferência". A confirmação é manual (até 2 dias úteis) e entretanto mantém-se o acesso. Cartão/Apple Pay/Google Pay: brevemente.
+- Pagar: Definições > Subscrição > Subscrever, ou a barra dourada no topo. Escolher 1, 3 ou 12 meses e marcar a caixa "Peço que a subscrição comece logo que eu pague" (obrigatória). Depois: botão "Pagar agora" (abre a página do Revolut: cartão, Apple Pay, Google Pay ou Revolut, com valor e referência já preenchidos) ou transferência bancária para o IBAN mostrado (há um QR code que a app do banco lê), com a referência PS-… no descritivo. No fim, tocar em "Já fiz o pagamento"; o acesso fica ativo enquanto o pagamento é confirmado.
 - A transferência não se renova sozinha.
 - Sem subscrição ativa: continua-se a ver, descarregar e apagar tudo; não se pode criar nem alterar.
-- Desistência: consumidores têm 14 dias; pedir por email.
+- Desistência: consumidores têm 14 dias; pedir por email. Como o serviço começa logo, devolve-se o valor proporcional aos dias que faltam.
 
 ## Limites e coisas que a app NÃO faz
 - Não é software de faturação certificado pela Autoridade Tributária portuguesa nem por outra administração fiscal. Em Portugal, quem está obrigado a software certificado ou ao Portal das Finanças continua a ter de emitir a fatura oficial lá. Cada utilizador é responsável pelas regras fiscais do seu país.
