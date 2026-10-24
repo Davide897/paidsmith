@@ -38,6 +38,8 @@ Faturas · Calendário · Despesas · Clientes · Resumo · Definições. O bot�
 - Despesas na fatura: "+ Juntar despesas por faturar deste cliente" acrescenta as despesas cobráveis como linhas. Com despesas ligadas aparece "⬇ Recibos das despesas (PDF)" para mandar a prova ao cliente.
 - Prazo automático: o prazo vem das Definições (prazo por defeito e regras pelo número da fatura, ex.: número com "PD" → terça-feira seguinte). Pode sempre ser mudado na fatura.
 
+- Números de fatura: cada número só pode existir uma vez na conta (maiúsculas e espaços não contam). Se gravares sem rede em dois aparelhos com o mesmo número, a segunda fica em "⚠ Por resolver" no topo, com o botão "Usar o número … e enviar" que lhe dá o próximo número livre.
+
 ## Calendário
 Mostra o mês com as faturas: paga (verde), a vencer (amarelo), em atraso (vermelho) e dia de pagamento previsto (tracejado). Mostra também a semana do ano e o total por receber este mês. Setas ‹ › para mudar de mês. Os dias entre o início e o fim do trabalho de uma fatura ficam pintados.
 Em Definições → Calendário cada pessoa escolhe o dia em que a semana começa (segunda-feira, domingo ou sábado) e como se numeram as semanas: ISO 8601 (o habitual na Europa, número da segunda-feira) ou contado a partir do 1.º dia da semana. Só muda a vista; as faturas não mudam.
