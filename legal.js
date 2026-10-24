@@ -8,7 +8,7 @@ const OP = {
   vat: {pt: 'isento de IVA ao abrigo do artigo 53.º do Código do IVA',
         es: 'exento de IVA en virtud del artículo 53.º del Código del IVA portugués',
         en: 'exempt from VAT under Article 53 of the Portuguese VAT Code'},
-  updated: '2026-10-24'
+  updated: '2026-10-25'
 };
 const PRICE = '6,99 € / mês (ou 5,99 £ / mês)';
 const PRICE_EN = '€6.99 / month (or £5.99 / month)';
@@ -29,7 +29,7 @@ pt: { title: 'Termos de Utilização', body: `
 <ul><li>Cada conta nova tem <b>30 dias grátis</b>, sem pedir dados de pagamento.</li>
 <li>Depois, o preço é <b>${PRICE}</b>, ${OP.vat.pt}.</li>
 <li>O pagamento é feito <b>antecipadamente</b>, por transferência bancária para os dados indicados na aplicação (1, 3 ou 12 meses) ou, quando disponível, por cartão. O pagamento por transferência <b>não se renova sozinho</b>.</li>
-<li>Depois de comunicares a transferência, tens 2 dias de acesso enquanto a confirmamos. Se a transferência não chegar, o acesso volta ao estado anterior.</li>
+<li>Depois de comunicares a transferência, tens 2 dias úteis de acesso enquanto a confirmamos (exceto se já cancelaste ou tiveste um aviso recusado antes). Se a transferência não chegar, o acesso volta ao estado anterior.</li>
 <li>Se a subscrição terminar, continuas a poder <b>ver, descarregar e apagar</b> os teus dados. Só deixas de poder criar ou alterar faturas, despesas e clientes.</li>
 <li>Podemos alterar o preço com pelo menos 30 dias de aviso. A alteração não afeta períodos já pagos.</li></ul>
 <h2>5. Direito de livre resolução</h2>
@@ -48,7 +48,7 @@ pt: { title: 'Termos de Utilização', body: `
 <h2>9. Alterações</h2>
 <p>Podemos atualizar estes termos. Alterações importantes são avisadas na aplicação ou por email antes de entrarem em vigor.</p>
 <h2>10. Lei aplicável e litígios</h2>
-<p>Aplica-se a lei portuguesa. Se fores consumidor, podes recorrer a uma entidade de resolução alternativa de litígios de consumo (lista em <a href="https://www.consumidor.gov.pt" target="_blank" rel="noopener">consumidor.gov.pt</a>) e ao <a href="https://www.livroreclamacoes.pt" target="_blank" rel="noopener">Livro de Reclamações Eletrónico</a>, sem prejuízo dos tribunais competentes.</p>` },
+<p>Aplica-se a lei portuguesa. Se fores consumidor, podes recorrer ao CNIACC, Centro Nacional de Informação e Arbitragem de Conflitos de Consumo (<a href="https://www.cniacc.pt" target="_blank" rel="noopener">cniacc.pt</a>), ou a outra entidade de resolução alternativa de litígios de consumo (lista em <a href="https://www.consumidor.gov.pt" target="_blank" rel="noopener">consumidor.gov.pt</a>) e ao <a href="https://www.livroreclamacoes.pt" target="_blank" rel="noopener">Livro de Reclamações Eletrónico</a>, sem prejuízo dos tribunais competentes.</p>` },
 es: { title: 'Términos de Uso', body: `
 <h2>1. Quién presta el servicio</h2>
 <p>Paidsmith lo presta <b>${OP.name}</b>, NIF ${OP.nif}, con domicilio en ${OP.address} ("nosotros"). Contacto: <a href="mailto:${OP.email}">${OP.email}</a>.</p>
@@ -63,7 +63,7 @@ es: { title: 'Términos de Uso', body: `
 <ul><li>Cada cuenta nueva tiene <b>30 días gratis</b>, sin pedir datos de pago.</li>
 <li>Después, el precio es <b>${PRICE}</b>, ${OP.vat.es}.</li>
 <li>El pago es <b>por adelantado</b>, por transferencia bancaria a los datos indicados en la aplicación (1, 3 o 12 meses) o, cuando esté disponible, con tarjeta. El pago por transferencia <b>no se renueva automáticamente</b>.</li>
-<li>Tras comunicar la transferencia, tienes 2 días de acceso mientras la confirmamos. Si la transferencia no llega, el acceso vuelve al estado anterior.</li>
+<li>Tras comunicar la transferencia, tienes 2 días hábiles de acceso mientras la confirmamos (salvo si ya cancelaste o te rechazaron un aviso antes). Si la transferencia no llega, el acceso vuelve al estado anterior.</li>
 <li>Si la suscripción termina, puedes seguir <b>viendo, descargando y borrando</b> tus datos. Solo dejas de poder crear o modificar facturas, gastos y clientes.</li>
 <li>Podemos cambiar el precio con al menos 30 días de aviso. El cambio no afecta a periodos ya pagados.</li></ul>
 <h2>5. Derecho de desistimiento</h2>
@@ -82,7 +82,7 @@ es: { title: 'Términos de Uso', body: `
 <h2>9. Cambios</h2>
 <p>Podemos actualizar estos términos. Los cambios importantes se avisan en la aplicación o por email antes de entrar en vigor.</p>
 <h2>10. Ley aplicable y litigios</h2>
-<p>Se aplica la ley portuguesa, sin perjuicio de las normas imperativas de protección del consumidor de tu país de residencia. Si eres consumidor, puedes acudir a la plataforma europea de resolución de litigios y a los organismos de consumo de tu país.</p>` },
+<p>Se aplica la ley portuguesa, sin perjuicio de las normas imperativas de protección del consumidor de tu país de residencia. Si eres consumidor, puedes acudir a los organismos de consumo de tu país, al Centro Europeo del Consumidor para litigios transfronterizos o al CNIACC portugués (<a href="https://www.cniacc.pt" target="_blank" rel="noopener">cniacc.pt</a>).</p>` },
 en: { title: 'Terms of Use', body: `
 <h2>1. Who provides the service</h2>
 <p>Paidsmith is provided by <b>${OP.name}</b>, tax ID ${OP.nif}, of ${OP.address} ("we"). Contact: <a href="mailto:${OP.email}">${OP.email}</a>.</p>
@@ -97,7 +97,7 @@ en: { title: 'Terms of Use', body: `
 <ul><li>Every new account gets a <b>30-day free trial</b>, with no payment details required.</li>
 <li>After that the price is <b>${PRICE_EN}</b>, ${OP.vat.en}.</li>
 <li>Payment is made <b>in advance</b>, by bank transfer to the details shown in the app (1, 3 or 12 months) or, when available, by card. Payment by transfer <b>does not renew automatically</b>.</li>
-<li>After you report a transfer, you keep access for 2 days while we confirm it. If the transfer does not arrive, access returns to its previous state.</li>
+<li>After you report a transfer, you keep access for 2 business days while we confirm it (unless you have cancelled or had a notice rejected before). If the transfer does not arrive, access returns to its previous state.</li>
 <li>If your subscription ends you can still <b>view, download and delete</b> your data; you just can no longer create or edit invoices, expenses and clients.</li>
 <li>We may change the price with at least 30 days' notice. Changes do not affect periods already paid.</li></ul>
 <h2>5. Right of withdrawal</h2>
@@ -116,7 +116,7 @@ en: { title: 'Terms of Use', body: `
 <h2>9. Changes</h2>
 <p>We may update these terms. Significant changes are announced in the app or by email before they take effect.</p>
 <h2>10. Governing law and disputes</h2>
-<p>Portuguese law applies, without prejudice to the mandatory consumer protection rules of your country of residence. Consumers may also use the consumer dispute bodies available in their country.</p>` }
+<p>Portuguese law applies, without prejudice to the mandatory consumer protection rules of your country of residence. Consumers may also use the consumer dispute bodies available in their country. For cross-border disputes, the European Consumer Centre in your country can help, and the Portuguese arbitration centre CNIACC (<a href="https://www.cniacc.pt" target="_blank" rel="noopener">cniacc.pt</a>) is also available.</p>` }
 },
 privacy: {
 pt: { title: 'Política de Privacidade', body: `
@@ -140,10 +140,10 @@ pt: { title: 'Política de Privacidade', body: `
 <li><b>jsDelivr</b>: entrega das bibliotecas usadas pela aplicação.</li>
 <li><b>Cloudflare Turnstile</b>: proteção contra robôs no registo e na entrada.</li>
 <li><b>OpenRouter</b> (EUA) e o fornecedor do modelo de IA: só quando usas o assistente de Ajuda. O texto que escreves no assistente é-lhes enviado e pode ser guardado ou usado por eles para melhorar os modelos. Não escrevas dados pessoais, de clientes ou bancários no assistente.</li>
-<li><b>frankfurter.dev e open.er-api.com</b>: taxas de câmbio, sem envio de dados pessoais.</li></ul>
+<li><b>frankfurter.dev e open.er-api.com</b>: taxas de câmbio, sem envio de dados pessoais.</li><li><b>Microsoft Outlook</b> (caixa de email do responsável): recebe os avisos internos referidos acima. Estes emails são apagados no máximo 12 meses depois de tratado o assunto.</li></ul>
 <p>Quando um destes serviços trata dados fora do Espaço Económico Europeu, a transferência é feita com as garantias do RGPD (Quadro de Privacidade de Dados UE-EUA ou cláusulas contratuais-tipo). Não vendemos os teus dados.</p>
 <h2>5. Durante quanto tempo</h2>
-<p>Enquanto a conta existir. Quando apagas a conta na aplicação, os teus dados e ficheiros são apagados de imediato; pedidos feitos por email são tratados no prazo de 30 dias. Ficam apenas os registos dos pagamentos confirmados (data, valor, moeda, referência e email), que a lei fiscal nos obriga a guardar até 10 anos.</p>
+<p>Enquanto a conta existir. Quando apagas a conta na aplicação, os teus dados e ficheiros são apagados de imediato; pedidos feitos por email são tratados no prazo de 30 dias. Ficam apenas os registos dos pagamentos confirmados (data, valor, moeda, referência e email), que a lei fiscal nos obriga a guardar até 10 anos. Ficam ainda, por segurança e só pelo prazo do fornecedor, os registos técnicos de acesso (endereço IP, data) e as cópias de segurança automáticas da base de dados. Para impedir que o mesmo email volte a ter período experimental, guardamos um código irreversível (hash) do email, sem o email em si. As funções do servidor podem correr em centros de dados da Supabase fora da UE, com as garantias indicadas acima.</p>
 <h2>6. Os teus direitos</h2>
 <p>Tens direito de acesso, retificação, apagamento, limitação, portabilidade e oposição. Podes exportar os teus dados e apagar a conta diretamente na aplicação (Definições → Os meus dados) ou escrever para ${OP.email}. Se considerares que os teus direitos não foram respeitados, podes reclamar à <a href="https://www.cnpd.pt" target="_blank" rel="noopener">CNPD</a> ou à autoridade de proteção de dados do teu país.</p>
 <h2>7. Segurança</h2>
@@ -171,10 +171,10 @@ es: { title: 'Política de Privacidad', body: `
 <li><b>jsDelivr</b>: entrega de las bibliotecas que usa la aplicación.</li>
 <li><b>Cloudflare Turnstile</b>: protección contra robots en el registro y el acceso.</li>
 <li><b>OpenRouter</b> (EE. UU.) y el proveedor del modelo de IA: solo cuando usas el asistente de Ayuda. El texto que escribes en el asistente se les envía y pueden guardarlo o usarlo para mejorar sus modelos. No escribas datos personales, de clientes ni bancarios en el asistente.</li>
-<li><b>frankfurter.dev y open.er-api.com</b>: tipos de cambio, sin envío de datos personales.</li></ul>
+<li><b>frankfurter.dev y open.er-api.com</b>: tipos de cambio, sin envío de datos personales.</li><li><b>Microsoft Outlook</b> (buzón de email del responsable): recibe los avisos internos citados arriba. Estos emails se borran como máximo 12 meses después de resolver el asunto.</li></ul>
 <p>Cuando alguno de estos servicios trata datos fuera del Espacio Económico Europeo, se hace con las garantías del RGPD (Marco de Privacidad de Datos UE-EE. UU. o cláusulas contractuales tipo). No vendemos tus datos.</p>
 <h2>5. Durante cuánto tiempo</h2>
-<p>Mientras exista la cuenta. Cuando borras la cuenta en la aplicación, tus datos y archivos se borran de inmediato; las solicitudes por email se atienden en un plazo de 30 días. Solo se conservan los registros de los pagos confirmados (fecha, importe, moneda, referencia y email), que la ley fiscal nos obliga a guardar hasta 10 años.</p>
+<p>Mientras exista la cuenta. Cuando borras la cuenta en la aplicación, tus datos y archivos se borran de inmediato; las solicitudes por email se atienden en un plazo de 30 días. Solo se conservan los registros de los pagos confirmados (fecha, importe, moneda, referencia y email), que la ley fiscal nos obliga a guardar hasta 10 años. También se conservan, por seguridad y solo durante el plazo del proveedor, los registros técnicos de acceso (dirección IP, fecha) y las copias de seguridad automáticas de la base de datos. Para impedir que el mismo email vuelva a tener periodo de prueba, guardamos un código irreversible (hash) del email, sin el email en sí. Las funciones del servidor pueden ejecutarse en centros de datos de Supabase fuera de la UE, con las garantías indicadas arriba.</p>
 <h2>6. Tus derechos</h2>
 <p>Tienes derecho de acceso, rectificación, supresión, limitación, portabilidad y oposición. Puedes exportar tus datos y borrar la cuenta directamente en la aplicación (Ajustes → Mis datos) o escribir a ${OP.email}. Si crees que no se han respetado tus derechos, puedes reclamar ante la <a href="https://www.aepd.es" target="_blank" rel="noopener">AEPD</a> o la autoridad de protección de datos de tu país.</p>
 <h2>7. Seguridad</h2>
@@ -202,10 +202,10 @@ en: { title: 'Privacy Policy', body: `
 <li><b>jsDelivr</b>: delivery of the libraries used by the app.</li>
 <li><b>Cloudflare Turnstile</b>: bot protection on sign-up and sign-in.</li>
 <li><b>OpenRouter</b> (USA) and the AI model provider: only when you use the Help assistant. What you type into the assistant is sent to them and may be stored or used to improve their models. Do not type personal, client or bank details into the assistant.</li>
-<li><b>frankfurter.dev and open.er-api.com</b>: exchange rates; no personal data is sent.</li></ul>
+<li><b>frankfurter.dev and open.er-api.com</b>: exchange rates; no personal data is sent.</li><li><b>Microsoft Outlook</b> (the controller's mailbox): receives the internal notices mentioned above. These emails are deleted no later than 12 months after the matter is closed.</li></ul>
 <p>Where any of these services processes data outside the European Economic Area, this is done with GDPR safeguards (EU-US Data Privacy Framework or standard contractual clauses). We do not sell your data.</p>
 <h2>5. How long</h2>
-<p>For as long as your account exists. When you delete your account in the app, your data and files are deleted straight away; requests made by email are handled within 30 days. Only records of confirmed payments (date, amount, currency, reference and email) are kept, because tax law requires us to keep them for up to 10 years.</p>
+<p>For as long as your account exists. When you delete your account in the app, your data and files are deleted straight away; requests made by email are handled within 30 days. Only records of confirmed payments (date, amount, currency, reference and email) are kept, because tax law requires us to keep them for up to 10 years. For security, technical access logs (IP address, date) and automatic database backups are also kept, only for the provider's retention period. To stop the same email getting another free trial, we keep an irreversible code (hash) of the email, not the email itself. Server functions may run in Supabase data centres outside the EU, with the safeguards described above.</p>
 <h2>6. Your rights</h2>
 <p>You have the right of access, rectification, erasure, restriction, portability and objection. You can export your data and delete your account directly in the app (Settings → My data) or email ${OP.email}. If you believe your rights have not been respected, you can complain to the Portuguese authority (<a href="https://www.cnpd.pt" target="_blank" rel="noopener">CNPD</a>), the UK <a href="https://ico.org.uk" target="_blank" rel="noopener">ICO</a>, or the data protection authority in your country.</p>
 <h2>7. Security</h2>
@@ -230,7 +230,7 @@ DOCS.terms.fr = { title: "Conditions d'utilisation", body: `
 <ul><li>Chaque nouveau compte bénéficie d'un <b>essai gratuit de 30 jours</b>, sans demande de coordonnées de paiement.</li>
 <li>Ensuite, le prix est de <b>${PRICE_EN}</b>, ${OP.vat.fr}.</li>
 <li>Le paiement s'effectue <b>à l'avance</b>, par virement bancaire vers les coordonnées indiquées dans l'application (1, 3 ou 12 mois) ou, lorsque cette option est disponible, par carte. Le paiement par virement <b>ne se renouvelle pas automatiquement</b>.</li>
-<li>Après avoir signalé un virement, vous conservez l'accès pendant 2 jours, le temps que nous le confirmions. Si le virement n'arrive pas, l'accès revient à son état antérieur.</li>
+<li>Après avoir signalé un virement, vous conservez l'accès pendant 2 jours ouvrés, le temps que nous le confirmions (sauf si vous avez déjà annulé ou eu un avis refusé). Si le virement n'arrive pas, l'accès revient à son état antérieur.</li>
 <li>Si votre abonnement prend fin, vous pouvez toujours <b>consulter, télécharger et supprimer</b> vos données ; vous ne pouvez simplement plus créer ni modifier de factures, de dépenses et de clients.</li>
 <li>Nous pouvons modifier le prix moyennant un préavis d'au moins 30 jours. Les modifications n'affectent pas les périodes déjà payées.</li></ul>
 <h2>5. Droit de rétractation</h2>
@@ -249,7 +249,7 @@ DOCS.terms.fr = { title: "Conditions d'utilisation", body: `
 <h2>9. Modifications</h2>
 <p>Nous pouvons mettre à jour les présentes conditions. Les modifications importantes sont annoncées dans l'application ou par e-mail avant leur entrée en vigueur.</p>
 <h2>10. Droit applicable et litiges</h2>
-<p>Le droit portugais s'applique, sans préjudice des règles impératives de protection des consommateurs de votre pays de résidence. Les consommateurs peuvent également recourir aux organismes de règlement des litiges de consommation disponibles dans leur pays.</p>` };
+<p>Le droit portugais s'applique, sans préjudice des règles impératives de protection des consommateurs de votre pays de résidence. Les consommateurs peuvent également recourir aux organismes de règlement des litiges de consommation disponibles dans leur pays. Pour les litiges transfrontaliers, le Centre européen des consommateurs de votre pays peut vous aider ; le centre d'arbitrage portugais CNIACC (<a href="https://www.cniacc.pt" target="_blank" rel="noopener">cniacc.pt</a>) est aussi disponible.</p>` };
 DOCS.privacy.fr = { title: "Politique de confidentialité", body: `
 <h2>1. Responsable du traitement</h2>
 <p><b>${OP.name}</b>, numéro fiscal ${OP.nif}, ${OP.address}. Pour toute question concernant vos données : <a href="mailto:${OP.email}">${OP.email}</a>.</p>
@@ -271,10 +271,10 @@ DOCS.privacy.fr = { title: "Politique de confidentialité", body: `
 <li><b>jsDelivr</b> : distribution des bibliothèques utilisées par l'application.</li>
 <li><b>Cloudflare Turnstile</b> : protection contre les robots lors de l'inscription et de la connexion.</li>
 <li><b>OpenRouter</b> (États-Unis) et le fournisseur du modèle d'IA : uniquement lorsque vous utilisez l'assistant d'aide. Ce que vous saisissez dans l'assistant leur est envoyé et peut être conservé ou utilisé pour améliorer leurs modèles. Ne saisissez pas de données personnelles, de données de clients ni de coordonnées bancaires dans l'assistant.</li>
-<li><b>frankfurter.dev et open.er-api.com</b> : taux de change ; aucune donnée personnelle n'est envoyée.</li></ul>
+<li><b>frankfurter.dev et open.er-api.com</b> : taux de change ; aucune donnée personnelle n'est envoyée.</li><li><b>Microsoft Outlook</b> (boîte e-mail du responsable) : reçoit les avis internes mentionnés ci-dessus. Ces e-mails sont supprimés au plus tard 12 mois après le traitement de la demande.</li></ul>
 <p>Lorsque l'un de ces services traite des données en dehors de l'Espace économique européen, ce transfert est encadré par les garanties prévues par le RGPD (cadre de protection des données UE-États-Unis ou clauses contractuelles types). Nous ne vendons pas vos données.</p>
 <h2>5. Durée de conservation</h2>
-<p>Aussi longtemps que votre compte existe. Lorsque vous supprimez votre compte dans l'application, vos données et fichiers sont supprimés immédiatement ; les demandes faites par e-mail sont traitées dans un délai de 30 jours. Seuls les enregistrements des paiements confirmés (date, montant, devise, référence et e-mail) sont conservés, car la législation fiscale nous oblige à les garder jusqu'à 10 ans.</p>
+<p>Aussi longtemps que votre compte existe. Lorsque vous supprimez votre compte dans l'application, vos données et fichiers sont supprimés immédiatement ; les demandes faites par e-mail sont traitées dans un délai de 30 jours. Seuls les enregistrements des paiements confirmés (date, montant, devise, référence et e-mail) sont conservés, car la législation fiscale nous oblige à les garder jusqu'à 10 ans. Par sécurité, les journaux techniques d'accès (adresse IP, date) et les sauvegardes automatiques de la base de données sont aussi conservés, uniquement pendant la durée prévue par le fournisseur. Pour empêcher qu'un même e-mail bénéficie à nouveau de l'essai gratuit, nous gardons un code irréversible (hash) de l'e-mail, et non l'e-mail lui-même. Les fonctions serveur peuvent s'exécuter dans des centres de données de Supabase hors de l'UE, avec les garanties indiquées ci-dessus.</p>
 <h2>6. Vos droits</h2>
 <p>Vous disposez d'un droit d'accès, de rectification, d'effacement, de limitation, de portabilité et d'opposition. Vous pouvez exporter vos données et supprimer votre compte directement dans l'application (Paramètres → Mes données) ou écrire à ${OP.email}. Si vous estimez que vos droits n'ont pas été respectés, vous pouvez introduire une réclamation auprès de l'autorité portugaise (<a href="https://www.cnpd.pt" target="_blank" rel="noopener">CNPD</a>) ou de l'autorité de protection des données de votre pays (en France, la <a href="https://www.cnil.fr" target="_blank" rel="noopener">CNIL</a>).</p>
 <h2>7. Sécurité</h2>
@@ -295,7 +295,7 @@ DOCS.terms.de = { title: "Nutzungsbedingungen", body: `
 <ul><li>Jedes neue Konto erhält eine <b>30-tägige kostenlose Testphase</b>, ohne Angabe von Zahlungsdaten.</li>
 <li>Danach beträgt der Preis <b>${PRICE_EN}</b>, ${OP.vat.de}.</li>
 <li>Die Zahlung erfolgt <b>im Voraus</b>, per Banküberweisung an die in der App angezeigte Bankverbindung (1, 3 oder 12 Monate) oder, sofern verfügbar, per Karte. Die Zahlung per Überweisung <b>verlängert sich nicht automatisch</b>.</li>
-<li>Nachdem Sie eine Überweisung gemeldet haben, behalten Sie 2 Tage lang Zugang, während wir sie prüfen. Geht die Überweisung nicht ein, wird der Zugang auf den vorherigen Stand zurückgesetzt.</li>
+<li>Nachdem Sie eine Überweisung gemeldet haben, behalten Sie 2 Werktage lang Zugang, während wir sie prüfen (außer Sie haben schon einmal storniert oder eine Meldung wurde abgelehnt). Geht die Überweisung nicht ein, wird der Zugang auf den vorherigen Stand zurückgesetzt.</li>
 <li>Endet Ihr Abonnement, können Sie Ihre Daten weiterhin <b>ansehen, herunterladen und löschen</b>; Sie können lediglich keine Rechnungen, Ausgaben und Kunden mehr anlegen oder bearbeiten.</li>
 <li>Wir können den Preis mit einer Ankündigungsfrist von mindestens 30 Tagen ändern. Änderungen betreffen keine bereits bezahlten Zeiträume.</li></ul>
 <h2>5. Widerrufsrecht</h2>
@@ -314,7 +314,7 @@ DOCS.terms.de = { title: "Nutzungsbedingungen", body: `
 <h2>9. Änderungen</h2>
 <p>Wir können diese Bedingungen aktualisieren. Wesentliche Änderungen werden vor ihrem Inkrafttreten in der App oder per E-Mail angekündigt.</p>
 <h2>10. Anwendbares Recht und Streitigkeiten</h2>
-<p>Es gilt portugiesisches Recht, unbeschadet der zwingenden Verbraucherschutzvorschriften Ihres Wohnsitzlandes. Verbraucher können sich zudem an die in ihrem Land verfügbaren Verbraucherschlichtungsstellen wenden.</p>` };
+<p>Es gilt portugiesisches Recht, unbeschadet der zwingenden Verbraucherschutzvorschriften Ihres Wohnsitzlandes. Verbraucher können sich zudem an die in ihrem Land verfügbaren Verbraucherschlichtungsstellen wenden. Bei grenzüberschreitenden Streitigkeiten hilft das Europäische Verbraucherzentrum Ihres Landes; außerdem steht die portugiesische Schlichtungsstelle CNIACC (<a href="https://www.cniacc.pt" target="_blank" rel="noopener">cniacc.pt</a>) zur Verfügung.</p>` };
 DOCS.privacy.de = { title: "Datenschutzerklärung", body: `
 <h2>1. Verantwortlicher</h2>
 <p><b>${OP.name}</b>, Steuernummer ${OP.nif}, ${OP.address}. Bei Fragen zu Ihren Daten: <a href="mailto:${OP.email}">${OP.email}</a>.</p>
@@ -336,10 +336,10 @@ DOCS.privacy.de = { title: "Datenschutzerklärung", body: `
 <li><b>jsDelivr</b>: Bereitstellung der von der App verwendeten Bibliotheken.</li>
 <li><b>Cloudflare Turnstile</b>: Schutz vor Bots bei Registrierung und Anmeldung.</li>
 <li><b>OpenRouter</b> (USA) und der Anbieter des KI-Modells: nur, wenn Sie den Hilfe-Assistenten nutzen. Was Sie in den Assistenten eingeben, wird an diese übermittelt und kann von ihnen gespeichert oder zur Verbesserung ihrer Modelle verwendet werden. Geben Sie keine personenbezogenen Daten, Kundendaten oder Bankdaten in den Assistenten ein.</li>
-<li><b>frankfurter.dev und open.er-api.com</b>: Wechselkurse; es werden keine personenbezogenen Daten übermittelt.</li></ul>
+<li><b>frankfurter.dev und open.er-api.com</b>: Wechselkurse; es werden keine personenbezogenen Daten übermittelt.</li><li><b>Microsoft Outlook</b> (E-Mail-Postfach des Verantwortlichen): empfängt die oben genannten internen Hinweise. Diese E-Mails werden spätestens 12 Monate nach Erledigung gelöscht.</li></ul>
 <p>Soweit einer dieser Dienste Daten außerhalb des Europäischen Wirtschaftsraums verarbeitet, geschieht dies mit den Garantien der DSGVO (EU-US Data Privacy Framework oder Standardvertragsklauseln). Wir verkaufen Ihre Daten nicht.</p>
 <h2>5. Speicherdauer</h2>
-<p>Solange Ihr Konto besteht. Wenn Sie Ihr Konto in der App löschen, werden Ihre Daten und Dateien sofort gelöscht; per E-Mail gestellte Anfragen werden innerhalb von 30 Tagen bearbeitet. Aufbewahrt werden nur die Aufzeichnungen bestätigter Zahlungen (Datum, Betrag, Währung, Referenz und E-Mail-Adresse), da das Steuerrecht uns verpflichtet, sie bis zu 10 Jahre aufzubewahren.</p>
+<p>Solange Ihr Konto besteht. Wenn Sie Ihr Konto in der App löschen, werden Ihre Daten und Dateien sofort gelöscht; per E-Mail gestellte Anfragen werden innerhalb von 30 Tagen bearbeitet. Aufbewahrt werden nur die Aufzeichnungen bestätigter Zahlungen (Datum, Betrag, Währung, Referenz und E-Mail-Adresse), da das Steuerrecht uns verpflichtet, sie bis zu 10 Jahre aufzubewahren. Aus Sicherheitsgründen bleiben außerdem technische Zugriffsprotokolle (IP-Adresse, Datum) und automatische Datenbanksicherungen erhalten, nur für die Aufbewahrungsfrist des Anbieters. Damit dieselbe E-Mail-Adresse nicht erneut eine Testphase erhält, speichern wir einen nicht umkehrbaren Code (Hash) der Adresse, nicht die Adresse selbst. Serverfunktionen können in Rechenzentren von Supabase außerhalb der EU laufen, mit den oben genannten Garantien.</p>
 <h2>6. Ihre Rechte</h2>
 <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch. Sie können Ihre Daten direkt in der App exportieren und Ihr Konto löschen (Einstellungen → Meine Daten) oder an ${OP.email} schreiben. Wenn Sie der Ansicht sind, dass Ihre Rechte nicht gewahrt wurden, können Sie sich bei der portugiesischen Aufsichtsbehörde (<a href="https://www.cnpd.pt" target="_blank" rel="noopener">CNPD</a>) oder bei der Datenschutzaufsichtsbehörde Ihres Landes oder Bundeslandes beschweren.</p>
 <h2>7. Sicherheit</h2>
@@ -360,7 +360,7 @@ DOCS.terms.it = { title: "Termini di utilizzo", body: `
 <ul><li>Ogni nuovo account ha una <b>prova gratuita di 30 giorni</b>, senza bisogno di dati di pagamento.</li>
 <li>Successivamente il prezzo è di <b>${PRICE_EN}</b>, ${OP.vat.it}.</li>
 <li>Il pagamento è <b>anticipato</b>, tramite bonifico bancario alle coordinate indicate nell'app (1, 3 o 12 mesi) oppure, quando disponibile, con carta. Il pagamento tramite bonifico <b>non si rinnova automaticamente</b>.</li>
-<li>Dopo aver comunicato un bonifico, mantieni l'accesso per 2 giorni mentre lo verifichiamo. Se il bonifico non arriva, l'accesso torna allo stato precedente.</li>
+<li>Dopo aver comunicato un bonifico, mantieni l'accesso per 2 giorni lavorativi mentre lo verifichiamo (a meno che tu non abbia già annullato o avuto un avviso rifiutato). Se il bonifico non arriva, l'accesso torna allo stato precedente.</li>
 <li>Se l'abbonamento termina, puoi comunque <b>visualizzare, scaricare ed eliminare</b> i tuoi dati; semplicemente non puoi più creare o modificare fatture, spese e clienti.</li>
 <li>Possiamo modificare il prezzo con un preavviso di almeno 30 giorni. Le modifiche non riguardano i periodi già pagati.</li></ul>
 <h2>5. Diritto di recesso</h2>
@@ -379,7 +379,7 @@ DOCS.terms.it = { title: "Termini di utilizzo", body: `
 <h2>9. Modifiche</h2>
 <p>Possiamo aggiornare questi termini. Le modifiche importanti vengono comunicate nell'app o via email prima della loro entrata in vigore.</p>
 <h2>10. Legge applicabile e controversie</h2>
-<p>Si applica la legge portoghese, fatte salve le norme imperative a tutela dei consumatori del tuo paese di residenza. I consumatori possono inoltre rivolgersi agli organismi di risoluzione delle controversie dei consumatori disponibili nel proprio paese.</p>` };
+<p>Si applica la legge portoghese, fatte salve le norme imperative a tutela dei consumatori del tuo paese di residenza. I consumatori possono inoltre rivolgersi agli organismi di risoluzione delle controversie dei consumatori disponibili nel proprio paese. Per le controversie transfrontaliere può aiutarti il Centro europeo dei consumatori del tuo paese; è inoltre disponibile il centro di arbitrato portoghese CNIACC (<a href="https://www.cniacc.pt" target="_blank" rel="noopener">cniacc.pt</a>).</p>` };
 DOCS.privacy.it = { title: "Informativa sulla privacy", body: `
 <h2>1. Titolare del trattamento</h2>
 <p><b>${OP.name}</b>, codice fiscale ${OP.nif}, ${OP.address}. Per qualsiasi domanda sui tuoi dati: <a href="mailto:${OP.email}">${OP.email}</a>.</p>
@@ -401,10 +401,10 @@ DOCS.privacy.it = { title: "Informativa sulla privacy", body: `
 <li><b>jsDelivr</b>: distribuzione delle librerie usate dall'app.</li>
 <li><b>Cloudflare Turnstile</b>: protezione dai bot in fase di registrazione e di accesso.</li>
 <li><b>OpenRouter</b> (USA) e il fornitore del modello di IA: solo quando usi l'assistente di Aiuto. Ciò che scrivi nell'assistente viene inviato a loro e può essere conservato o usato per migliorare i loro modelli. Non scrivere nell'assistente dati personali, dati dei clienti o dati bancari.</li>
-<li><b>frankfurter.dev e open.er-api.com</b>: tassi di cambio; non viene inviato alcun dato personale.</li></ul>
+<li><b>frankfurter.dev e open.er-api.com</b>: tassi di cambio; non viene inviato alcun dato personale.</li><li><b>Microsoft Outlook</b> (casella email del titolare): riceve gli avvisi interni indicati sopra. Queste email vengono cancellate al più tardi 12 mesi dopo la chiusura della richiesta.</li></ul>
 <p>Quando uno di questi servizi tratta dati al di fuori dello Spazio economico europeo, il trasferimento avviene con le garanzie previste dal RGPD (EU-US Data Privacy Framework o clausole contrattuali tipo). Non vendiamo i tuoi dati.</p>
 <h2>5. Per quanto tempo</h2>
-<p>Finché il tuo account esiste. Quando elimini l'account nell'app, i tuoi dati e file vengono eliminati subito; le richieste inviate via email vengono gestite entro 30 giorni. Restano solo le registrazioni dei pagamenti confermati (data, importo, valuta, riferimento ed email), che la normativa fiscale ci obbliga a conservare fino a 10 anni.</p>
+<p>Finché il tuo account esiste. Quando elimini l'account nell'app, i tuoi dati e file vengono eliminati subito; le richieste inviate via email vengono gestite entro 30 giorni. Restano solo le registrazioni dei pagamenti confermati (data, importo, valuta, riferimento ed email), che la normativa fiscale ci obbliga a conservare fino a 10 anni. Per sicurezza restano inoltre, solo per il periodo previsto dal fornitore, i registri tecnici di accesso (indirizzo IP, data) e i backup automatici del database. Per evitare che la stessa email ottenga di nuovo il periodo di prova, conserviamo un codice irreversibile (hash) dell'email, non l'email stessa. Le funzioni del server possono essere eseguite in data center di Supabase fuori dall'UE, con le garanzie indicate sopra.</p>
 <h2>6. I tuoi diritti</h2>
 <p>Hai diritto di accesso, rettifica, cancellazione, limitazione, portabilità e opposizione. Puoi esportare i tuoi dati ed eliminare l'account direttamente nell'app (Impostazioni → I miei dati) oppure scrivere a ${OP.email}. Se ritieni che i tuoi diritti non siano stati rispettati, puoi presentare reclamo all'autorità portoghese (<a href="https://www.cnpd.pt" target="_blank" rel="noopener">CNPD</a>) o all'autorità di protezione dei dati del tuo paese (in Italia, il <a href="https://www.garanteprivacy.it" target="_blank" rel="noopener">Garante per la protezione dei dati personali</a>).</p>
 <h2>7. Sicurezza</h2>
@@ -424,7 +424,7 @@ DOCS.terms.ro = { title: "Termeni de utilizare", body: `<h2>1. Cine furnizează 
 <ul><li>Fiecare cont nou primește o <b>perioadă de probă gratuită de 30 de zile</b>, fără să fie nevoie de date de plată.</li>
 <li>După aceea, prețul este de <b>${PRICE_EN}</b>, ${OP.vat.ro}.</li>
 <li>Plata se face <b>în avans</b>, prin transfer bancar în contul indicat în aplicație (1, 3 sau 12 luni) sau, când este disponibilă, cu cardul. Plata prin transfer <b>nu se reînnoiește automat</b>.</li>
-<li>După ce raportezi un transfer, îți păstrezi accesul timp de 2 zile cât timp îl confirmăm. Dacă transferul nu ajunge, accesul revine la starea anterioară.</li>
+<li>După ce raportezi un transfer, îți păstrezi accesul timp de 2 zile lucrătoare cât timp îl confirmăm (cu excepția cazului în care ai anulat deja sau ți s-a respins un anunț). Dacă transferul nu ajunge, accesul revine la starea anterioară.</li>
 <li>Dacă abonamentul tău se încheie, poți în continuare să <b>vizualizezi, descarci și ștergi</b> datele tale; doar că nu mai poți crea sau edita facturi, cheltuieli și clienți.</li>
 <li>Putem modifica prețul cu un preaviz de cel puțin 30 de zile. Modificările nu afectează perioadele deja plătite.</li></ul>
 <h2>5. Dreptul de retragere</h2>
@@ -443,7 +443,7 @@ DOCS.terms.ro = { title: "Termeni de utilizare", body: `<h2>1. Cine furnizează 
 <h2>9. Modificări</h2>
 <p>Putem actualiza acești termeni. Modificările importante sunt anunțate în aplicație sau prin email înainte de a intra în vigoare.</p>
 <h2>10. Legea aplicabilă și litigii</h2>
-<p>Se aplică legea portugheză, fără a aduce atingere normelor imperative de protecție a consumatorilor din țara ta de reședință. Consumatorii pot apela și la organismele de soluționare a litigiilor de consum disponibile în țara lor.</p>` };
+<p>Se aplică legea portugheză, fără a aduce atingere normelor imperative de protecție a consumatorilor din țara ta de reședință. Consumatorii pot apela și la organismele de soluționare a litigiilor de consum disponibile în țara lor. Pentru litigii transfrontaliere te poate ajuta Centrul European al Consumatorilor din țara ta; este disponibil și centrul portughez de arbitraj CNIACC (<a href="https://www.cniacc.pt" target="_blank" rel="noopener">cniacc.pt</a>).</p>` };
 DOCS.privacy.ro = { title: "Politica de confidențialitate", body: `<h2>1. Operatorul</h2>
 <p><b>${OP.name}</b>, număr de identificare fiscală ${OP.nif}, ${OP.address}. Pentru orice întrebare despre datele tale: <a href="mailto:${OP.email}">${OP.email}</a>.</p>
 <h2>2. Ce date prelucrăm</h2>
@@ -464,10 +464,10 @@ DOCS.privacy.ro = { title: "Politica de confidențialitate", body: `<h2>1. Opera
 <li><b>jsDelivr</b>: livrarea bibliotecilor folosite de aplicație.</li>
 <li><b>Cloudflare Turnstile</b>: protecție împotriva roboților la înregistrare și autentificare.</li>
 <li><b>OpenRouter</b> (SUA) și furnizorul modelului AI: doar când folosești asistentul de Ajutor. Ce scrii în asistent le este trimis și poate fi stocat sau folosit pentru a le îmbunătăți modelele. Nu scrie în asistent date personale, date ale clienților sau date bancare.</li>
-<li><b>frankfurter.dev și open.er-api.com</b>: cursuri de schimb; nu se trimit date cu caracter personal.</li></ul>
+<li><b>frankfurter.dev și open.er-api.com</b>: cursuri de schimb; nu se trimit date cu caracter personal.</li><li><b>Microsoft Outlook</b> (căsuța de email a operatorului): primește notificările interne menționate mai sus. Aceste emailuri sunt șterse cel târziu la 12 luni după rezolvarea cererii.</li></ul>
 <p>Atunci când oricare dintre aceste servicii prelucrează date în afara Spațiului Economic European, acest lucru se face cu garanțiile prevăzute de GDPR (Cadrul UE-SUA privind protecția datelor sau clauze contractuale standard). Nu îți vindem datele.</p>
 <h2>5. Cât timp</h2>
-<p>Cât timp există contul tău. Când îți ștergi contul din aplicație, datele și fișierele tale sunt șterse imediat; cererile trimise prin email sunt soluționate în termen de 30 de zile. Se păstrează doar evidențele plăților confirmate (data, suma, moneda, referința și adresa de email), deoarece legislația fiscală ne obligă să le păstrăm până la 10 ani.</p>
+<p>Cât timp există contul tău. Când îți ștergi contul din aplicație, datele și fișierele tale sunt șterse imediat; cererile trimise prin email sunt soluționate în termen de 30 de zile. Se păstrează doar evidențele plăților confirmate (data, suma, moneda, referința și adresa de email), deoarece legislația fiscală ne obligă să le păstrăm până la 10 ani. Din motive de securitate se păstrează, doar pe durata stabilită de furnizor, și jurnalele tehnice de acces (adresa IP, data) și copiile de siguranță automate ale bazei de date. Pentru ca același email să nu primească din nou perioada de probă, păstrăm un cod ireversibil (hash) al emailului, nu emailul în sine. Funcțiile serverului pot rula în centre de date Supabase din afara UE, cu garanțiile menționate mai sus.</p>
 <h2>6. Drepturile tale</h2>
 <p>Ai dreptul de acces, rectificare, ștergere, restricționare, portabilitate și opoziție. Îți poți exporta datele și îți poți șterge contul direct din aplicație (Setări → Datele mele) sau poți scrie la ${OP.email}. Dacă consideri că drepturile tale nu au fost respectate, poți depune o plângere la autoritatea portugheză (<a href="https://www.cnpd.pt" target="_blank" rel="noopener">CNPD</a>) sau la autoritatea de protecție a datelor din țara ta, în România <a href="https://www.dataprotection.ro" target="_blank" rel="noopener">ANSPDCP</a> (Autoritatea Națională de Supraveghere a Prelucrării Datelor cu Caracter Personal).</p>
 <h2>7. Securitate</h2>
@@ -487,7 +487,7 @@ DOCS.terms.tr = { title: "Kullanım Koşulları", body: `<h2>1. Hizmeti kim sağ
 <ul><li>Her yeni hesap, ödeme bilgisi gerektirmeden <b>30 günlük ücretsiz deneme</b> alır.</li>
 <li>Bu sürenin ardından fiyat <b>${PRICE_EN}</b> olup ${OP.vat.tr}.</li>
 <li>Ödeme, uygulamada gösterilen hesaba banka havalesiyle (1, 3 veya 12 ay) ya da mümkün olduğunda kartla <b>peşin</b> yapılır. Havale ile yapılan ödeme <b>otomatik olarak yenilenmez</b>.</li>
-<li>Bir havaleyi bildirdikten sonra, biz onu onaylarken 2 gün boyunca erişiminiz devam eder. Havale ulaşmazsa erişim önceki durumuna döner.</li>
+<li>Bir havaleyi bildirdikten sonra, biz onu onaylarken 2 iş günü boyunca erişiminiz devam eder (daha önce iptal ettiyseniz veya bir bildiriminiz reddedildiyse hariç). Havale ulaşmazsa erişim önceki durumuna döner.</li>
 <li>Aboneliğiniz sona ererse verilerinizi yine de <b>görüntüleyebilir, indirebilir ve silebilirsiniz</b>; yalnızca artık fatura, gider ve müşteri oluşturamaz veya düzenleyemezsiniz.</li>
 <li>Fiyatı en az 30 gün önceden bildirerek değiştirebiliriz. Değişiklikler, önceden ödenmiş dönemleri etkilemez.</li></ul>
 <h2>5. Cayma hakkı</h2>
@@ -506,7 +506,7 @@ DOCS.terms.tr = { title: "Kullanım Koşulları", body: `<h2>1. Hizmeti kim sağ
 <h2>9. Değişiklikler</h2>
 <p>Bu koşulları güncelleyebiliriz. Önemli değişiklikler, yürürlüğe girmeden önce uygulamada veya e-postayla duyurulur.</p>
 <h2>10. Uygulanacak hukuk ve uyuşmazlıklar</h2>
-<p>Yerleşim yeri ülkenizin emredici tüketici koruma kuralları saklı kalmak kaydıyla Portekiz hukuku uygulanır. Tüketiciler, ülkelerinde mevcut tüketici uyuşmazlık çözüm mercilerine de başvurabilir.</p>` };
+<p>Yerleşim yeri ülkenizin emredici tüketici koruma kuralları saklı kalmak kaydıyla Portekiz hukuku uygulanır. Tüketiciler, ülkelerinde mevcut tüketici uyuşmazlık çözüm mercilerine de başvurabilir. Portekiz tüketici tahkim merkezi CNIACC'ye (<a href="https://www.cniacc.pt" target="_blank" rel="noopener">cniacc.pt</a>) de başvurabilirsiniz.</p>` };
 DOCS.privacy.tr = { title: "Gizlilik Politikası", body: `<h2>1. Veri sorumlusu</h2>
 <p><b>${OP.name}</b>, vergi kimlik numarası ${OP.nif}, ${OP.address}. Verilerinizle ilgili her türlü soru için: <a href="mailto:${OP.email}">${OP.email}</a>.</p>
 <h2>2. Hangi verileri işliyoruz</h2>
@@ -527,10 +527,10 @@ DOCS.privacy.tr = { title: "Gizlilik Politikası", body: `<h2>1. Veri sorumlusu<
 <li><b>jsDelivr</b>: uygulamanın kullandığı kütüphanelerin sunulması.</li>
 <li><b>Cloudflare Turnstile</b>: kayıt ve oturum açma sırasında bot koruması.</li>
 <li><b>OpenRouter</b> (ABD) ve yapay zekâ modeli sağlayıcısı: yalnızca Yardım asistanını kullandığınızda. Asistana yazdıklarınız onlara gönderilir ve saklanabilir veya modellerini geliştirmek için kullanılabilir. Asistana kişisel bilgiler, müşteri bilgileri veya banka bilgileri yazmayın.</li>
-<li><b>frankfurter.dev ve open.er-api.com</b>: döviz kurları; hiçbir kişisel veri gönderilmez.</li></ul>
+<li><b>frankfurter.dev ve open.er-api.com</b>: döviz kurları; hiçbir kişisel veri gönderilmez.</li><li><b>Microsoft Outlook</b> (veri sorumlusunun e-posta kutusu): yukarıda belirtilen dahili bildirimleri alır. Bu e-postalar konu kapandıktan en geç 12 ay sonra silinir.</li></ul>
 <p>Bu hizmetlerden herhangi biri verileri Avrupa Ekonomik Alanı dışında işlediğinde, bu işlem GDPR güvenceleriyle (AB-ABD Veri Gizliliği Çerçevesi veya standart sözleşme hükümleri) yapılır. Verilerinizi satmayız.</p>
 <h2>5. Ne kadar süreyle</h2>
-<p>Hesabınız var olduğu sürece. Hesabınızı uygulamadan sildiğinizde verileriniz ve dosyalarınız hemen silinir; e-postayla yapılan talepler 30 gün içinde yerine getirilir. Yalnızca onaylanmış ödemelerin kayıtları (tarih, tutar, para birimi, referans ve e-posta) saklanır, çünkü vergi mevzuatı bunları 10 yıla kadar saklamamızı zorunlu kılar.</p>
+<p>Hesabınız var olduğu sürece. Hesabınızı uygulamadan sildiğinizde verileriniz ve dosyalarınız hemen silinir; e-postayla yapılan talepler 30 gün içinde yerine getirilir. Yalnızca onaylanmış ödemelerin kayıtları (tarih, tutar, para birimi, referans ve e-posta) saklanır, çünkü vergi mevzuatı bunları 10 yıla kadar saklamamızı zorunlu kılar. Güvenlik amacıyla teknik erişim kayıtları (IP adresi, tarih) ve veritabanının otomatik yedekleri de yalnızca sağlayıcının saklama süresi boyunca tutulur. Aynı e-postanın yeniden deneme süresi almasını önlemek için e-postanın kendisini değil, geri döndürülemez bir kodunu (hash) saklarız. Sunucu işlevleri, yukarıdaki güvencelerle AB dışındaki Supabase veri merkezlerinde çalışabilir.</p>
 <h2>6. Haklarınız</h2>
 <p>Erişim, düzeltme, silme, işlemenin kısıtlanması, veri taşınabilirliği ve itiraz haklarına sahipsiniz. Verilerinizi dışa aktarabilir ve hesabınızı doğrudan uygulamadan silebilir (Ayarlar → Verilerim) ya da ${OP.email} adresine e-posta gönderebilirsiniz. Haklarınıza uyulmadığını düşünüyorsanız Portekiz veri koruma otoritesine (<a href="https://www.cnpd.pt" target="_blank" rel="noopener">CNPD</a>) veya ülkenizin veri koruma otoritesine, Türkiye'de <a href="https://www.kvkk.gov.tr" target="_blank" rel="noopener">KVKK</a> (Kişisel Verileri Koruma Kurumu) kurumuna şikâyette bulunabilirsiniz.</p>
 <h2>7. Güvenlik</h2>
@@ -550,7 +550,7 @@ DOCS.terms.pl = { title: "Regulamin", body: `<h2>1. Kto świadczy usługę</h2>
 <ul><li>Każde nowe konto otrzymuje <b>30-dniowy bezpłatny okres próbny</b>, bez podawania danych płatniczych.</li>
 <li>Po jego zakończeniu cena wynosi <b>${PRICE_EN}</b>, ${OP.vat.pl}.</li>
 <li>Płatność jest dokonywana <b>z góry</b>, przelewem bankowym na dane podane w aplikacji (1, 3 lub 12 miesięcy) albo, gdy jest to dostępne, kartą. Płatność przelewem <b>nie odnawia się automatycznie</b>.</li>
-<li>Po zgłoszeniu przelewu zachowujesz dostęp przez 2 dni, w czasie gdy go potwierdzamy. Jeśli przelew nie dotrze, dostęp wraca do poprzedniego stanu.</li>
+<li>Po zgłoszeniu przelewu zachowujesz dostęp przez 2 dni robocze, w czasie gdy go potwierdzamy (chyba że wcześniej anulowałeś zgłoszenie lub zostało ono odrzucone). Jeśli przelew nie dotrze, dostęp wraca do poprzedniego stanu.</li>
 <li>Jeśli twoja subskrypcja wygaśnie, nadal możesz <b>przeglądać, pobierać i usuwać</b> swoje dane; nie możesz jedynie tworzyć ani edytować faktur, wydatków i klientów.</li>
 <li>Możemy zmienić cenę z co najmniej 30-dniowym wyprzedzeniem. Zmiany nie dotyczą okresów już opłaconych.</li></ul>
 <h2>5. Prawo odstąpienia</h2>
@@ -569,7 +569,7 @@ DOCS.terms.pl = { title: "Regulamin", body: `<h2>1. Kto świadczy usługę</h2>
 <h2>9. Zmiany</h2>
 <p>Możemy aktualizować niniejszy regulamin. Istotne zmiany są ogłaszane w aplikacji lub e-mailem przed ich wejściem w życie.</p>
 <h2>10. Prawo właściwe i spory</h2>
-<p>Zastosowanie ma prawo portugalskie, bez uszczerbku dla bezwzględnie obowiązujących przepisów o ochronie konsumentów kraju twojego zamieszkania. Konsumenci mogą także korzystać z instytucji rozstrzygających spory konsumenckie dostępnych w ich kraju.</p>` };
+<p>Zastosowanie ma prawo portugalskie, bez uszczerbku dla bezwzględnie obowiązujących przepisów o ochronie konsumentów kraju twojego zamieszkania. Konsumenci mogą także korzystać z instytucji rozstrzygających spory konsumenckie dostępnych w ich kraju. W sporach transgranicznych pomoże Europejskie Centrum Konsumenckie w twoim kraju; dostępne jest też portugalskie centrum arbitrażowe CNIACC (<a href="https://www.cniacc.pt" target="_blank" rel="noopener">cniacc.pt</a>).</p>` };
 DOCS.privacy.pl = { title: "Polityka prywatności", body: `<h2>1. Administrator</h2>
 <p><b>${OP.name}</b>, numer identyfikacji podatkowej ${OP.nif}, ${OP.address}. W sprawie wszelkich pytań dotyczących twoich danych: <a href="mailto:${OP.email}">${OP.email}</a>.</p>
 <h2>2. Jakie dane przetwarzamy</h2>
@@ -590,10 +590,10 @@ DOCS.privacy.pl = { title: "Polityka prywatności", body: `<h2>1. Administrator<
 <li><b>jsDelivr</b>: dostarczanie bibliotek używanych przez aplikację.</li>
 <li><b>Cloudflare Turnstile</b>: ochrona przed botami przy rejestracji i logowaniu.</li>
 <li><b>OpenRouter</b> (USA) i dostawca modelu AI: wyłącznie wtedy, gdy korzystasz z asystenta Pomocy. To, co wpisujesz w asystencie, jest do nich wysyłane i może być przechowywane lub wykorzystywane do ulepszania ich modeli. Nie wpisuj w asystencie danych osobowych, danych klientów ani danych bankowych.</li>
-<li><b>frankfurter.dev i open.er-api.com</b>: kursy walut; nie są przesyłane żadne dane osobowe.</li></ul>
+<li><b>frankfurter.dev i open.er-api.com</b>: kursy walut; nie są przesyłane żadne dane osobowe.</li><li><b>Microsoft Outlook</b> (skrzynka e-mail administratora): otrzymuje wymienione wyżej powiadomienia wewnętrzne. Te wiadomości są usuwane najpóźniej 12 miesięcy po załatwieniu sprawy.</li></ul>
 <p>Jeżeli którakolwiek z tych usług przetwarza dane poza Europejskim Obszarem Gospodarczym, odbywa się to z zabezpieczeniami przewidzianymi w RODO (Ramy ochrony danych UE-USA lub standardowe klauzule umowne). Nie sprzedajemy twoich danych.</p>
 <h2>5. Jak długo</h2>
-<p>Przez cały czas istnienia twojego konta. Gdy usuniesz konto w aplikacji, twoje dane i pliki są usuwane od razu; żądania wysłane e-mailem są realizowane w ciągu 30 dni. Zachowywane są wyłącznie zapisy potwierdzonych płatności (data, kwota, waluta, tytuł płatności i adres e-mail), ponieważ przepisy podatkowe wymagają od nas ich przechowywania przez okres do 10 lat.</p>
+<p>Przez cały czas istnienia twojego konta. Gdy usuniesz konto w aplikacji, twoje dane i pliki są usuwane od razu; żądania wysłane e-mailem są realizowane w ciągu 30 dni. Zachowywane są wyłącznie zapisy potwierdzonych płatności (data, kwota, waluta, tytuł płatności i adres e-mail), ponieważ przepisy podatkowe wymagają od nas ich przechowywania przez okres do 10 lat. Ze względów bezpieczeństwa przechowywane są też, wyłącznie przez okres przewidziany przez dostawcę, techniczne logi dostępu (adres IP, data) oraz automatyczne kopie zapasowe bazy danych. Aby ten sam e-mail nie otrzymał ponownie okresu próbnego, przechowujemy nieodwracalny kod (hash) adresu, a nie sam adres. Funkcje serwera mogą działać w centrach danych Supabase poza UE, z zabezpieczeniami opisanymi powyżej.</p>
 <h2>6. Twoje prawa</h2>
 <p>Masz prawo dostępu do danych, ich sprostowania, usunięcia, ograniczenia przetwarzania, przenoszenia oraz prawo sprzeciwu. Możesz wyeksportować swoje dane i usunąć konto bezpośrednio w aplikacji (Ustawienia → Moje dane) albo napisać na adres ${OP.email}. Jeśli uważasz, że twoje prawa nie zostały uszanowane, możesz złożyć skargę do portugalskiego organu (<a href="https://www.cnpd.pt" target="_blank" rel="noopener">CNPD</a>) lub do organu ochrony danych w twoim kraju, w Polsce do <a href="https://uodo.gov.pl" target="_blank" rel="noopener">UODO</a> (Prezes Urzędu Ochrony Danych Osobowych).</p>
 <h2>7. Bezpieczeństwo</h2>

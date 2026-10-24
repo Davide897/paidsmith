@@ -70,7 +70,7 @@ Resumo do ano escolhido: Total faturado, Já pago (com %), A receber no prazo, E
 - Contas bancárias: nome da conta, titular, banco, IBAN, SWIFT/BIC, linha extra (ex.: sort code). Várias contas; escolhe-se na fatura.
 - Taxa de IVA por defeito: escreve-se a que se quiser, ou escolhe-se a taxa normal de um país na lista por baixo (também existe na fatura). Contas novas começam com a taxa normal do país da língua escolhida.
 - Linhas predefinidas, Despesas, Mudar password, ligações para Termos e Privacidade.
-- Os meus dados: "Exportar os meus dados" descarrega um ficheiro JSON com tudo (definições, clientes, faturas, despesas, contas bancárias, subscrição, pagamentos e mensagens); as fotos dos recibos não vão no ficheiro, guardam-se em Despesas > "Escolher fotos para PDF". "Apagar conta" apaga de vez a conta, os dados e todas as fotos (é preciso escrever o email para confirmar; não dá para desfazer). Ficam só os registos dos pagamentos confirmados da subscrição, por obrigação fiscal. Antes de apagar, guardar os PDFs das faturas que a lei obriga a conservar.
+- Os meus dados: "Exportar os meus dados" descarrega um ficheiro ZIP com dados.json (definições, clientes, faturas, despesas, contas bancárias, subscrição, pagamentos, mensagens e uso do assistente) e a pasta recibos/ com todas as fotografias e PDFs dos recibos. "Apagar conta" apaga de vez a conta, os dados e todas as fotos (é preciso escrever o email para confirmar e ter entrado na conta há menos de 15 minutos; não dá para desfazer). Ficam só os registos dos pagamentos confirmados da subscrição, por obrigação fiscal. Antes de apagar, guardar os PDFs das faturas que a lei obriga a conservar.
 
 ## Sem internet
 A app funciona offline: o que guardares fica no aparelho e é enviado quando a ligação voltar. No topo aparece "Offline" ou "N por sincronizar". Não sair da conta com alterações por sincronizar. Ao sair ("Sair"), a cópia dos dados e as fotos por enviar são apagadas deste aparelho; voltam ao entrar outra vez, vindas do servidor.
@@ -78,7 +78,7 @@ A app funciona offline: o que guardares fica no aparelho e é enviado quando a l
 ## Preço e pagamento
 - 30 dias grátis em cada conta nova, sem dados de pagamento.
 - Depois: 6,99 € por mês (ou 5,99 £). Isento de IVA (art. 53.º do CIVA).
-- Pagar: Definições > Subscrição > Subscrever, ou a barra dourada no topo. Escolher 1, 3 ou 12 meses e marcar a caixa "Peço que a subscrição comece logo que eu pague" (obrigatória). Depois: botão "Pagar agora" (abre a página do Revolut: cartão, Apple Pay, Google Pay ou Revolut, com valor e referência já preenchidos) ou transferência bancária para o IBAN mostrado (há um QR code que a app do banco lê), com a referência PS-… no descritivo. No fim, tocar em "Já fiz o pagamento"; o acesso fica ativo durante 2 dias enquanto o pagamento é confirmado. Um aviso de pagamento feito por engano cancela-se em Subscrever > "Cancelar este pedido" (depois de cancelar, os 2 dias de acesso já não se repetem; a subscrição ativa-se quando um pagamento for confirmado).
+- Pagar: Definições > Subscrição > Subscrever, ou a barra dourada no topo. Escolher 1, 3 ou 12 meses e marcar a caixa "Peço que a subscrição comece logo que eu pague" (obrigatória). Depois: botão "Pagar agora" (abre a página do Revolut: cartão, Apple Pay, Google Pay ou Revolut, com valor e referência já preenchidos) ou transferência bancária para o IBAN mostrado (há um QR code que a app do banco lê), com a referência PS-… no descritivo. No fim, tocar em "Já fiz o pagamento"; o acesso fica ativo durante 2 dias úteis enquanto o pagamento é confirmado (não se dá se a conta já cancelou ou teve um aviso recusado antes). Um aviso de pagamento feito por engano cancela-se em Subscrever > "Cancelar este pedido" (depois de cancelar, os 2 dias de acesso já não se repetem; a subscrição ativa-se quando um pagamento for confirmado).
 - A transferência não se renova sozinha.
 - Sem subscrição ativa: continua-se a ver, descarregar e apagar tudo; não se pode criar nem alterar.
 - Desistência: consumidores têm 14 dias; pedir por email. Como o serviço começa logo, devolve-se o valor proporcional aos dias que faltam.
@@ -88,7 +88,8 @@ A app funciona offline: o que guardares fica no aparelho e é enviado quando a l
 - Não envia emails diretamente: usa a partilha/Mail do aparelho.
 - Não exporta para Excel/CSV, não liga a bancos, não faz contabilidade nem declarações de impostos, não faz assinaturas digitais.
 - Moedas: só as 12 da lista (EUR, GBP, USD, CHF, PLN, RON, TRY, SEK, DKK, NOK, CZK, HUF).
-- O assistente de IA só funciona no período experimental ou com subscrição ativa.
+- O assistente de IA só funciona no período experimental (3 perguntas por dia) ou com subscrição ativa (5 por dia).
+- Faturas: o número e pelo menos uma linha são obrigatórios. Se a mesma fatura (ou cliente, despesa, conta bancária) for alterada em dois aparelhos, a segunda gravação vai para "⚠ Por resolver" com a escolha "Usar a versão deste aparelho" ou "Descartar"; nada é apagado sem aviso.
 - Fotografias de recibos: até 300 ficheiros por conta (máximo 10 MB cada).
 Se pedirem algo que não existe: dizer que ainda não existe e sugerir enviar a ideia em Ajuda > Enviar mensagem (Sugestão).
 

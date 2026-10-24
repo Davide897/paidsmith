@@ -38,6 +38,11 @@ Deno.serve(async (req) => {
   const { data: isAdm } = await admin.from("ps_admins").select("user_id").eq("user_id", user.id).maybeSingle();
   if (isAdm) return json(req, { error: "admin" }, 403);
 
+  // N9: só com entrada recente (15 min), para quem encontrar o telemóvel desbloqueado não conseguir apagar a conta
+  const { data: fresh } = await admin.auth.admin.getUserById(user.id);
+  const last = Date.parse(String(fresh?.user?.last_sign_in_at || ""));
+  if (!last || Date.now() - last > 15 * 60 * 1000) return json(req, { error: "reauth" }, 401);
+
   // 1) ficheiros: tudo o que está em <uid>/..., a qualquer profundidade
   const paths: string[] = [];
   async function walk(prefix: string, depth: number): Promise<void> {
@@ -63,8 +68,11 @@ Deno.serve(async (req) => {
   }
 
   // 2) pedidos de pagamento não confirmados não têm valor fiscal: apagam-se
-  const { error: cErr } = await admin.from("ps_payment_claims").delete().eq("user_id", user.id).neq("status", "approved");
+  const { error: cErr } = await admin.from("ps_payment_claims").delete().eq("user_id", user.id).in("status", ["pending", "rejected", "cancelled"]);   // aprovados e reembolsados ficam (registo fiscal)
   if (cErr) { console.error("claims", cErr); return json(req, { error: "db" }, 500); }
+
+  // M2: o mesmo email não volta a ter período experimental (guarda-se só um hash)
+  await admin.rpc("ps_mark_trial_used", { e: user.email || "" });
 
   // 3) utilizador: o resto (definições, clientes, faturas, despesas, bancos, subscrição, mensagens, uso da IA) cai em cascata
   const { error: uErr } = await admin.auth.admin.deleteUser(user.id);
