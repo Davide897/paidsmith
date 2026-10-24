@@ -1,7 +1,7 @@
-const CACHE = 'invoices-v24';
+const CACHE = 'invoices-v25';
 const SHELL = [
   './', './index.html', './manifest.json', './icon.png', './icon-192.png', './icon-512.png',
-  './icon-32.png', './favicon.svg', './logo.svg', './fonts/fraunces.woff2', './fonts/manrope.woff2', './fonts/noto-regular.ttf', './fonts/noto-bold.ttf',
+  './icon-32.png', './favicon.svg', './logo.svg', './fonts/fraunces.woff2', './fonts/manrope.woff2', './fonts/fraunces-ext.woff2', './fonts/manrope-ext.woff2', './fonts/noto-regular.ttf', './fonts/noto-bold.ttf',
   'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.min.js',
   'https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js'
 ];
