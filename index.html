@@ -682,7 +682,7 @@ async function dbWrite(table, kind, rec, id){
     try{ const rev = await sendOp(op); afterSent(op, rev); return 'online'; }
     catch(e){
       if(!isNetErr(e) && /stale_write|deleted_elsewhere/.test(String(e.message||''))){
-        setConflicts([...getConflicts(), {op, err:errText(e), code:String(e.code||''), at:new Date().toISOString()}]);
+        setConflicts([...getConflicts(), {op, err:errText(e), code:String(e.code||''), raw:String(e.message||'').slice(0,80), at:new Date().toISOString()}]);
         e.handled = true; e.message = errText(e); }
       if(!isNetErr(e)) throw e; }
   }
@@ -711,7 +711,7 @@ async function syncQueue(){
       try{ const rev = await sendOp(op); afterSent(op, rev); }
       catch(e){
         if(isNetErr(e) || !isPermErr(e)) return;   // rede ou servidor em baixo: tenta mais tarde
-        setConflicts([...getConflicts(), {op, err:errText(e), code:String(e.code||''), at:new Date().toISOString()}]);
+        setConflicts([...getConflicts(), {op, err:errText(e), code:String(e.code||''), raw:String(e.message||'').slice(0,80), at:new Date().toISOString()}]);
         toast(t('conflictToast'));
       }
       removeOp(op);
@@ -2010,7 +2010,7 @@ function openConflicts(){
     ${cs.map((c,i)=>`<div class="card" style="margin-top:8px">
       <b>${esc(t(OP_LBL[c.op.table]||'tSet'))}</b> · ${esc(c.op.rec && (c.op.rec.number || c.op.rec.description || c.op.rec.company || c.op.rec.label) || '')}
       <div class="hint" style="margin-top:4px">${esc(c.err)}</div>
-      ${c.code==='P0409' && c.op.kind!=='delete' ? `<button class="btn-p" style="width:100%;margin-top:8px" onclick="forceConflict(${i})">${t('conflictMine')}</button>` : ''}
+      ${(c.code==='PT409' || /stale_write|deleted_elsewhere/.test(c.raw||'')) && c.op.kind!=='delete' ? `<button class="btn-p" style="width:100%;margin-top:8px" onclick="forceConflict(${i})">${t('conflictMine')}</button>` : ''}
       ${c.code==='23505' && c.op.table==='inv_invoices' && c.op.kind!=='delete' ? `<button class="btn-p" style="width:100%;margin-top:8px" onclick="renumberConflict(${i})">${esc(t('numUseNext').replace('{n}', nextNumber()))}</button>` : ''}
       <div class="row" style="margin-top:8px"><button class="btn-g" onclick="retryConflict(${i})">${t('conflictRetry')}</button>
         <button class="btn-red" onclick="discardConflict(${i})">${t('conflictDiscard')}</button></div></div>`).join('')}
